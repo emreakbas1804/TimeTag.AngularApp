@@ -1,0 +1,172 @@
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+    <div class="content">
+
+        <app-panel-navbar></app-panel-navbar>
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <div class="row">
+
+                    <div class="col-md-8 mt-3">
+
+                        <h1 class="h3">
+                            {{"Add-employee.createEmployee" | translate}}
+                            <a routerLink="/panel/my-employees" class="router-link router-link-right">
+                                {{"Add-employee.myEmployees" | translate}}
+                            </a>
+                        </h1>
+                        <hr>
+                        <p class="text-muted">
+                            {{"Add-employee.youCanAddAEmployeeAndYouCanFallowHis" | translate}}
+                        </p>
+
+                        <div class="mt-5">
+
+                            <form #form="ngForm" (ngSubmit)="addEmployee(form)">
+
+                                <!-- Name -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Add-employee.fullName" |
+                                        translate}}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Add-employee.fullName' | translate}}" name="fullName"
+                                            ngModel required #fullName="ngModel">
+                                        <div class="text-danger mt-1" *ngIf="fullName.invalid && fullName.touched">
+                                            {{"Add-employee.nameSurnameIsRequired" | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Department -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Add-employee.department" |
+                                        translate}} </label>
+                                    <div class="col-sm-10">
+                                        <div class="card select2-card">
+                                            <select id="selectDepartment" class="select2" name="department"
+                                                [(ngModel)]="selectedDepartment">
+                                                <option [value]=0>{{"Add-employee.selectDepartment" | translate}}
+                                                </option>
+                                                <option [value]="department.id" *ngFor="let department of departments">
+                                                    {{ department.name }} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- Token -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Add-employee.selectCard" |
+                                        translate}}</label>
+                                    <div class="col-sm-10">
+                                        <div class="card select2-card">
+                                            <select id="selectToken" class="select2" name="token"
+                                                [(ngModel)]="selectedToken">
+                                                <option [value]=0>{{"Add-employee.selectCard" | translate}}
+                                                </option>
+                                                <option [value]="token.id" *ngFor="let token of tokens">
+                                                    {{ token.token }} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!-- Title -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Add-employee.title" | translate}} </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Add-employee.title' | translate}}" ngModel name="title"
+                                            #title="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Add-employee.phone" | translate}} </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Add-employee.phone' | translate}}" ngModel name="phone"
+                                            #phone="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Address -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Add-employee.address" | translate}}
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Add-employee.address' | translate}}" ngModel name="address"
+                                            #address="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Add-employee.email" | translate}} </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Add-employee.email' | translate}}" ngModel name="email"
+                                            #email="ngModel">
+                                    </div>
+                                </div>
+
+
+                                <!-- Birth day -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Add-employee.birthDay" | translate}}
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input type="date" ngModel name="birthDay" #birthDay="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Photo -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Add-employee.photo" | translate}} </label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <input type="file" class="form-control form-file-input"
+                                                    (change)="onFileSelected($event)" accept={{allowedTypes}}>
+                                            </div>
+                                            <div class="col-2">
+                                                <img [src]="previewUrl" alt="Selected Image" *ngIf="selectedFile" />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="text-center mt-2">
+                                    <div class="spinner-border" *ngIf="loading"></div>
+                                </div>
+
+                                <div *ngIf="!loading">
+                                    <button type="submit">{{"Add-employee.createEmployee" | translate}}</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <img src="../assets/images/maskot/5.png" alt="maskot">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

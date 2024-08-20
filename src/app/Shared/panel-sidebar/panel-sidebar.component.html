@@ -1,0 +1,65 @@
+<div class="left-side-bar">
+
+    <div class="modal-header justify-content-center d-flex">
+        <a routerLink="/panel">
+            <img src="../assets/images/logo-white.png" alt="Logo">
+            <span class="close-btn d-md-none">X</span>
+        </a>
+    </div>
+
+    <hr>
+    <ul>
+        <li><a routerLink="/panel/add-company">{{ "Panel-sidebar.createCompany" | translate }}</a></li>
+        <li><a routerLink="/panel/my-companies"> {{ "Panel-sidebar.myCompanies" | translate }}</a></li>
+        <li><a routerLink="/panel/add-department">{{ "Panel-sidebar.createDepartment" | translate }}</a></li>
+        <li><a routerLink="/panel/my-departments">{{ "Panel-sidebar.myDepartments" | translate }}</a></li>
+        <li><a routerLink="/panel/add-employee">{{ "Panel-sidebar.createEmployee" | translate }}</a></li>
+        <li><a routerLink="/panel/my-employees">{{ "Panel-sidebar.myEmployees" | translate }}</a></li>
+        <hr>
+        <li><a routerLink="/panel/profile">{{ "Panel-sidebar.profile" | translate }}</a></li>
+        <li><a routerLink="/">{{ "Panel-sidebar.homePage" | translate }}</a></li>
+    </ul>
+
+</div>
+
+
+
+<!-- Mobil size Modal -->
+<div class="modal fade" id="left_side_bar_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <a routerLink="/panel">
+                    <img src="../assets/images/logo-white.png" alt="Logo">
+                </a>
+            </div>
+
+            <div class="modal-body">
+                <ul>
+                    <li><a routerLink="/panel/add-company">{{ "Panel-sidebar.createCompany" | translate }}</a></li>
+                    <li><a routerLink="/panel/my-companies"> {{ "Panel-sidebar.myCompanies" | translate }}</a></li>
+                    <li><a routerLink="/panel/add-department">{{ "Panel-sidebar.createDepartment" | translate }}</a></li>
+                    <li><a routerLink="/panel/my-departments">{{ "Panel-sidebar.myDepartments" | translate }}</a></li>
+                    <li><a routerLink="/panel/add-employee">{{ "Panel-sidebar.createEmployee" | translate }}</a></li>
+                    <li><a routerLink="/panel/my-employees">{{ "Panel-sidebar.myEmployees" | translate }}</a></li>
+                    <hr>
+                    <li><a routerLink="/panel/profile">{{ "Panel-sidebar.profile" | translate }}</a></li>
+                    <li><a routerLink="/">{{ "Panel-sidebar.homePage" | translate }}</a></li>
+                    
+                    <select #langSelect (change)="translateService.use(langSelect.value)">
+                        <option *ngFor="let lang of translateService.getLangs()" [value]="lang"
+                            [selected]="lang === translateService.currentLang">
+                            <i class="bi bi-globe"></i> {{lang}}
+                        </option>
+                    </select>
+                    <li><a class="btn btn-danger logOut" (click)="logOut()">{{ "Panel-navbar.logOut" | translate }}</a></li>
+                </ul>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

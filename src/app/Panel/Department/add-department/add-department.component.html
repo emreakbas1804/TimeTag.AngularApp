@@ -1,0 +1,101 @@
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+    <div class="content">
+
+        <app-panel-navbar></app-panel-navbar>
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <div class="row">
+
+                    <div class="col-md-8 mt-3">
+
+                        <h1 class="h3">{{"Add-department.createDepartment" | translate}}
+                            <a routerLink="/panel/my-departments" class="router-link router-link-right">
+                                {{"Add-department.myDepartments" | translate}}    
+                            </a>
+                        </h1>
+                        <hr>
+                        <p class="text-muted">
+                            {{"Add-department.youCanAddADepartmentAndSpecifyEmployeeBelongingToThisDepartment" | translate}}    
+                            
+                        </p>
+
+                        <div class="mt-5">
+
+                            <form #form="ngForm" (ngSubmit)="addDepartment(form)">
+                                <!-- Name -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Add-department.name" | translate}}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="{{'Add-department.name' | translate}}" name="name" ngModel required #name="ngModel">
+                                        <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
+                                            {{"Add-department.nameIsRequired" | translate}}    
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Address -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Add-department.address" | translate}}     </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="{{'Add-department.address' | translate}}" ngModel name="address" #address="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Add-department.description" | translate}}     </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="{{'Add-department.description' | translate}}" ngModel
+                                            name="description" #description="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Start Work time -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Add-department.startTime" | translate}}     </label>
+                                    <div class="col-sm-10">
+                                        <input placeholder="{{'Add-department.startTime' | translate}}" [ngxTimepicker]="startWorkTime" [format]="24" ngModel required #startJobTime ="ngModel" name="startJobTime">
+                                        <ngx-material-timepicker #startWorkTime></ngx-material-timepicker>
+                                        <div class="text-danger mt-1" *ngIf="startJobTime.invalid && startJobTime.touched">
+                                            {{"Add-department.startTimeIsRequired" | translate}}    
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <!-- Finish Work time -->
+                                 <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Add-department.finishTime" | translate}}    </label>
+                                    <div class="col-sm-10">
+                                        <input placeholder="{{'Add-department.finishTime' | translate}}" [ngxTimepicker]="finishWorkTime" [format]="24" ngModel required #finishJobTime ="ngModel" name="finishJobTime" >
+                                        <ngx-material-timepicker #finishWorkTime></ngx-material-timepicker>
+                                        <div class="text-danger mt-1" *ngIf="finishJobTime.invalid && finishJobTime.touched">
+                                            {{"Add-department.finishTimeIsRequired" | translate}}    
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="text-center mt-2">
+                                    <div class="spinner-border" *ngIf="loading"></div>
+                                </div>
+
+                                <div *ngIf="!loading">
+                                    <button type="submit">{{"Add-department.createDepartment" | translate}}    </button>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <img src="../assets/images/maskot/7.png" alt="maskot">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

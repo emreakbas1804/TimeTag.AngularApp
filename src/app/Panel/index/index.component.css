@@ -1,0 +1,30 @@
+.dashboard-content {
+  padding: 40px 20px;
+}
+
+button {
+  border-radius: 6px;
+}
+.select2-card{
+  height: 50px;
+}
+i{
+  float: right;
+}
+.h3{
+  font-weight: 340;
+}
+.badge-count{
+  font-size: 25px;  
+  font-weight: 500;
+}
+.card-chart{
+  position: relative;
+}
+.card-chart img{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;  
+  max-height: 70px;
+}

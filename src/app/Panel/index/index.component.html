@@ -1,0 +1,116 @@
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+
+    <div class="content">
+
+        <app-panel-navbar></app-panel-navbar>
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card select2-card">
+                            <select id="selectCompany" class="select2" [(ngModel)]="selectedCompany">
+                                <option [value]=0>{{"Panel-index.myCompanies" | translate}} </option>
+                                <option [value]="company.id" *ngFor="let company of companies">{{ company.title }}
+                                </option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-5">
+                        <div class="card p-4 mt-2 card-chart">
+                            <h1 class="h3">
+                                {{"Panel-index.myDepartments" | translate}}
+                                <i class="bi bi-collection"></i>
+                            </h1>
+                            <p class="badge-count">{{departmentCount}}</p>
+                            <img src="../assets/images/card-bg-blue.png" alt="maskot">
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="card p-4 mt-2 card-chart">
+                            <h1 class="h3">
+                                {{"Panel-index.myEmployees" | translate}}
+                                <i class="bi bi-person"></i>
+                            </h1>
+                            <p class="badge-count">{{employeeCount}}</p>
+                            <img src="../assets/images/card-bg-purple.png" alt="maskot">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4 pb-5">
+
+                    <h1 class="h3">                        
+                        {{"Panel-index.loginLogoutLogs" | translate}}
+                    </h1>
+                    <hr>
+                    
+                    <div class="row filter">
+                        <div class="col-md-3">
+                            <label>{{"Panel-index.startDate" | translate}}</label>
+                            <input type="date" #startDate (change)="getTimeLogs(startDate?.value, endDate?.value)"
+                                name="startDate">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>{{"Panel-index.endDate" | translate}}</label>
+                            <input type="date" #endDate (change)="getTimeLogs(startDate?.value,endDate?.value)"
+                                name="endDate">
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="table-container">
+
+                        <table mat-table [dataSource]="dataSourcee" class="mt-5">
+
+
+                            <ng-container matColumnDef="nameSurname">
+                                <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"Panel-index.nameSurname" |
+                                    translate}}</th>
+                                <td mat-cell *matCellDef="let element">{{element.nameSurname}}</td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="processTime">
+                                <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"Panel-index.processTime" |
+                                    translate}}</th>
+                                <td mat-cell *matCellDef="let element">{{element.processTime | date:'dd/MM/yyyy HH:mm'}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="type">
+                                <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"Panel-index.type" |
+                                    translate}}</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <span *ngIf="element.type == 0" class="bg-success badge p-3">{{"Panel-index.login" |
+                                        translate}}</span>
+                                    <span *ngIf="element.type == 1" class="bg-danger badge p-3">{{"Panel-index.logOut" |
+                                        translate}}</span>
+                                </td>
+                            </ng-container>            
+
+
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+                        </table>
+
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons (page)="changedPage($event)" [length]="logLenght"></mat-paginator>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

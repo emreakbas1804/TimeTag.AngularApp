@@ -1,0 +1,79 @@
+<header>
+
+    <div class="container-fluid">
+  
+        <div class="navb-logo">
+          <a routerLink="">
+            <img src="../assets/images/logo.png" alt="Logo">
+          </a>
+  
+        </div>
+  
+        <div class="navb-items d-none d-md-flex">
+            
+            <div class="item">
+                <a href="/#features">{{"Navbar.Features" | translate}}</a>
+            </div>
+  
+            <div class="item">
+                <a href="/#howToUse">{{"Navbar.HowToUse" | translate}}</a>
+            </div>
+  
+            <div class="item">
+                <a href="/#contact">{{"Navbar.Contact" | translate}}</a>
+            </div>
+  
+            <div class="item-button">
+                <a routerLink="/panel" type="button">{{"Navbar.Panel" | translate}}</a>
+            </div>
+        </div>
+  
+        <!-- Button trigger modal -->
+        <div class="mobile-toggler d-lg-none">
+            <a data-bs-toggle="modal" data-bs-target="#navbModal">
+                <i class="bi bi-list"></i>
+            </a>
+        </div>
+  
+        <!-- Modal -->
+        <div class="modal fade" id="navbModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+  
+                    <div class="modal-header">
+                        <img src="../assets/images/logo-white.png" alt="Logo">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+  
+                    <div class="modal-body">
+  
+
+                        <div class="modal-line">
+                            <a href="/#features">{{"Navbar.Features" | translate}}</a>
+                        </div>
+  
+                        <div class="modal-line">
+                            <a href="/#howToUse">{{"Navbar.HowToUse" | translate}}</a>
+                        </div>
+  
+                        <div class="modal-line">
+                            <a href="/#contact">{{"Navbar.Contact" | translate}}</a>
+                        </div>
+  
+                        <a routerLink="/panel" class="navb-button" type="button">{{"Navbar.Panel" | translate}}</a>
+                    </div>
+  
+                    <div class="mobile-modal-footer">
+  
+                        <a target="_blank" href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <i class="fa-regular fa-envelope"></i>
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+    </div>
+  </header>
+  

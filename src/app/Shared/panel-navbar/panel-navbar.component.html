@@ -1,0 +1,40 @@
+<div class="nav-hor">
+    <div class="mobile">
+        <a routerLink="/panel">
+            <img src="../assets/images/logo.png" alt="logo">
+        </a>
+        <div class="nav-items">
+            <div class="mobile-toggler open-btn">
+                <a data-bs-toggle="modal" data-bs-target="#left_side_bar_modal">
+                    <i class="bi bi-list-nested"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="computer">
+        <ul>
+            <li>
+                <select #langSelect (change)="changeLang(langSelect.value)">
+                    <option *ngFor="let lang of translateService.getLangs()" [value]="lang"
+                        [selected]="lang === translateService.currentLang">
+                        {{ 'Languages.' + lang | translate }}
+                    </option>
+                </select>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <span class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        {{FirstName?.charAt(0)}}{{LastName?.charAt(0)}}<i class="bi bi-person"></i>
+                    </span>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" routerLink="/panel/profile">{{ "Panel-navbar.profile" | translate }}</a></li>
+                        <li><a class="dropdown-item logOut" (click)="logOut()">{{ "Panel-navbar.logOut" | translate }}</a></li>
+
+                    </ul>
+                </div>
+
+                <!-- <i class="bi bi-person"></i> -->
+            </li>
+        </ul>
+    </div>
+</div>

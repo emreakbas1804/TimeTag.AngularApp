@@ -1,0 +1,18 @@
+.timepicker-dial__container {
+  display: inline-block !important;
+}
+
+.timepicker-dial__item {
+  border: none !important;
+}
+
+.timepicker__header {
+  height: 100px !important;
+  padding: 0px;
+  margin: 0px;
+  background-color: #012035 !important;
+}
+
+.timepicker-button {
+  color: #012035 !important;
+}

@@ -1,0 +1,90 @@
+.left-side-bar {
+    background-color: #012035;
+    width: 240px;
+    height: 100%;
+    color: white;
+    transition: all .3s;
+    margin-left: 0px;
+    min-height: 100vh;
+    z-index: 1;
+}
+
+.left-side-bar img {
+    width: 150px;
+    margin-top: 40px;
+}
+
+.left-side-bar ul {
+    margin-top: 50px;
+}
+
+.left-side-bar ul hr{
+    margin-right: 25px;
+}
+
+.left-side-bar ul li, .modal-body ul li {
+    list-style-type: none;
+    margin-top: 20px;
+}
+
+.left-side-bar ul li a, .modal-body ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+
+.modal-dialog {
+    margin: 0;    
+}
+
+.modal-content {    
+    height: 100vh;
+    overflow-y: scroll;
+    background-color: #012035;
+    width: 240px;
+}
+
+.modal-header img {
+    width: 120px;
+    margin-top: 17.5px;
+}
+
+.modal-header .btn-close {
+    background: transparent;
+    opacity: 1;
+}
+
+.modal-header i {
+    color: #fefefe;
+    font-size: 30px;
+}
+
+.modal-body {
+    width: 100%;
+    margin: 0 auto;
+    padding: 25px 0 0 0;    
+}
+.modal-body ul{    
+    padding-left: 15px;    
+}
+
+hr{
+    color: white;
+    margin-right: 15px;
+}
+
+@media(max-width: 767px) {
+    .left-side-bar {
+        display: none !important;
+    }
+
+}
+select{
+    background-color: transparent;
+    width: 95%;
+    color: white;
+    outline: none;
+    margin-top: 20px;
+    padding: 6px;
+    border-radius: 4px;
+}

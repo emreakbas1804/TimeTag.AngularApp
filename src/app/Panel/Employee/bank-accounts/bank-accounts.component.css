@@ -1,0 +1,13 @@
+.btn{
+    border-radius: initial;
+    border: 1px solid #316fc9;
+    background-color: #316fc9;
+    color: white;
+}
+.btn-close{
+    min-width: 50px !important;
+}
+.btn-close:hover{
+    background-color: white;
+    border: none;
+}

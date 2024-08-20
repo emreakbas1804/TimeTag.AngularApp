@@ -1,0 +1,135 @@
+section {
+    padding: 60px 0px;
+    font-family: var(--bs-body-font-family);
+
+}
+
+.bg-gray {
+    background-color: #f5f5f5;
+}
+
+.welcome-message {
+    font-size: 55px;
+    margin-top: 100px;
+}
+
+.welcome-text {
+    width: 60%;
+    margin-top: 50px;
+    font-weight: bold;
+    font-size: 21px;
+}
+
+.section2 {
+    background: linear-gradient(217deg, #1bdaa4cc, rgba(255, 0, 0, 0) 70.71%),
+        linear-gradient(127deg, rgba(0, 166, 255, 0.8), rgba(4, 4, 239, 0) 70.71%),
+        linear-gradient(336deg, rgba(0, 0, 255, .8), rgba(0, 0, 255, 0) 70.71%);
+}
+
+.big-text {
+    font-size: 6em;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+}
+
+@media(max-width:767px) {
+    .welcome-message {        
+        margin-top: 50px;
+    }
+    .welcome-text {
+        width: 100%;
+    }
+    .big-text {
+        font-size: 3em;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+    }
+}
+
+.box {
+    border: 1px solid #316fc9;
+    padding: 15px 15px;
+    color: #012035;
+    border-radius: 6px;
+    margin: 10px;
+}
+
+.box .head {
+    min-height: 120px;
+}
+
+.box .icon {
+    font-size: 30px;
+    text-align: right;
+    color: #316fc9;
+}
+
+.box .content {
+    min-height: 125px;
+}
+
+.box .content p {
+    opacity: .8;
+    font-weight: 500;
+}
+
+.ol-li {
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+ol {
+    list-style-type: square;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    border-radius: 4px;
+    border: 1px solid #316fc9 !important;
+    background-color: rgba(27, 27, 29, 0.08) !important;
+    outline: none !important;
+    box-shadow: none !important;
+    resize: none;
+    padding: 10px;
+    overflow: auto;
+}
+
+.footer ul li {
+    list-style-type: none;
+    margin-top: 10px;
+}
+
+.footer ul li i {
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.footer-logo {
+    width: 150px;
+}
+
+select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 19px;
+    font-family: sans-serif;
+    color: #333;
+    background-color: #fff;
+    width: 50%;
+    margin-right: 30px;
+}
+
+select option {
+    padding: 5px 10px;
+    font-size: 19px;
+    font-family: sans-serif;
+    color: #333;
+}
+
+select:focus {
+    outline: none;
+}

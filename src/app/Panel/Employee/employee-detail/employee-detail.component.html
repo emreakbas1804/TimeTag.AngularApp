@@ -1,0 +1,143 @@
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+    <div class="content">
+
+        <app-panel-navbar></app-panel-navbar>
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <div class="row">
+                    <h1 class="h3">{{employee.nameSurname}}
+                        <a [routerLink]="['/panel/logs', employeeId]"class="router-link router-link-right">
+                            {{"Employee-detail.showLogs" | translate}}
+                        </a>
+                        <a [routerLink]="['/panel/bank-accounts', employeeId]" class="router-link router-link-right">{{"Employee-detail.showBankAccounts" | translate}}</a>
+                    </h1>
+                    <hr>
+
+                    <div class="mt-4 col-md-8">
+                        
+                      
+
+                            <form #form="ngForm" (ngSubmit)="updateEmployee(form)">
+
+                                <!-- Name -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label required">{{"Employee-detail.fullName" | translate}} </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-input" placeholder="{{'Employee-detail.fullName' | translate}}" name="fullName"
+                                            [(ngModel)]="employee.nameSurname" required #fullName="ngModel" [maxlength]="30">
+                                        <div class="text-danger mt-1" *ngIf="fullName.invalid && fullName.touched">
+                                            {{"Employee-detail.nameSurnameIsRequired" | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Department -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label required">{{"Employee-detail.department" | translate}} </label>
+                                    <div class="col-sm-9">
+                                        <div class="card select2-card">
+                                            <select id="selectDepartment" class="select2"
+                                                [(ngModel)]="selectedDepartment" name="selectDepartment">
+                                                <option [value]=0>{{"Employee-detail.selectDepartment" | translate}}</option>
+                                                <option [value]="department.id" *ngFor="let department of departments">
+                                                    {{ department.name }} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Title -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label">{{"Employee-detail.title" | translate}} </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-input" placeholder="{{'Employee-detail.title' | translate}}" 
+                                            [(ngModel)]="employee.title" name="title" #title="ngModel" [maxlength]="30">
+                                    </div>
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label">{{"Employee-detail.phone" | translate}} </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-input" placeholder="{{'Employee-detail.phone' | translate}}" 
+                                            [(ngModel)]="employee.phone" name="phone" #phone="ngModel" [maxlength]="20">
+                                    </div>
+                                </div>
+
+                                <!-- Address -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label">{{"Employee-detail.address" | translate}} </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-input" placeholder="{{'Employee-detail.address' | translate}}" 
+                                            [(ngModel)]="employee.address" name="address" #address="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label">{{"Employee-detail.email" | translate}} </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-input" placeholder="{{'Employee-detail.email' | translate}}" 
+                                            [(ngModel)]="employee.email" name="email" #email="ngModel">
+                                    </div>
+                                </div>
+
+
+                                <!-- Birth day -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label">{{"Employee-detail.birthDay" | translate}} </label>
+                                    <div class="col-sm-9">
+                                        <input type="date" [(ngModel)]="employee.birthDay" name="birthDay"
+                                            #birthDay="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Photo -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label">{{"Employee-detail.photo" | translate}} </label>
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <input type="file" class="form-control form-file-input"
+                                                    (change)="onFileSelected($event)" accept={{allowedTypes}}>
+                                            </div>
+                                            <div class="col-2">
+                                                <img [src]="cdnUrl +employee.photo" alt="profile-image" lazy="loading"
+                                                    class="profile-image"
+                                                    *ngIf="employee.photo && selectedFile == null">
+                                                <img [src]="previewUrl" alt="Selected Image" *ngIf="selectedFile" />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="text-center mt-2">
+                                    <div class="spinner-border" *ngIf="loading"></div>
+                                </div>
+
+                                <div *ngIf="!loading">
+                                    <button type="submit">{{"Employee-detail.updateEmployee" | translate}}</button>
+                                </div>
+
+                            </form>
+                        
+                    </div>
+
+                 
+
+                    
+
+                    
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

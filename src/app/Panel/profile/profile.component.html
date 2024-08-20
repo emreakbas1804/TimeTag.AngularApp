@@ -1,0 +1,104 @@
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+    <div class="content">
+
+        <app-panel-navbar></app-panel-navbar>
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <div class="row">
+
+                    <div class="col-md-8 mt-3">
+
+                        <h1 class="h3">{{user.name + " " + user.surname}}</h1>
+                        <hr>
+                        <p class="text-muted">{{"Profile.youCanInstantlyUpdateYourProfileInformation" | translate}}</p>
+
+                        <div class="mt-5">
+
+                            <form #form="ngForm" (ngSubmit)="update(form)">
+
+                                <!-- Name -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Profile.name" | translate}}
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Profile.name' | translate}}" name="name"
+                                            [(ngModel)]="user.name" required #name="ngModel" disabled required>
+                                    </div>
+                                </div>
+
+                                <!-- Surname -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Profile.surname" | translate}}
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Profile.surname' | translate}}" [(ngModel)]="user.surname"
+                                            name="surname" #surname="ngModel" required disabled>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Profile.email" | translate}}
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Profile.email' | translate}}" [(ngModel)]="user.email"
+                                            name="email" #email="ngModel" required>
+                                        <div class="text-danger mt-1" *ngIf="email.invalid && email.touched">
+                                            {{ "Profile.emailIsRequired" | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Profile.phone" |
+                                        translate}}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Profile.phone' | translate}}" [(ngModel)]="user.phone"
+                                            name="phone" #phone="ngModel" required>
+                                        <div class="text-danger mt-1" *ngIf="phone.invalid && phone.touched">
+                                            {{ "Profile.phoneIsRequired" | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Password -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Profile.password" | translate}}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Profile.password' | translate}}" [(ngModel)]="user.password"
+                                            name="password" #password="ngModel">                                       
+                                    </div>
+                                </div>
+
+
+
+                                <div class="text-center mt-2">
+                                    <div class="spinner-border" *ngIf="loading"></div>
+                                </div>
+
+                                <div *ngIf="!loading" class="">
+                                    <button type="submit">{{"Profile.updateProfile" | translate}}</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <img src="../assets/images/maskot/2.png" alt="maskot">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

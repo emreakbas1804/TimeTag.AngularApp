@@ -1,0 +1,134 @@
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+    <div class="content">
+
+        <app-panel-navbar></app-panel-navbar>
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <div class="row">
+                    <h1 class="h3">{{employee.nameSurname}}
+                        <a [routerLink]="['/panel/logs', employeeId]" class="router-link router-link-right">
+                            {{"Bank-accounts.showLogs" | translate}}
+                            
+                        </a>
+                        <a [routerLink]="['/panel/employee-detail', employeeId]"
+                            class="router-link router-link-right">{{"Bank-accounts.showEmployee" | translate}}</a>
+                    </h1>
+                    <hr>
+
+
+
+                    <div class="col-md-10">
+
+                        <div class="card p-4">
+
+
+                            <div class="bank-list">
+                                <div class="table-container">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">{{"Bank-accounts.bankName" | translate}}</th>
+                                                <th scope="col">{{"Bank-accounts.ownerName" | translate}}</th>
+                                                <th scope="col">{{"Bank-accounts.iban" | translate}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let bank of banks">
+                                                <td>{{bank.bankName}}</td>
+                                                <td>{{bank.ownerName}}</td>
+                                                <td>{{bank.iban}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" data-bs-toggle="modal"
+                                    data-bs-target="#add_bank_account_modal">{{"Bank-accounts.addBankAccount" | translate}}</button>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Add Bank Account -->
+<div class="modal fade" id="add_bank_account_modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Başlık -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{"Bank-accounts.AddBankAccount" | translate}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form #form2="ngForm" (ngSubmit)="addBankAccount(form2)">
+                <!-- Modal İçeriği -->
+                <div class="modal-body">
+                    <div class="container">
+
+                        <!-- Bank Name -->
+                        <div class="form-group row mb-3">
+                            <label class="col-sm-3 col-form-label required">{{"Bank-accounts.bankName" | translate}} </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-input" placeholder="{{'Bank-accounts.bankName' | translate}}" name="bankName" ngModel
+                                    required #bankName="ngModel">
+                                <div class="text-danger mt-1" *ngIf="bankName.invalid && bankName.touched">
+                                    {{"Bank-accounts.bankNameIsRequired" | translate}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Owner Name -->
+                        <div class="form-group row mb-3">
+                            <label class="col-sm-3 col-form-label required">{{"Bank-accounts.ownerName" | translate}} </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-input" placeholder="{{'Bank-accounts.ownerName' | translate}}"  name="ownerName" ngModel
+                                    required #ownerName="ngModel">
+                                <div class="text-danger mt-1" *ngIf="ownerName.invalid && ownerName.touched">
+                                    {{"Bank-accounts.ownerNameIsRequired" | translate}}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Iban -->
+                        <div class="form-group row mb-3">
+                            <label class="col-sm-3 col-form-label required">{{"Bank-accounts.iban" | translate}} </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-input" placeholder="{{'Bank-accounts.iban' | translate}}" name="iban" ngModel required
+                                    #iban="ngModel">
+                                <div class="text-danger mt-1" *ngIf="iban.invalid && iban.touched">
+                                    {{"Bank-accounts.ibanIsRequired" | translate}}
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!-- Modal Alt Bilgi -->
+                <div class="modal-footer mt-3">
+                    <div class="text-center mt-2">
+                        <div class="spinner-border" *ngIf="loading"></div>
+                    </div>
+                    <button type="submit" *ngIf="!loading">{{"Bank-accounts.addBankAccount" | translate}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

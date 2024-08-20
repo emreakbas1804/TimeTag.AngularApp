@@ -1,0 +1,98 @@
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+    <div class="content">
+
+        <app-panel-navbar></app-panel-navbar>
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <div class="row">
+                    <div class="col-md-10 mt-3">
+                        <h1 class="h3">
+                            {{"Time-logs.timeLogs" | translate}}
+                            
+                            <a routerLink="/panel/add-employee" class="router-link router-link-right">
+                                {{"Time-logs.createEmployee" | translate}}
+                            </a>
+                        </h1>
+                        <hr>
+                        <!-- filter -->
+                        <div class="row filter">
+                            <div class="col-md-3">
+                                <label>{{"Time-logs.startDate" | translate}}</label>
+                                <input type="date" #startDate (change)="getTimeLogs(startDate?.value, endDate?.value)" name="startDate">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>{{"Time-logs.endDate" | translate}}</label>
+                                <input type="date" #endDate (change)="getTimeLogs(startDate?.value,endDate?.value)" name="endDate">
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="table-container">
+
+
+                            <table mat-table [dataSource]="dataSourcee" class="mt-5">
+
+
+                                <ng-container matColumnDef="nameSurname">
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"Time-logs.nameSurname" | translate}}</th>
+                                    <td mat-cell *matCellDef="let element">{{element.nameSurname}}</td>
+                                </ng-container>
+
+
+                                <ng-container matColumnDef="processTime">
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"Time-logs.processTime" | translate}}</th>
+                                    <td mat-cell *matCellDef="let element">{{element.processTime | date:'dd/MM/yyyy HH:mm'}}</td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="type">
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"Time-logs.type" | translate}}</th>
+                                    <td mat-cell *matCellDef="let element">
+                                     <span *ngIf="element.type == 0" class="bg-success badge p-3">{{"Time-logs.login" | translate}}</span>                                      
+                                     <span *ngIf="element.type == 1" class="bg-danger badge p-3">{{"Time-logs.logOut" | translate}}</span>                                      
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="id">
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"Time-logs.editLog" | translate}}</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <div>
+                                            <a [routerLink]="['/panel/edit-log', element.id]" class="btn-edit">{{"Time-logs.editLog" | translate}}<i class="bi bi-pencil ms-1"></i></a>
+                                        </div>
+
+                                    </td>
+                                </ng-container>
+
+                                <!-- <ng-container matColumnDef="isLatedToJob">
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"Time-logs.isLatedToJob" | translate}}</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <span *ngIf="element.isLatedToJob == false" class="bg-success badge p-3">{{"Time-logs.no" | translate}}</span> 
+                                        <span *ngIf="element.isLatedToJob == true" class="bg-danger badge p-3">{{"Time-logs.yes" | translate}}</span>     
+                                                                     
+                                    </td>
+                                </ng-container> -->
+
+
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+                            </table>
+                        </div>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons (page)="changedPage($event)" [length]="logLenght"></mat-paginator>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

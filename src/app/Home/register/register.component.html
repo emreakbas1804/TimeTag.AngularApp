@@ -1,0 +1,77 @@
+<div class="account register">
+    <app-navbar></app-navbar>
+    <div class="container">
+        <div class="row mt-3 justify-content-center">
+
+            <div class="col-md-6 register-card">
+                <h1 class="h4">{{ "Register.registerFree" | translate }}</h1>
+                <hr>
+                <div [class.d-none]="!info">
+                    <div class="alert alert-{{infoColor}} text-center" *ngIf="info != ''">
+                        {{info}}
+                    </div>
+                </div>
+                <form #form="ngForm" (ngSubmit)="register(form)">
+
+                    <div class="mb-3">
+                        <input type="text" class="form-input" placeholder="{{'Register.name' | translate}}" [(ngModel)]="registerModel.Name"
+                            name="name" required #name="ngModel">
+                        <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
+                            {{ "Register.nameIsRequired" | translate }}
+                            
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-input" placeholder="{{'Register.surname' | translate}}" [(ngModel)]="registerModel.Surname"
+                            name="Surname" required #Surname="ngModel">
+                        <div class="text-danger mt-1" *ngIf="Surname.invalid && Surname.touched">
+                            {{ "Register.surnameIsRequired" | translate }}                            
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <input type="email" class="form-input" placeholder="{{'Register.email' | translate}}" [(ngModel)]="registerModel.Email"
+                            name="Email" required #Email="ngModel">
+                        <div class="text-danger mt-1" *ngIf="Email.invalid && Email.touched">
+                            {{ "Register.emailIsRequired" | translate }}                            
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-input" placeholder="{{'Register.phone' | translate}}" [(ngModel)]="registerModel.Phone"
+                            name="Phone" required minlength="10" maxlength="16" #Phone="ngModel">
+                        <div class="text-danger mt-1" *ngIf="Phone.invalid && Phone.touched">
+                            {{ "Register.incorrectPhoneNumber" | translate }}       
+                            
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="password" class="form-input" placeholder="{{'Register.password' | translate}}"
+                            [(ngModel)]="registerModel.Password" name="Password" required minlength="6"
+                            #Password="ngModel">
+                        <div class="text-danger mt-1" *ngIf="Password.invalid && Password.touched">
+                            {{ "Register.passwordShouldBeLongerThan5Char" | translate }}                                   
+                        </div>
+                        <i class="fa-regular fa-eye"></i>
+                    </div>
+
+
+                    <div class="text-center mt-2">
+                        <div class="spinner-border" *ngIf="loading"></div>
+                    </div>
+                    <div *ngIf="!loading">
+                        <button type="submit">{{ "Register.register" | translate }}</button>
+                        <a routerLink="/login" class="router-link">{{ "Register.login" | translate }}</a>
+                        <a routerLink="/forgot-password" class="router-link">{{ "Register.forgotPassword" | translate }}</a>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>

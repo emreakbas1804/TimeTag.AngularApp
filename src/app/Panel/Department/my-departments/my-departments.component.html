@@ -1,0 +1,69 @@
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+    <div class="content">
+
+        <app-panel-navbar></app-panel-navbar>
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <div class="row">
+                    <div class="col-md-10 mt-3">
+                        <h1 class="h3"> {{"My-departments.myDepartments" | translate}} 
+                            <a routerLink="/panel/add-department" class="router-link router-link-right">{{"My-departments.createDepartment" | translate}} </a>
+                        </h1>
+                        <hr>
+
+                        <p class="text-muted">{{"My-departments.yourDepartmentListHere" | translate}} </p>
+                        <div class="table-container">
+
+
+                            <table mat-table [dataSource]="dataSourcee" class="mt-5">
+
+
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"My-departments.name" | translate}} </th>
+                                    <td mat-cell *matCellDef="let element">{{element.name}}</td>
+                                </ng-container>
+
+                                
+                                <ng-container matColumnDef="startJobTime">
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"My-departments.startWorkTime" | translate}} </th>
+                                    <td mat-cell *matCellDef="let element">{{element.startJobTime}}</td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="finishJobTime">
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"My-departments.finishWorkTime" | translate}} </th>
+                                    <td mat-cell *matCellDef="let element">{{element.finishJobTime}}</td>
+                                </ng-container>
+
+
+                                <ng-container matColumnDef="id">
+                                    <th mat-header-cell *matHeaderCellDef class="h5 text-center">{{"My-departments.edit" | translate}} </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <a [routerLink]="['/panel/edit-department', element.id]" class="btn-edit">
+                                            {{"My-departments.editDepartment" | translate}} 
+                                        <i class="bi bi-pencil"></i></a>
+
+                                    </td>
+                                </ng-container>
+
+
+
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+                            </table>
+                        </div>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+
+                    </div>
+                 
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

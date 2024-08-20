@@ -1,0 +1,143 @@
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+    <div class="content">
+
+        <app-panel-navbar></app-panel-navbar>
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <div class="row">
+
+                    <div class="col-md-8 mt-3">
+
+                        <h1 class="h3">
+                            {{"Edit-department.editDepartment" | translate}}
+                            
+                            <a routerLink="/panel/my-departments" class="router-link router-link-right">
+                                {{"Edit-department.myDepartments" | translate}}
+                            </a>
+                        </h1>
+                        <hr>
+                        <p class="text-muted">
+                            {{"Edit-department.youCanInstantlyUpdateYourDepartment'sInformation" | translate}}                            
+                        </p>
+
+                        <div class="mt-5">
+
+                            <form #form="ngForm" (ngSubmit)="updateDepartment(form)">
+                                <!-- Name -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Edit-department.name" | translate}} </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="{{'Edit-department.name' | translate}}" name="name"
+                                            [(ngModel)]="department.name" required #name="ngModel">
+                                        <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
+                                            {{"Edit-department.nameIsRequired" | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Address -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Edit-department.address" | translate}} </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="{{'Edit-department.address' | translate}}"
+                                            [(ngModel)]="department.address" name="address" #address="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Edit-department.description" | translate}} </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input" placeholder="{{'Edit-department.description' | translate}}"
+                                            [(ngModel)]="department.description" name="description"
+                                            #description="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Start Work time -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Edit-department.startTime" | translate}} </label>
+                                    <div class="col-sm-10">
+                                        <input placeholder="{{'Edit-department.startTime' | translate}}" [ngxTimepicker]="startWorkTime"
+                                            [format]="24" [(ngModel)]="department.startJobTime" required
+                                            #startJobTime="ngModel" name="startJobTime">
+                                        <ngx-material-timepicker #startWorkTime></ngx-material-timepicker>
+                                        <div class="text-danger mt-1"
+                                            *ngIf="startJobTime.invalid && startJobTime.touched">
+                                            {{"Edit-department.startWorkTimeIsRequired" | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Finish Work time -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Edit-department.finishTime" | translate}} </label>
+                                    <div class="col-sm-10">
+                                        <input placeholder="{{'Edit-department.finishTime' | translate}}" [ngxTimepicker]="finishWorkTime"
+                                            [format]="24" [(ngModel)]="department.finishJobTime" required
+                                            #finishJobTime="ngModel" name="finishJobTime">
+                                        <ngx-material-timepicker #finishWorkTime></ngx-material-timepicker>
+                                        <div class="text-danger mt-1"
+                                            *ngIf="finishJobTime.invalid && finishJobTime.touched">
+                                            {{"Edit-department.finishWorkTimeIsRequired" | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="text-center mt-2">
+                                    <div class="spinner-border" *ngIf="loading"></div>
+                                </div>
+
+                                <div *ngIf="!loading">
+                                    <button type="submit">{{"Edit-department.updateDepartment" | translate}}</button>
+                                    <button type="button" class="btn btn-danger mx-2" data-bs-toggle="modal"
+                                        data-bs-target="#delete_department">{{"Edit-department.deleteDepartment" | translate}}</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <img src="../assets/images/maskot/7.png" alt="maskot">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Delete department confirm Modal -->
+<div class="modal fade" id="delete_department" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Başlık -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{"Edit-department.DeleteDepartment" | translate}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal İçeriği -->
+            <div class="modal-body">
+                <div class="container">
+                    <p style="font-size: smaller;" class="text-muted">
+                        {{"Edit-department.ifyouWantToDeleteThisDepartmentYouMustWrite" | translate}}
+                         <b>Confirm</b> {{"Edit-department.thisInput" | translate}} </p>
+                    <input type="text" placeholder="CONFIRM" #confirm>
+                </div>
+            </div>
+
+            <!-- Modal Alt Bilgi -->
+            <div class="modal-footer mt-3">
+                <button type="button" class="btn btn-danger" (click)="deleteDepartment(confirm.value)">{{"Edit-department.confirm" | translate}}</button>
+            </div>
+
+        </div>
+    </div>
+</div>

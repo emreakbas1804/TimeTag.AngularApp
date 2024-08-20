@@ -1,0 +1,71 @@
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+    <div class="content">
+
+        <app-panel-navbar></app-panel-navbar>
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <div class="row">
+
+                    <div class="col-md-8 mt-3">
+
+                        <h1 class="h3">
+                            {{"Edit-timeLog.editLog" | translate}}
+                        </h1>
+                        <hr>
+                        <p class="text-muted">
+                            {{"Edit-timeLog.youCanEditYourEmployeeLog" | translate}}
+                        </p>
+
+                        <div class="mt-5">
+
+                            <form #form="ngForm" (ngSubmit)="updateLog(form)">
+
+                                <!-- Type -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Edit-timeLog.type" |
+                                        translate}}</label>
+                                    <div class="col-sm-10">                                     
+                                        <select [(ngModel)]="timeLog.type" name="type" #type="ngModel">
+                                            <option value="0">Login</option>
+                                            <option value="1">Logout</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- ProcessTime -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Edit-timeLog.processTime" | translate}}</label>
+                                    <div class="col-sm-10">                                     
+                                        <input type="datetime-local" [(ngModel)]="timeLog.processTime" name="processTime" #processTime="ngModel">
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                                <div class="text-center mt-2">
+                                    <div class="spinner-border" *ngIf="loading"></div>
+                                </div>
+
+                                <div *ngIf="!loading">
+                                    <button type="submit">{{"Edit-timeLog.updateLog" | translate}}</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <img src="../assets/images/maskot/5.png" alt="maskot">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

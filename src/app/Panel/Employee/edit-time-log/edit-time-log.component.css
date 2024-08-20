@@ -1,0 +1,10 @@
+select{
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #316fc9 !important;
+    background-color: rgba(27, 27, 29, 0.08) !important;
+    outline: none !important;
+    box-shadow: none !important;
+    height: 46px;
+}

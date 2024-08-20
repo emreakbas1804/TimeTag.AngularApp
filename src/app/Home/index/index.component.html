@@ -1,0 +1,278 @@
+<app-navbar></app-navbar>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="welcome-message">{{"Home.manageYourTimeEffectively" | translate}}</h1>
+                <p class="welcome-text text-muted">
+                    {{"Home.section1Message" | translate}}                                  
+                </p>
+            </div>
+
+            <div class="col-md-5">
+                <img src="./assets/images/section1.jpg" alt="worker">
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<section class="section2">
+    <div class="container">
+        <div class="row">
+            <div class="big-text">{{"Home.ConversionToDigital" | translate}}</div>
+        </div>
+    </div>
+</section>
+
+
+<section class="bg-gray" id="features">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="head">
+                        <div class="icon">
+                            <i class="bi bi-kanban"></i>
+                        </div>
+                        <h2>{{"Home.section3and1" | translate}}</h2>
+                        <hr>
+                    </div>
+                    <div class="content">
+                        <p>{{"Home.section3and2" | translate}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="head">
+                        <div class="icon">
+                            <i class="bi bi-translate"></i>
+                        </div>
+                        <h2>{{"Home.section3and3" | translate}}</h2>
+                        <hr>
+                    </div>
+                    <div class="content">
+                        <p>{{"Home.section3and4" | translate}} </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="head">
+                        <div class="icon">
+                            <i class="bi bi-alarm"></i>
+                        </div>
+                        <h2>{{"Home.section3and5" | translate}}</h2>
+                        <hr>
+                    </div>
+                    <div class="content">
+                        <p>{{"Home.section3and6" | translate}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="head">
+                        <div class="icon">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <h2>{{"Home.section3and7" | translate}}</h2>
+                        <hr>
+                    </div>
+                    <div class="content">
+                        <p>{{"Home.section3and8" | translate}}</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="head">
+                        <div class="icon">
+                            <i class="bi bi-card-checklist"></i>
+                        </div>
+                        <h2>{{"Home.section3and9" | translate}}</h2>
+                        <hr>
+                    </div>
+                    <div class="content">
+                        <p>{{"Home.section3and10" | translate}}</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="head">
+                        <div class="icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h2>{{"Home.section3and11" | translate}}</h2>
+                        <hr>
+                    </div>
+                    <div class="content">
+                        <p>{{"Home.section3and12" | translate}}</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+</section>
+
+<section id="howToUse">
+    <div class="container">
+        <div class="row">
+            <h1>{{"Home.section4and1" | translate}}</h1>
+            <div class="col-md-6">
+                <ol>
+                    <li class="mt-5">
+                        <span class="ol-li"> {{"Home.section4and2" | translate}}</span>
+                        <ul>
+                            <li class="ul-li">{{"Home.section4and3" | translate}}</li>
+                            <li class="ul-li">{{"Home.section4and4" | translate}}</li>
+                        </ul>
+                    </li>
+
+                    <li class="mt-5">
+                        <span class="ol-li">{{"Home.section4and5" | translate}}</span>
+                        <ul>
+                            <li class="ul-li">{{"Home.section4and6" | translate}}</li>
+                            <li class="ul-li">{{"Home.section4and7" | translate}}</li>
+                        </ul>
+                    </li>
+
+                    <li class="mt-5">
+                        <span class="ol-li"> {{"Home.section4and8" | translate}}</span>
+                        <ul>
+                            <li class="ul-li">{{"Home.section4and9" | translate}}</li>
+                            <li class="ul-li">{{"Home.section4and10" | translate}}</li>
+                        </ul>
+                    </li>
+
+
+                    <li class="mt-5">
+                        <span class="ol-li">{{"Home.section4and11" | translate}}</span>
+                        <ul>
+                            <li class="ul-li">{{"Home.section4and12" | translate}}</li>
+                            <li class="ul-li">{{"Home.section4and13" | translate}}</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-md-6">
+                <img src="./assets/images/section4.jpg" alt="worker">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="bg-gray" id="contact">
+    <div class="container">
+        <div class="row justify-content-center">
+            <h1 class="text-center">{{"Home.RequestAnOffer" | translate}}</h1>
+
+            <div class="col-md-9 mt-5">
+                <form #form="ngForm" (ngSubmit)="addOffer(form)">
+                    <div class="row">
+
+                        <div class="col-md-4 mt-2">
+                            <input type="text" class="form-input" placeholder="{{'Home.nameSurname' | translate}}"
+                                name="fullName" ngModel required #fullName="ngModel">
+                            <div class="text-danger mt-1" *ngIf="fullName.invalid && fullName.touched">
+                                {{"Home.nameSurnameIsRequired" | translate}}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <input type="text" class="form-input" placeholder="{{'Home.phone' | translate}}"
+                                ngModel name="phone" #phone="ngModel" required>
+                            <div class="text-danger mt-1" *ngIf="phone.invalid && phone.touched">
+                                {{"Home.phoneIsRequired" | translate}}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                            <input type="text" class="form-input" placeholder="{{'Home.email' | translate}}"
+                                ngModel name="email" #email="ngModel" required>
+                            <div class="text-danger mt-1" *ngIf="email.invalid && email.touched">
+                                {{"Home.email" | translate}}
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <textarea ngModel name="Message" #message="ngModel" placeholder="Message"
+                                required></textarea>
+                            <div class="text-danger mt-1" *ngIf="message.invalid && message.touched">
+                                {{"Home.messageIsRequired" | translate}}
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-2">
+                            <div class="spinner-border" *ngIf="loading"></div>
+                        </div>
+
+                        <div *ngIf="!loading">
+                            <button type="submit">{{"Home.requestAnOffer" | translate}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row footer">
+            <div class="col-md-5">
+                <div>
+                    <a routerLink="">
+                        <img src="../assets/images/logo.png" alt="Logo" class="footer-logo">
+                    </a>
+                </div>
+                <p class="mt-4 text-muted">
+                    {{"Home.section1Message" | translate}}
+                </p>
+            </div>
+            <div class="col-md-4 mt-3">
+
+                <ul class="mt-5">
+                    <select #langSelect (change)="changeLang(langSelect.value)">
+                        <option *ngFor="let lang of translateService.getLangs()" [value]="lang"
+                            [selected]="lang === translateService.currentLang">
+                            {{ 'Languages.' + lang | translate }}
+                        </option>
+                    </select>
+                    <li>
+                        <i class="bi bi-envelope-arrow-down"></i>
+                        info&#64;timetag.com
+                    </li>
+
+                    <li>
+                        <i class="bi bi-telephone-outbound"></i>
+                        +90 507 844 9483
+                    </li>
+                 
+                </ul>
+
+            </div>
+            <div class="col-md-2">
+                <img src="./assets/images/section5.jpg" alt="worker">
+            </div>
+        </div>
+    </div>
+</section>

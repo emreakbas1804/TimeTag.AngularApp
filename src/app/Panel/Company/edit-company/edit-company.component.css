@@ -1,0 +1,8 @@
+.form-file-input{
+    background-color: none;
+}
+ .profile-image{
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+} 
