@@ -13,8 +13,7 @@ declare var $: any;
   encapsulation: ViewEncapsulation.None
 })
 export class IndexComponent implements OnInit {
-
-
+  
   constructor(private companyService: CompanyService, private employeeService : EmployeeService) { }
 
   companies: any[] = [];
@@ -31,9 +30,10 @@ export class IndexComponent implements OnInit {
   dataSourcee = new MatTableDataSource<any>(this.dataSourceList);
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   async ngOnInit(): Promise<void> {
+    $("#selectCompany").select2();
     await this.getCompanies();
 
-    $("#selectCompany").select2();
+    
     if (this.companyService.getCurrentCompany() == null) {
       this.selectedCompany = this.companies[0]?.id;
       if (this.selectedCompany != undefined && this.selectedCompany != 0) {

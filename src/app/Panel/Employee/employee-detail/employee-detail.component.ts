@@ -38,7 +38,7 @@ export class EmployeeDetailComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
-
+    $("#selectDepartment").select2();
     this.employeeId = this.router.url.split("/")[3];
     await this.getEmployee();
     await this.getDepartments();    

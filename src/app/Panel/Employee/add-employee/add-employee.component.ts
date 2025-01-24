@@ -27,8 +27,12 @@ export class AddEmployeeComponent implements OnInit {
   constructor(private snackBarService: SnackBarService, private employeeService: EmployeeService, private companyService: CompanyService, private router: Router, private translateService : TranslateService) { }
 
   async ngOnInit(): Promise<void> {
+    $("#selectDepartment").select2();
+    $("#selectToken").select2();
+
     await this.getDepartments();
     await this.getTokens();
+    
     $("#selectDepartment").select2();
     $("#selectToken").select2();
 
