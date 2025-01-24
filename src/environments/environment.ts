@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  // apiUrl: "http://localhost:5264",
-  apiUrl: "https://timetagapi.ossdoy.com",
-  cdnUrl: "http://localhost:5264",
+  //  apiUrl: "https://localhost:56939",
+   apiUrl: "https://timetagapi.ossdoy.com",
+   cdnUrl: "http://localhost:5264",
 };
 
 /*

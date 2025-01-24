@@ -62,7 +62,7 @@ export class AccountService {
     formData.append("password", password);
 
 
-    return this.http.put<EntityResultModel>(this.apiUrl + "/account/updateUserProfile", formData).pipe(
+    return this.http.post<EntityResultModel>(this.apiUrl + "/account/updateUserProfile", formData).pipe(
       catchError(this.handleError)
     );
   }

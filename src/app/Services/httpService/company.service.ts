@@ -104,7 +104,7 @@ export class CompanyService {
     formData.append("description", description);
     formData.append("startJobTime", startJobTime);
     formData.append("finishJobTime", finishJobTime);
-    return this.http.put<EntityResultModel>(this.apiUrl + "/company/updateDepartment", formData).pipe(
+    return this.http.post<EntityResultModel>(this.apiUrl + "/company/updateDepartment", formData).pipe(
       catchError(this.handleError)
     );
   }

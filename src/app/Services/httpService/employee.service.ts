@@ -60,7 +60,7 @@ export class EmployeeService {
     formData.append("birthDay", birthDay);
     formData.append("photo", photo);
     formData.append("isActive", isActive);
-    return this.http.put<EntityResultModel>(this.apiUrl + "/employee/updateEmployee", formData).pipe(
+    return this.http.post<EntityResultModel>(this.apiUrl + "/employee/updateEmployee", formData).pipe(
       catchError(this.handleError)
     );
   }
@@ -108,7 +108,7 @@ export class EmployeeService {
     formData.append("logId", logId);
     formData.append("type", type);
     formData.append("processTime", processTime);
-    return this.http.put<EntityResultModel>(this.apiUrl + "/employee/updateLog", formData).pipe(
+    return this.http.post<EntityResultModel>(this.apiUrl + "/employee/updateLog", formData).pipe(
       catchError(this.handleError)
     );
   }
