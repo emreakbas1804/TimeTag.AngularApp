@@ -54,7 +54,12 @@ export class CompanyService {
       catchError(this.handleError)
     );
   }
-
+  getCompanyIdActiveUser() {
+   
+    return this.http.get<EntityResultModel>(this.apiUrl + "/company/getCompanyIdActiveUser").pipe(
+      catchError(this.handleError),
+    )
+  }
   getCompany(companyId: number) {
     const params = new HttpParams().set('companyId', companyId);
     return this.http.get<EntityResultModel>(this.apiUrl + "/company/getCompany", { params }).pipe(

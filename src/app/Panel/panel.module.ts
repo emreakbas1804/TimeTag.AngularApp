@@ -4,7 +4,6 @@ import { AddCompanyComponent } from './Company/add-company/add-company.component
 import { IndexComponent } from './index/index.component';
 import { SharedModule } from '../Shared/shared.module';
 import { FormsModule } from '@angular/forms';
-import { MyCompaniesComponent } from './Company/my-companies/my-companies.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
@@ -32,7 +31,6 @@ import { EditTimeLogComponent } from './Employee/edit-time-log/edit-time-log.com
   declarations: [
     AddCompanyComponent,
     IndexComponent,
-    MyCompaniesComponent,
     EditCompanyComponent,
     AddDepartmentComponent,
     MyDepartmentsComponent,

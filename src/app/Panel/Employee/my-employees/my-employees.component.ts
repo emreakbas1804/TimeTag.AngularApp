@@ -45,8 +45,8 @@ export class MyEmployeesComponent implements OnInit {
     const response = await firstValueFrom(this.employeeService.getEmployees(companyId, this.selectedDepartment));
     if (response.result == Result.Success) {
 
-      this.dataSourceList = response.resultObject.map((item: { id: any, nameSurname: any, phone: any, departmentName: any }) => ({
-        nameSurname: item.nameSurname,
+      this.dataSourceList = response.resultObject.map((item: { id: any, name : any,surname: any, phone: any, departmentName: any }) => ({
+        nameSurname: item.name + " - " + item.surname,
         id: item.id,
         phone: item.phone,
         departmentName: item.departmentName        

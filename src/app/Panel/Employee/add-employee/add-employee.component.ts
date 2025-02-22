@@ -68,12 +68,13 @@ export class AddEmployeeComponent implements OnInit {
     }
     this.loading = true;
     var companyId = this.companyService.getCurrentCompany();
-    this.employeeService.addEmployee(companyId, this.selectedDepartment, this.selectedToken,form.value.fullName, form.value.title, form.value.phone, form.value.address, form.value.email, form.value.birthDay, this.selectedFile).subscribe({
+    this.employeeService.addEmployee(companyId,this.selectedDepartment, this.selectedToken,form.value.name,form.value.surname, form.value.title, form.value.phone, form.value.address, form.value.email, form.value.birthDay,form.value.hireDate, this.selectedFile,form.value.specificStartTime,form.value.specificEndTime).subscribe({
       next: response => {
         this.loading = false;
         if (response.result == Result.Success) {
           this.snackBarService.success(this.translateService.instant("General.createdEmployee"));
           form.reset();
+          this.getTokens();
           this.selectedFile = null;
         }
         else {

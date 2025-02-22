@@ -18,17 +18,21 @@ export class EmployeeService {
     )
   }
 
-  addEmployee(companyId: any, departmentId: any, tokenId : any,nameSurname: any, title: any, phone: any, address: any, email: any, birthDay: any, photo: any) {
+  addEmployee(companyId : any,departmentId: any, tokenId : any,name: any,surname: any, title: any, phone: any, address: any, email: any, birthDay: any, hireDate : any, photo: any,specificStartTime : any,specificEndTime : any) {
     const formData: FormData = new FormData();
     formData.append("companyId", companyId);
     formData.append("departmentId", departmentId);
     formData.append("tokenId", tokenId);
-    formData.append("nameSurname", nameSurname);
+    formData.append("name", name);
+    formData.append("surname", surname);
     formData.append("title", title);
     formData.append("phone", phone);
     formData.append("address", address);
     formData.append("email", email);
     formData.append("birthDay", birthDay);
+    formData.append("hireDate", hireDate);
+    formData.append("specificStartTime", specificStartTime);
+    formData.append("specificEndTime", specificEndTime);
     formData.append("photo", photo);
     return this.http.post<EntityResultModel>(this.apiUrl + "/employee/addEmployee", formData).pipe(
       catchError(this.handleError)
@@ -48,16 +52,20 @@ export class EmployeeService {
       catchError(this.handleError),
     )
   }
-  updateEmployee(departmentId: any, employeeId: any, nameSurname: any, title: any, phone: any, address: any, email: any, isActive: any, birthDay: any, photo: any) {
+  updateEmployee(departmentId: any, employeeId: any, name:any,surname: any, title: any, phone: any, address: any, email: any, isActive: any, birthDay: any,hireDate: any, photo: any,spesificStartTime : any, spesificEndTime : any) {
     const formData: FormData = new FormData();
     formData.append("departmentId", departmentId);
     formData.append("employeeId", employeeId);
-    formData.append("nameSurname", nameSurname);
+    formData.append("name", name);
+    formData.append("surname",surname);
     formData.append("title", title);
     formData.append("phone", phone);
     formData.append("address", address);
     formData.append("email", email);
     formData.append("birthDay", birthDay);
+    formData.append("hireDate", hireDate);
+    formData.append("spesificStartTime", spesificStartTime);
+    formData.append("spesificEndTime", spesificEndTime);
     formData.append("photo", photo);
     formData.append("isActive", isActive);
     return this.http.post<EntityResultModel>(this.apiUrl + "/employee/updateEmployee", formData).pipe(

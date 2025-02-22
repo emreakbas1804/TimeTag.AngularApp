@@ -42,9 +42,18 @@ export class EditDepartmentComponent implements OnInit {
       this.department.name = response.resultObject?.name;
       this.department.address = response.resultObject?.address;
       this.department.description = response.resultObject?.description;
-      this.department.startJobTime = response.resultObject?.startJobTime;
-      this.department.finishJobTime = response.resultObject?.finishJobTime;
-
+      
+      // TimeSpan formatını "HH:mm" formatına çevir
+      if (response.resultObject?.startJobTime) {
+        const timeParts = response.resultObject.startJobTime.split(':'); // ["08", "30", "00"]
+        this.department.startJobTime = `${timeParts[0]}:${timeParts[1]}`; // "08:30"
+      }
+      
+      if (response.resultObject?.finishJobTime) {
+        const timeParts = response.resultObject.finishJobTime.split(':');
+        this.department.finishJobTime = `${timeParts[0]}:${timeParts[1]}`;
+      }
+      
     } else if (response.result == Result.Error) {
       this.snackBarService.error(response.resultMessage);
     }

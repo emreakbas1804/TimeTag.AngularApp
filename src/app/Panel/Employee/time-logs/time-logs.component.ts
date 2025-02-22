@@ -16,7 +16,7 @@ import { EmployeeService } from 'src/app/Services/httpService/employee.service';
 export class TimeLogsComponent implements OnInit {
 
   dataSourceList: any[] = [];
-  displayedColumns: string[] = ["nameSurname", "processTime", "type","id"];
+  displayedColumns: string[] = ["nameSurname", "processTime", "startWorkTime","endWorkTime","type","id"];
   dataSourcee = new MatTableDataSource<any>(this.dataSourceList);
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   departments: any[] = [];
@@ -42,12 +42,13 @@ export class TimeLogsComponent implements OnInit {
     const response = await firstValueFrom(this.employeeService.getTimeLogs(this.employeeId, this.startDate, this.endDate, this.page, this.count));    
     if (response.result == Result.Success) {
 
-      this.dataSourceList = response.resultObject?.logDetails.map((item: { id : any,nameSurname: any, processTime: any, type: any, isLatedToJob :any }) => ({
+      this.dataSourceList = response.resultObject?.logDetails.map((item: { id : any,nameSurname: any, processTime: any, type: any, startWorkTime :any, endWorkTime : any }) => ({
         id : item.id,
         nameSurname: item.nameSurname,
         processTime: item.processTime,
         type : item.type,
-        isLatedToJob : item.isLatedToJob,             
+        startWorkTime : item.startWorkTime,
+        endWorkTime : item.endWorkTime             
       }
       ));
       this.logLenght = response.resultObject?.totalCount;

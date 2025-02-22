@@ -25,13 +25,17 @@ export class EmployeeDetailComponent implements OnInit {
   selectedDepartment: any = 0;
   employeeId: any = null;
   employee: any = {
-    nameSurname: "",
+    name: "",
+    surname : "",
     title: "",
     phone: "",
     address: "",
     email: "",
     birthDay: "",
+    hireDate : "",
     photo: "",
+    spesificStartTime : "",
+    spesificEndTime : ""
   }
   cdnUrl = environment.cdnUrl;  
   constructor(private snackBarService: SnackBarService, private employeeService: EmployeeService, private companyService: CompanyService, private router: Router, private datePipe: DatePipe, private translateService : TranslateService) { }
@@ -59,7 +63,7 @@ export class EmployeeDetailComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.employeeService.updateEmployee(this.selectedDepartment, this.employeeId, form.value.fullName, form.value.title, form.value.phone, form.value.address, form.value.email, true, form.value.birthDay, this.selectedFile).subscribe({
+    this.employeeService.updateEmployee(this.selectedDepartment, this.employeeId, form.value.name,form.value.surname, form.value.title, form.value.phone, form.value.address, form.value.email, true, form.value.birthDay,form.value.hireDate, this.selectedFile,form.value.spesificStartTime,form.value.spesificEndTime).subscribe({
       next: response => {
         this.loading = false;
         if (response.result == Result.Success) {
@@ -80,7 +84,8 @@ export class EmployeeDetailComponent implements OnInit {
   async getEmployee() {
     var response = await firstValueFrom(this.employeeService.getEmployee(this.employeeId));
     if (response.result == Result.Success) {
-      this.employee.nameSurname = response.resultObject?.nameSurname;
+      this.employee.name = response.resultObject?.name;
+      this.employee.surname = response.resultObject?.surname;
       this.employee.title = response.resultObject?.title;
       this.employee.phone = response.resultObject?.phone;
       this.employee.address = response.resultObject?.address;
@@ -88,7 +93,17 @@ export class EmployeeDetailComponent implements OnInit {
       this.employee.birthDay = this.formatDate(response.resultObject?.birthDay);
       this.selectedDepartment = response.resultObject?.departmentId;
       this.employee.photo = response.resultObject?.imageUrl
-
+   // TimeSpan formatını "HH:mm" formatına çevir
+   debugger
+    if (response.resultObject?.spesificStartTime) {
+      const timeParts = response.resultObject.spesificStartTime.split(':'); // ["08", "30", "00"]
+      this.employee.spesificStartTime = `${timeParts[0]}:${timeParts[1]}`; // "08:30"
+    }
+    
+    if (response.resultObject?.spesificEndTime) {
+      const timeParts = response.resultObject.spesificEndTime.split(':');
+      this.employee.spesificEndTime = `${timeParts[0]}:${timeParts[1]}`;
+    }
 
     } else if (response.result == Result.Error) {
       this.snackBarService.error(response.resultMessage);

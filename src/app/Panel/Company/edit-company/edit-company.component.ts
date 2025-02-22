@@ -29,8 +29,8 @@ export class EditCompanyComponent implements OnInit {
   }
   constructor(private router: Router, private companyService: CompanyService, private snackBarService: SnackBarService, private translateService : TranslateService) { }
 
-  async ngOnInit(): Promise<void> {
-    this.companyId = this.router.url.split("/")[3];
+  async ngOnInit(): Promise<void> {  
+    this.companyId = localStorage.getItem("currentCompanyId"); 
     await this.getCompany()
 
   }

@@ -6,7 +6,6 @@ import { LoginComponent } from './Home/login/login.component';
 import { IndexComponent as PanelIndexComponent } from './Panel/index/index.component';
 import { PanelGuard } from './Panel/panel.guard';
 import { AddCompanyComponent } from './Panel/Company/add-company/add-company.component';
-import { MyCompaniesComponent } from './Panel/Company/my-companies/my-companies.component';
 import { EditCompanyComponent } from './Panel/Company/edit-company/edit-company.component';
 import { AddDepartmentComponent } from './Panel/Department/add-department/add-department.component';
 import { MyDepartmentsComponent } from './Panel/Department/my-departments/my-departments.component';
@@ -28,8 +27,7 @@ const routes: Routes = [
   { path: "forgot-password", component: ForgotPasswordComponent },
   { path: "panel", component: PanelIndexComponent, canActivate: [PanelGuard] },
   { path: "panel/add-company", component: AddCompanyComponent, canActivate: [PanelGuard] },
-  { path: "panel/my-companies", component: MyCompaniesComponent, canActivate: [PanelGuard] },
-  { path: "panel/edit-company/:Id:", component: EditCompanyComponent, canActivate: [PanelGuard] },
+  { path: "panel/my-company", component: EditCompanyComponent, canActivate: [PanelGuard] },
   { path: "panel/add-department", component: AddDepartmentComponent, canActivate: [PanelGuard] },
   { path: "panel/my-departments", component: MyDepartmentsComponent, canActivate: [PanelGuard] },
   { path: "panel/edit-department/:Id:", component: EditDepartmentComponent, canActivate: [PanelGuard] },

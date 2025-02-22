@@ -27,13 +27,27 @@
 
                                 <!-- Name -->
                                 <div class="form-group row mb-3">
-                                    <label class="col-sm-2 col-form-label required">{{"Add-employee.fullName" |
+                                    <label class="col-sm-2 col-form-label required">{{"Add-employee.name" |
                                         translate}}</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-input"
-                                            placeholder="{{'Add-employee.fullName' | translate}}" name="fullName"
-                                            ngModel required #fullName="ngModel">
-                                        <div class="text-danger mt-1" *ngIf="fullName.invalid && fullName.touched">
+                                            placeholder="{{'Add-employee.name' | translate}}" name="name"
+                                            ngModel required #name="ngModel">
+                                        <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
+                                            {{"Add-employee.nameIsRequired" | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <!-- Surname  -->
+                                 <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label required">{{"Add-employee.surname" |
+                                        translate}}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-input"
+                                            placeholder="{{'Add-employee.surname' | translate}}" name="surname"
+                                            ngModel required #surname="ngModel">
+                                        <div class="text-danger mt-1" *ngIf="surname.invalid && surname.touched">
                                             {{"Add-employee.nameSurnameIsRequired" | translate}}
                                         </div>
                                     </div>
@@ -125,6 +139,43 @@
                                     </label>
                                     <div class="col-sm-10">
                                         <input type="date" ngModel name="birthDay" #birthDay="ngModel">
+                                    </div>
+                                </div>
+
+                                 <!-- Hire date -->
+                                 <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Add-employee.hireDate" | translate}}
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input type="date" ngModel name="hireDate" #hireDate="ngModel">
+                                    </div>
+                                </div>
+
+                                <!-- Start Work time -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Add-employee.specificStartTime" | translate}}</label>
+                                    <div class="col-sm-10">
+                                        <input placeholder="{{'Add-employee.specificStartTime' | translate}}" 
+                                            [ngxTimepicker]="startWorkTime" 
+                                            [format]="24" 
+                                            ngModel 
+                                            name="specificStartTime">
+                                        
+                                        <ngx-material-timepicker #startWorkTime></ngx-material-timepicker>
+                                    </div>
+                                </div>
+
+                                <!-- End Work time -->
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-2 col-form-label">{{"Add-employee.specificEndTime" | translate}}</label>
+                                    <div class="col-sm-10">
+                                        <input placeholder="{{'Add-employee.specificEndTime' | translate}}" 
+                                            [ngxTimepicker]="endWorkTime" 
+                                            [format]="24" 
+                                            ngModel 
+                                            name="specificEndTime">
+                                        
+                                        <ngx-material-timepicker #endWorkTime></ngx-material-timepicker>
                                     </div>
                                 </div>
 

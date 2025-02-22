@@ -158,7 +158,7 @@
         "showEmployee": "Personeli göster",
         "bankName": "Banka İsmi",
         "ownerName": "Hesap Sahibi İsmi",
-        "iban": "İban",
+        "iban": "IBAN",
         "addBankAccount": "Banka hesabı ekle",
         "AddBankAccount": "BANKA HESABI EKLE",
         "bankNameIsRequired": "Banka ismi zorunlu",
