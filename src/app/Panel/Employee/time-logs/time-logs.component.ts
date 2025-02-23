@@ -51,7 +51,7 @@ export class TimeLogsComponent implements OnInit {
         endWorkTime : item.endWorkTime             
       }
       ));
-      this.logLenght = response.resultObject?.totalCount;
+      this.logLenght = response.resultObject?.totalRecords;      
       this.dataSourcee.data = this.dataSourceList;
     }
 
