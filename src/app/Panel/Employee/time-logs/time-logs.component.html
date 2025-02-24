@@ -15,7 +15,20 @@
                                 {{"Time-logs.createEmployee" | translate}}
                             </a>
                         </h1>
+
                         <hr>
+                        <div class="export-buttons d-flex gap-2 justify-content-end">
+                            <button class="btn btn-success d-flex align-items-center gap-2" (click)="exportData('excel')">
+                              <i class="bi bi-file-earmark-excel"></i> Export to Excel
+                            </button>
+                            
+                            <button class="btn btn-danger d-flex align-items-center gap-2" (click)="exportData('pdf')">
+                              <i class="bi bi-file-earmark-pdf"></i> Export to PDF
+                            </button>
+                        </div>
+                          
+
+                          
                         <!-- filter -->
                         <div class="row filter">
                             <div class="col-md-3">

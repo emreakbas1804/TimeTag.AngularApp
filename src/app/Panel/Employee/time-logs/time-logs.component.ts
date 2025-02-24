@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,6 +8,7 @@ import { Result } from 'src/app/Models/EntityResultModel';
 import { SnackBarService } from 'src/app/Services/customService/snack-bar.service';
 import { CompanyService } from 'src/app/Services/httpService/company.service';
 import { EmployeeService } from 'src/app/Services/httpService/employee.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-time-logs',
@@ -27,8 +29,8 @@ export class TimeLogsComponent implements OnInit {
   page : any = 1;
   count : any = 5;
   logLenght : any = null;
-  constructor(private employeeService: EmployeeService, private companyService: CompanyService, private snackBarService: SnackBarService, private router : Router) { }
-
+  constructor(private employeeService: EmployeeService, private companyService: CompanyService, private snackBarService: SnackBarService, private router : Router,private http: HttpClient) { }
+  private readonly apiUrl = environment.apiUrl;
 
   async ngOnInit(): Promise<void> {
     
@@ -42,7 +44,7 @@ export class TimeLogsComponent implements OnInit {
     const response = await firstValueFrom(this.employeeService.getTimeLogs(this.employeeId, this.startDate, this.endDate, this.page, this.count));    
     if (response.result == Result.Success) {
 
-      this.dataSourceList = response.resultObject?.logDetails.map((item: { id : any,nameSurname: any, processTime: any, type: any, startWorkTime :any, endWorkTime : any }) => ({
+      this.dataSourceList = response.resultObject?.logs.map((item: { id : any,nameSurname: any, processTime: any, type: any, startWorkTime :any, endWorkTime : any }) => ({
         id : item.id,
         nameSurname: item.nameSurname,
         processTime: item.processTime,
@@ -61,4 +63,19 @@ export class TimeLogsComponent implements OnInit {
     this.count = event.pageSize;
     await this.getTimeLogs();
   }
+
+  exportData(targetFormat: 'excel' | 'pdf') {
+    const params = new URLSearchParams({
+      employeeId: this.employeeId,
+      startDate: this.startDate ? this.startDate.toISOString() : '',
+      endDate: this.endDate ? this.endDate.toISOString() : '',
+      targetFormat: targetFormat
+    }).toString();
+  
+    const url = `${this.apiUrl}/employee/ExportData?${params}`;
+    window.open(url, '_blank');
+  }
+  
+
+
 }
