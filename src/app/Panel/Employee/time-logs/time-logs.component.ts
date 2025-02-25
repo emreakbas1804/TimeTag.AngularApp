@@ -67,8 +67,8 @@ export class TimeLogsComponent implements OnInit {
   exportData(targetFormat: 'excel' | 'pdf') {
     const params = new URLSearchParams({
       employeeId: this.employeeId,
-      startDate: this.startDate ? this.startDate.toISOString() : '',
-      endDate: this.endDate ? this.endDate.toISOString() : '',
+      startDate: this.startDate ? this.startDate : '',
+      endDate: this.endDate ? this.endDate : '',
       targetFormat: targetFormat
     }).toString();
   
