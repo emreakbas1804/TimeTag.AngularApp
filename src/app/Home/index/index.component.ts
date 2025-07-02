@@ -30,10 +30,10 @@ export class IndexComponent implements OnInit {
     this.loading = true;
     this.accountService.addContactMessage(form.value.nameSurname, form.value.phone, form.value.email, form.value.message).subscribe({
       next: response => {
-        if (response.result == Result.Success) {
+        if (response.Result == Result.Success) {
           this.snackBarService.success(this.translateService.instant("General.gettedOffer"));
           form.reset();
-        }else this.snackBarService.error(response.resultMessage);
+        }else this.snackBarService.error(response.ResultMessage);
                 
         this.loading = false;       
       },

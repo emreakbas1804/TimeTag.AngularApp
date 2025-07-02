@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { AddCompanyComponent } from './Company/add-company/add-company.component';
 import { IndexComponent } from './index/index.component';
 import { SharedModule } from '../Shared/shared.module';
 import { FormsModule } from '@angular/forms';
@@ -8,20 +7,11 @@ import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { RouterModule } from '@angular/router';
-import { EditCompanyComponent } from './Company/edit-company/edit-company.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { AddDepartmentComponent } from './Department/add-department/add-department.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
-import { MyDepartmentsComponent } from './Department/my-departments/my-departments.component';
-import { EditDepartmentComponent } from './Department/edit-department/edit-department.component';
-import { AddEmployeeComponent } from './Employee/add-employee/add-employee.component';
-import { MyEmployeesComponent } from './Employee/my-employees/my-employees.component';
-import { EmployeeDetailComponent } from './Employee/employee-detail/employee-detail.component';
-import { BankAccountsComponent } from './Employee/bank-accounts/bank-accounts.component';
-import { TimeLogsComponent } from './Employee/time-logs/time-logs.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProfileComponent } from './profile/profile.component';
-import { EditTimeLogComponent } from './Employee/edit-time-log/edit-time-log.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   providers :[
@@ -29,17 +19,9 @@ import { EditTimeLogComponent } from './Employee/edit-time-log/edit-time-log.com
     DatePipe
   ],
   declarations: [
-    AddCompanyComponent,
     IndexComponent,
-    EditCompanyComponent,
-    AddDepartmentComponent,
-    MyDepartmentsComponent,
-    EditDepartmentComponent,
-    AddEmployeeComponent,
-    MyEmployeesComponent,
-    EmployeeDetailComponent,
-    BankAccountsComponent,    
-    TimeLogsComponent, ProfileComponent, EditTimeLogComponent
+    ProfileComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +32,6 @@ import { EditTimeLogComponent } from './Employee/edit-time-log/edit-time-log.com
     MatTableModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    CommonModule,
     TranslateModule  
   ],
  

@@ -25,7 +25,7 @@ export class IndexComponent implements OnInit {
     
     var response = await this.companyService.getCompanyIdActiveUser().toPromise();
     debugger
-    this.companyId = response?.resultObject;
+    this.companyId = response?.ResultObject;
 
     await this.companyService.setCurrentCompany(this.companyId);
     await this.getDepartmentsCount();
@@ -36,15 +36,15 @@ export class IndexComponent implements OnInit {
 
   async getDepartmentsCount() {
     const response = await firstValueFrom(this.companyService.getDepartmentsCount(this.companyId));
-    if (response.result == Result.Success) {
-      this.departmentCount = parseInt(response.resultObject);
+    if (response.Result == Result.Success) {
+      this.departmentCount = parseInt(response.ResultObject);
     }
   }
 
   async getEmployeesCount() {
     const response = await firstValueFrom(this.employeeService.getEmployeesCount(this.companyId));
-    if (response.result == Result.Success) {
-      this.employeeCount = response.resultObject;
+    if (response.Result == Result.Success) {
+      this.employeeCount = response.ResultObject;
     }
   }
 

@@ -41,8 +41,8 @@ export class ProfileComponent implements OnInit {
     this.accountService.updateProfile(form.value.email, form.value.phone, form.value.password).subscribe({
       next: response => {
         this.loading = false;
-        if (response.result == Result.Error) {
-          this.snackBarService.error(response.resultMessage);
+        if (response.Result == Result.Error) {
+          this.snackBarService.error(response.ResultMessage);
         } else {
           this.snackBarService.success(this.translateService.instant("General.updatedProfile"))
         }
@@ -56,8 +56,8 @@ export class ProfileComponent implements OnInit {
 
   async getUserProfile() {
     const response = await firstValueFrom(this.accountService.getUserProfile());
-    if (response.result == Result.Success) {
-      this.user = response.resultObject;
+    if (response.Result == Result.Success) {
+      this.user = response.ResultObject;
     }
   }
 

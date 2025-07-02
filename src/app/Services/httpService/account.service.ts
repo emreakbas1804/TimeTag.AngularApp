@@ -27,8 +27,8 @@ export class AccountService {
     return this.http.post<EntityResultModel>(this.apiUrl + "/account/login", formData).pipe(
 
       tap(response => {
-        if (response.result == Result.Success) {
-          this.handleUser(response.resultObject.token, response.resultObject.firstName, response.resultObject.surName);
+        if (response.Result == Result.Success) {          
+          this.handleUser(response.ResultObject.Token, response.ResultObject.FullName);
         }
       }),
 
@@ -121,11 +121,11 @@ export class AccountService {
     this.user.next(null);
   }
 
-  private handleUser(jwtToken: string, firstName: string, surName: string) {
+  private handleUser(jwtToken: string, fullName: string) {
     const user = new UserModel(jwtToken);
     this.user.next(user);
     localStorage.setItem("accessToken", jwtToken);
-    localStorage.setItem("user", firstName + "-" + surName);
+    localStorage.setItem("user", fullName);
   }
 
 }

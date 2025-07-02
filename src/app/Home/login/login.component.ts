@@ -35,14 +35,15 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.accountService.login(form.value.email, form.value.password).subscribe({
       next: response => {
-        if (response.result == Result.Success) {
+        debugger
+        if (response.Result == Result.Success) {
           this.route.navigate([this.returnUrl]);
-        }else if(response.result == Result.Warning){
-          this.snackBarService.warning(response.resultMessage);
+        }else if(response.Result == Result.Warning){
+          this.snackBarService.warning(response.ResultMessage);
           this.route.navigate(["/forgot-password"])
         } 
         else {
-          this.info = response.resultMessage;
+          this.info = response.ResultMessage;
           this.infoColor = "danger";
           this.loading = false;
           window.scroll({

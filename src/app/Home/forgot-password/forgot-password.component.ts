@@ -30,14 +30,14 @@ export class ForgotPasswordComponent implements OnInit {
     this.loading = true;
     this.accountService.forgotPassword(form.value.email).subscribe({
       next: response => {
-        if (response.result == Result.Success) {
+        if (response.Result == Result.Success) {
           this.snackBarService.success(this.translateService.instant("Forgot-password.theVerificationCodeHasBeenSentToYourEmailAccount"));
           this.email = form.value.email;          
           form.reset();
           $("#reset_password_modal").modal("show");
 
         }
-        else this.snackBarService.error(response.resultMessage);
+        else this.snackBarService.error(response.ResultMessage);
 
         this.loading = false;
       },
@@ -57,14 +57,14 @@ export class ForgotPasswordComponent implements OnInit {
     this.loading = true;
     this.accountService.resetPassword(this.email, form.value.code, form.value.password).subscribe({
       next: response => {
-        if (response.result == Result.Success) {
+        if (response.Result == Result.Success) {
           $("#reset_password_modal").modal("hide");
           this.snackBarService.success(this.translateService.instant("General.changedPassword"));
           this.router.navigate(["/login"])          
 
         }
         else{
-          this.info = response.resultMessage;
+          this.info = response.ResultMessage;
           this.infoColor = "danger";
         }
 

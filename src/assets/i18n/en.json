@@ -1,4 +1,14 @@
 {
+    "Common": {
+        "Save": "Save",
+        "Cancel": "Cancel",
+        "SelectOne": "Select One",
+        "Success": "Success",
+        "Confirm": "Confirm",
+        "AreYouSure": "Are you sure?",
+        "Yes": "Yes",
+        "No": "No"
+    },
     "Navbar" : {
         "Features" : "FEATURES",
         "HowToUse" : "HOW TO USE" ,
@@ -9,7 +19,31 @@
         "profile" : "Profile",
         "logOut" : "Log out"        
     },
+    "User": {
+        "Filters": "Filters",
+        "Reset": "Reset",
+        "Search": "Search",
+        "AddNewUser": "Add New User",
+        "ExportExcel": "Export Excel",
+        "ExportPdf": "Export Pdf",
+        "UserList": "User List",
+        "Name" : "Name",
+        "Email" : "Email",
+        "HireDate" : "Hire Date",
+        "DateOfBirth" : "Date Of Birth" ,
+        "Gender": "Gender",
+        "Male": "Male",
+        "Female": "Female",
+        "Other": "Other",
+        "Phone" : "Phone",
+        "Address" : "Address"  ,
+        "StartTime" : "Start Time",
+        "EndTime" : "End Time",
+        "Card" : "Card"      ,
+        "Title" : "Title"    
+    },
     "Panel-sidebar" : {
+        "User" : "User",
         "createCompany" : "Create company",
         "myCompany" : "My company",
         "createDepartment" : "Create department",
