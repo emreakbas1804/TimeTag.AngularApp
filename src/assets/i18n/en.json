@@ -7,7 +7,11 @@
         "Confirm": "Confirm",
         "AreYouSure": "Are you sure?",
         "Yes": "Yes",
-        "No": "No"
+        "No": "No",
+        "Action" : "Action",
+        "AddNew": "Add New",
+        "ExportExcel": "Export Excel",
+        "ExportPdf": "Export Pdf"
     },
     "Navbar" : {
         "Features" : "FEATURES",
@@ -22,10 +26,7 @@
     "User": {
         "Filters": "Filters",
         "Reset": "Reset",
-        "Search": "Search",
-        "AddNewUser": "Add New User",
-        "ExportExcel": "Export Excel",
-        "ExportPdf": "Export Pdf",
+        "Search": "Search",       
         "UserList": "User List",
         "Name" : "Name",
         "Email" : "Email",
@@ -39,10 +40,11 @@
         "Address" : "Address"  ,
         "StartTime" : "Start Time",
         "EndTime" : "End Time",
-        "Card" : "Card"      ,
-        "Title" : "Title"    
+        "Card" : "Card",
+        "Title" : "Title"        
     },
     "Panel-sidebar" : {
+        "TimeLog" : "Time Log",
         "User" : "User",
         "createCompany" : "Create company",
         "myCompany" : "My company",

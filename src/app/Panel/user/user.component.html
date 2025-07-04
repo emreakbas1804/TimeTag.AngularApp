@@ -1,175 +1,241 @@
 <div class="main-container d-flex panel">
-  <app-panel-sidebar></app-panel-sidebar>
-  <div class="content">
-    <app-panel-navbar></app-panel-navbar>
+    <app-panel-sidebar></app-panel-sidebar>
+    <div class="content">
+        <app-panel-navbar></app-panel-navbar>
 
-    <div class="dashboard-content">
-      <div class="main-container">
-        <!-- Filter Card -->
-        <div class="card mt-3">
-            <div class="card-header bg-filter text-white collapsed" data-bs-toggle="collapse" href="#card-collapse4"role="button"aria-expanded="false"aria-controls="card-collapse4">
-                <div class="card-widgets">
-                <a data-bs-toggle="collapse" href="#card-collapse4" role="button" aria-expanded="false" aria-controls="card-collapse4" class="collapsed">
-                    
-                </a>
-                </div>
-                <h5 class="card-title mb-0">
-                <i class="bi bi-funnel"></i> {{ 'User.Filters' | translate }}
-                </h5>
-            </div>
-            <div id="card-collapse4" class="collapse">
-                <div class="card-body">
-                <div class="row filters-section">
+        <div class="dashboard-content">
+            <div class="main-container">
+                <!-- Filter Card -->
+                <div class="card mt-3">
+                    <div class="card-header bg-filter text-white collapsed" data-bs-toggle="collapse" href="#card-collapse4" role="button" aria-expanded="false" aria-controls="card-collapse4">
+                        <div class="card-widgets">
+                            <a data-bs-toggle="collapse" href="#card-collapse4" role="button" aria-expanded="false" aria-controls="card-collapse4" class="collapsed"></a>
+                        </div>
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-funnel"></i>
+                            {{ 'User.Filters' | translate }}
+                        </h5>
+                    </div>
+                    <div id="card-collapse4" class="collapse">
+                        <div class="card-body">
+                            <div class="row filters-section">
+                                <div class="form-group col-md-12 mb-2">
+                                    <input class="form-control filter" (keyup)="filterChange()" id="txtKeyword" name="txtKeyword" [placeholder]="'User.Search' | translate" type="text" />
+                                </div>
 
-                    <div class="form-group col-md-12 mb-2">                  
-                    <input class="form-control" (keyup)="searchByKeyword('tblUserList')" id="txtUserKeyword" name="txtKeyword" [placeholder]="'User.Search' | translate"type="text"/>
+                                <div class="form-group col-md-12 mb-2">
+                                    <div class="col-md-4 float-end">
+                                        <button type="button" class="btn form-control btn-success" (click)="resetFilters('tblUserList')">
+                                            <i class="bi bi-arrow-clockwise"></i>
+                                            {{ 'User.Reset' | translate }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="form-group col-md-12 mb-2">
-                    <div class="col-md-4 float-end">
-                        <button type="button" class="btn form-control btn-success" (click)="resetFilters('tblUserList')" > <i class="bi bi-arrow-clockwise"></i> {{ 'User.Reset' | translate }}</button>
+                <!-- Export Buttons -->
+                <div class="row mt-2">
+                    <div class="col-md-4 mt-3">
+                        <button type="button" class="btn form-control btn-primary" (click)="addOrUpdateUser(0, 'Add New')" [disabled]="!canAdd">
+                            <i class="bi bi-plus-lg"></i>
+                            {{ 'Common.AddNew' | translate }}
+                        </button>
                     </div>
+                    <div class="col-md-8 d-flex justify-content-end gap-3">
+                        <div class="col-md-4 mt-3">
+                            <button type="button" class="btn form-control export-excel" (click)="exportUserList(ExportType.Excel)">
+                                <i class="bi bi-file-earmark-excel"></i>
+                                {{ 'Common.ExportExcel' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-4 mt-3">
+                            <button type="button" class="btn form-control export-pdf" (click)="exportUserList(ExportType.PDF)">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                                {{ 'Common.ExportPdf' | translate }}
+                            </button>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Table -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <b>{{ 'User.UserList' | translate }}</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 table-responsive text-center">
+                                <table id="tblUserList" style="width: 100%" class="table table-bordered table-striped dataTable no-footer text-center" role="grid"></table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <!-- End Main Container -->
             </div>
         </div>
-
-        <!-- Export Buttons -->
-        <div class="row mt-3">
-          <div class="col-md-4">
-            <button type="button" class="btn form-control btn-primary" (click)="addOrUpdateUser(0, 'Add New')" >
-              <i class="bi bi-plus-lg"></i> {{ 'User.AddNewUser' | translate }}
-            </button>
-          </div>
-          <div class="col-md-8 d-flex justify-content-end gap-3">
-            <div class="col-md-4">
-              <button type="button" class="btn form-control export-excel" (click)="exportUserList(0)"> <i class="bi bi-file-earmark-excel"></i>{{ 'User.ExportExcel' | translate }}</button>
-            </div>
-            <div class="col-md-4">
-              <button type="button" class="btn form-control export-pdf" (click)="exportUserList(1)"> <i class="bi bi-file-earmark-pdf"></i> {{ 'User.ExportPdf' | translate }}</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Table -->
-        <div class="card mt-2">
-          <div class="card-header">
-            <b>{{ 'User.UserList' | translate }}</b>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-12 table-responsive text-center">
-                <table id="tblUserList" style="width: 100%" class="table table-bordered table-striped dataTable no-footer text-center" role="grid">
-
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Main Container -->
-      </div>
     </div>
-  </div>
 </div>
 
-
-
-
 <div class="modal fade" id="mdlForm" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modalTitle">{{ modalTitle }}</h4>
-        <span data-bs-dismiss="modal" aria-label="Close" class="close-icon">X</span> 
-      </div>
-
-      <form #form="ngForm" autocomplete="off" (ngSubmit)="fSubmitRecord(form)">
-        <div class="modal-body">
-          <div class="row">
-
-           
-            <div class="mb-3 col-md-6">
-              <label class="form-label">{{ 'User.Name' | translate }} <span class="text-danger">*</span></label>
-              <input  type="text"  name="FullName" [(ngModel)]="user.FullName" required  [placeholder]="'User.Name' | translate" [disabled]="modalMode === FormMode.View" class="form-control" />
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalTitle">{{ modalTitle }}</h4>
+                <span data-bs-dismiss="modal" aria-label="Close" class="close-icon">X</span>
             </div>
 
-            <div class="mb-3 col-md-6">
-              <label class="form-label">{{ 'User.Email' | translate }} <span class="text-danger">*</span></label>
-              <input type="email" name="Email" [(ngModel)]="user.Email" required  [placeholder]="'User.Email' | translate" [disabled]="modalMode === FormMode.View" class="form-control" />
-            </div>
+            <form #form="ngForm" autocomplete="off" autofill="false" (ngSubmit)="fSubmitRecord(form)">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">
+                                {{ 'User.Name' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                name="FullName"
+                                [(ngModel)]="user.FullName"
+                                required
+                                [placeholder]="'User.Name' | translate"
+                                [disabled]="modalMode === FormMode.View"
+                                class="form-control"
+                            />
+                        </div>
 
-            <div class="mb-3 col-md-6">
-              <label class="form-label">{{ 'User.StartTime' | translate }} <span class="text-danger">*</span></label>
-              <input type="time" name="StartTime" [(ngModel)]="user.StartTime" required  [placeholder]="'User.StartTime' | translate" [disabled]="modalMode === FormMode.View" class="form-control" />
-            </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">
+                                {{ 'User.Email' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="email" name="Email" [(ngModel)]="user.Email" required [placeholder]="'User.Email' | translate" [disabled]="modalMode === FormMode.View" class="form-control" />
+                        </div>
 
-            <div class="mb-3 col-md-6">
-              <label class="form-label">{{ 'User.EndTime' | translate }} <span class="text-danger">*</span></label>
-              <input type="time" name="EndTime" [(ngModel)]="user.EndTime" required  [placeholder]="'User.EndTime' | translate" [disabled]="modalMode === FormMode.View" class="form-control" />
-            </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">
+                                {{ 'User.StartTime' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input
+                                type="time"
+                                name="StartTime"
+                                [(ngModel)]="user.StartTime"
+                                required
+                                [placeholder]="'User.StartTime' | translate"
+                                [disabled]="modalMode === FormMode.View"
+                                class="form-control"
+                            />
+                        </div>
 
-            <div class="mb-3 col-md-6">
-              <label class="form-label">{{ 'User.Card' | translate }}<span class="text-danger">*</span></label>
-              <select id="rlt_Card_Id" name="rlt_Card_Id" [(ngModel)]="user.rlt_Card_Id" [disabled]="modalMode == FormMode.View" class="form-select" required>   
-                <option value="" selected>{{ 'Common.SelectOne' | translate }}</option>             
-                <option *ngFor="let card of cardList" [value]="card.Id">
-                  {{ card.RFIDCode }}
-                </option>
-              </select>
-            </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">
+                                {{ 'User.EndTime' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input
+                                type="time"
+                                name="EndTime"
+                                [(ngModel)]="user.EndTime"
+                                required
+                                [placeholder]="'User.EndTime' | translate"
+                                [disabled]="modalMode === FormMode.View"
+                                class="form-control"
+                            />
+                        </div>
 
-            <div class="mb-3 col-md-6">
-              <label class="form-label">{{ 'User.Title' | translate }} </label>
-              <input  type="text"  name="Title" [(ngModel)]="user.Title" [placeholder]="'User.Title' | translate" [disabled]="modalMode === FormMode.View" class="form-control" />
-            </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">
+                                {{ 'User.Card' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select id="rlt_Card_Id" name="rlt_Card_Id" [(ngModel)]="user.rlt_Card_Id" [disabled]="modalMode == FormMode.View" class="form-select" required>
+                                <option value="" selected>
+                                    {{ 'Common.SelectOne' | translate }}
+                                </option>
 
-            <div class="mb-3 col-md-6">
-              <label class="form-label">{{ 'User.Phone' | translate }} <span class="text-danger">*</span></label>
-              <input  type="text"  name="Phone" [(ngModel)]="user.Phone" required  [placeholder]="'User.Phone' | translate" [disabled]="modalMode === FormMode.View" class="form-control" />
-            </div>
+                                <option *ngFor="let card of cardList" [value]="card.Id" [disabled]="user.Id === 0 && card.rlt_User_Id !== null">
+                                    {{ card.RFIDCode }}
+                                </option>
+                            </select>
+                        </div>
 
-            <div class="mb-3 col-md-6">
-              <label class="form-label">{{ 'User.Gender' | translate }}</label>
-              <select name="Gender" [(ngModel)]="user.Gender" [disabled]="modalMode == FormMode.View" class="form-select">                
-                <option value=0>{{ 'User.Other' | translate }}</option>
-                <option value=1>{{ 'User.Male' | translate }}</option>
-                <option value=2>{{ 'User.Female' | translate }}</option>
-              </select>
-            </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">{{ 'User.Title' | translate }}</label>
+                            <input type="text" name="Title" [(ngModel)]="user.Title" [placeholder]="'User.Title' | translate" [disabled]="modalMode === FormMode.View" class="form-control" />
+                        </div>
 
-          
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">
+                                {{ 'User.Phone' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" name="Phone" [(ngModel)]="user.Phone" required [placeholder]="'User.Phone' | translate" [disabled]="modalMode === FormMode.View" class="form-control" />
+                        </div>
 
-            <div class="mb-3 col-md-6">
-              <label class="form-label">{{ 'User.HireDate' | translate }}</label>
-              <input type="date" name="HireDate" [(ngModel)]="user.HireDate" [placeholder]="'User.HireDate' | translate" [disabled]="modalMode == FormMode.View" class="form-control" />
-            </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">{{ 'User.Gender' | translate }}</label>
+                            <select name="Gender" [(ngModel)]="user.Gender" [disabled]="modalMode == FormMode.View" class="form-select">
+                                <option value="0">{{ 'User.Other' | translate }}</option>
+                                <option value="1">{{ 'User.Male' | translate }}</option>
+                                <option value="2">{{ 'User.Female' | translate }}</option>
+                            </select>
+                        </div>
 
-            <div class="mb-3 col-md-6">
-              <label class="form-label">{{ 'User.DateOfBirth' | translate }}</label>
-              <input type="date" name="DateOfBirth" [(ngModel)]="user.DateOfBirth"[placeholder]="'User.DateOfBirth' | translate" [disabled]="modalMode == FormMode.View" class="form-control" />
-            </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">{{ 'User.HireDate' | translate }}</label>
+                            <input
+                                id="hireDatePicker"
+                                type="text"
+                                name="HireDate"
+                                class="form-control"
+                                bsDatepicker
+                                [(ngModel)]="user.HireDate"
+                                [bsConfig]="datepickerConfig"
+                                [placeholder]="'User.HireDate' | translate"
+                                [disabled]="modalMode == FormMode.View"
+                            />
+                        </div>
 
-            <div class="mb-3 col-md-12">
-              <label class="form-label">{{ 'User.Address' | translate }} </label>
-              <textarea name="Address" [(ngModel)]="user.Address" [placeholder]="'User.Address' | translate" [disabled]="modalMode === FormMode.View" class="form-control"></textarea>           
-            </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">{{ 'User.DateOfBirth' | translate }}</label>
+                            <input
+                                id="dobDatePicker"
+                                type="text"
+                                name="BirthDate"
+                                class="form-control"
+                                bsDatepicker
+                                [(ngModel)]="user.BirthDate"
+                                [bsConfig]="datepickerConfig"
+                                [placeholder]="'User.DateOfBirth' | translate"
+                                [disabled]="modalMode == FormMode.View"
+                            />
+                        </div>
 
-            <input type="hidden" name="Password" [(ngModel)]="user.Password" />            
-            <input type="hidden" name="EmailConfirm" [(ngModel)]="user.EmailConfirm" />
-            <input type="hidden" name="Role" [(ngModel)]="user.Role" />
-            <input type="hidden" name="Status" [(ngModel)]="user.Status" />
+                        <div class="mb-3 col-md-12">
+                            <label class="form-label">{{ 'User.Address' | translate }}</label>
+                            <textarea name="Address" [(ngModel)]="user.Address" [placeholder]="'User.Address' | translate" [disabled]="modalMode === FormMode.View" class="form-control"></textarea>
+                        </div>
 
-          </div>
+                        <input type="hidden" name="Password" [(ngModel)]="user.Password" />
+                        <input type="hidden" name="EmailConfirm" [(ngModel)]="user.EmailConfirm" />
+                        <input type="hidden" name="Role" [(ngModel)]="user.Role" />
+                        <input type="hidden" name="Status" [(ngModel)]="user.Status" />
+                        <input type="hidden" name="Id" [(ngModel)]="user.Id" />
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        {{ 'Common.Cancel' | translate }}
+                    </button>
+                    <button type="submit" class="btn btn-success" *ngIf="modalMode !== FormMode.View" [disabled]="!form.valid">
+                        {{ 'Common.Save' | translate }}
+                    </button>
+                </div>
+            </form>
         </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ 'Common.Cancel' | translate }}</button>
-          <button type="submit" class="btn btn-success" *ngIf="modalMode !== FormMode.View" [disabled]="!form.valid">
-            {{ 'Common.Save' | translate }}
-          </button>
-        </div>
-      </form>
     </div>
-  </div>
 </div>

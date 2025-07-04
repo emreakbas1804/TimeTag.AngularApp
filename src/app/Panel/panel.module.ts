@@ -12,6 +12,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProfileComponent } from './profile/profile.component';
 import { UserComponent } from './user/user.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   providers :[
@@ -24,6 +26,8 @@ import { UserComponent } from './user/user.component';
     UserComponent
   ],
   imports: [
+    BrowserAnimationsModule,         // mutlaka gerekli!
+    BsDatepickerModule.forRoot(),
     CommonModule,
     SharedModule,
     NgxMaterialTimepickerModule.setOpts("format" , "24h"),    
