@@ -1,0 +1,241 @@
+<div class="main-container d-flex panel">
+    <app-panel-sidebar></app-panel-sidebar>
+    <div class="content">
+        <app-panel-navbar></app-panel-navbar>
+
+        <div class="dashboard-content">
+            <div class="main-container">
+                <!-- Filter Card -->
+                <div class="card mt-3">
+                    <div class="card-header bg-filter text-white collapsed" data-bs-toggle="collapse" href="#card-collapse4" role="button" aria-expanded="false" aria-controls="card-collapse4">
+                        <div class="card-widgets">
+                            <a data-bs-toggle="collapse" href="#card-collapse4" role="button" aria-expanded="false" aria-controls="card-collapse4" class="collapsed"></a>
+                        </div>
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-funnel"></i>
+                            {{ 'Common.Filters' | translate }}
+                        </h5>
+                    </div>
+                    <div id="card-collapse4" class="collapse">
+                        <div class="card-body">
+                            <div class="row filters-section">
+                                <div class="form-group col-md-12 mb-2">
+                                    <label class="form-label">
+                                        {{ 'Common.Search' | translate }}
+                                    </label>
+                                    <input class="form-control filter" (keyup)="filterChange()" id="txtKeyword" name="txtKeyword" [placeholder]="'Common.Search' | translate" type="text" />
+                                </div>
+
+                                <div class="form-group col-md-6 mb-2">
+                                    <label class="form-label">
+                                        {{ 'TimeLog.User' | translate }}
+                                    </label>
+                                    <select class="form-select filter" id="TimeLogUserFilter" name="TimeLogUserFilter" [disabled]="!canAdd" (change)="filterChange()">
+                                        <option value="" selected>
+                                            {{ 'Common.SelectOne' | translate }}
+                                        </option>
+
+                                        <option *ngFor="let user of userList">
+                                            {{ user.FullName }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6 mb-2">
+                                    <label class="form-label">
+                                        {{ 'TimeLog.Type' | translate }}
+                                    </label>
+                                    <select class="form-select filter" id="TimeLogTypeFilter" name="TimeLogTypeFilter" (change)="filterChange()">
+                                        <option value="" selected>
+                                            {{ 'Common.SelectOne' | translate }}
+                                        </option>
+                                        <option value="0">{{ 'TimeLog.Login' | translate }}</option>
+                                        <option value="1">{{ 'TimeLog.Logout' | translate }}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6 mb-2">
+                                    <label class="form-label">{{ 'TimeLog.StartDate' | translate }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="TimeLogStartDateFilter"
+                                        name="TimeLogStartDateFilter"
+                                        [placeholder]="'TimeLog.StartDate' | translate"
+                                        bsDatepicker
+                                        [bsConfig]="datepickerConfig"
+                                        (change)="filterChange()"
+                                    />
+                                </div>
+                                <div class="form-group col-md-6 mb-2">
+                                    <label class="form-label">{{ 'TimeLog.EndDate' | translate }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="TimeLogEndDateFilter"
+                                        name="TimeLogEndDateFilter"
+                                        [placeholder]="'TimeLog.EndDate' | translate"
+                                        bsDatepicker
+                                        [bsConfig]="datepickerConfig"
+                                        (change)="filterChange()"
+                                    />
+                                </div>
+                                <div class="form-group col-md-12 mb-2">
+                                    <div class="col-md-4 float-end">
+                                        <button type="button" class="btn form-control btn-success" (click)="resetFilters()">
+                                            <i class="bi bi-arrow-clockwise"></i>
+                                            {{ 'Common.Reset' | translate }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Buttons -->
+                <div class="row mt-2">
+                    <div class="col-md-4 mt-3">
+                        <button *ngIf="canAdd" type="button" class="btn form-control btn-primary" (click)="addOrUpdateTimeLog(0, 'Add New')">
+                            <i class="bi bi-plus-lg"></i>
+                            {{ 'Common.AddNew' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-8 d-flex justify-content-end gap-3">
+                        <div class="col-md-4 mt-3">
+                            <button type="button" class="btn form-control export-excel" (click)="exportTimeLogList(ExportType.Excel)">
+                                <i class="bi bi-file-earmark-excel"></i>
+                                {{ 'Common.ExportExcel' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-4 mt-3">
+                            <button type="button" class="btn form-control export-pdf" (click)="exportTimeLogList(ExportType.PDF)">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                                {{ 'Common.ExportPdf' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <b>{{ 'TimeLog.TimeLogList' | translate }}</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 table-responsive text-center">
+                                <table id="tblTimeLogList" style="width: 100%" class="table table-bordered table-striped dataTable no-footer text-center" role="grid"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Main Container -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdlForm" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalTitle">{{ modalTitle }}</h4>
+                <span data-bs-dismiss="modal" aria-label="Close" class="close-icon">X</span>
+            </div>
+
+            <form #form="ngForm" autocomplete="off" autofill="false" (ngSubmit)="fSubmitRecord(form)">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">
+                                {{ 'TimeLog.User' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select filter" name="rlt_User_Id" id="rlt_User_Id" [(ngModel)]="timeLog.rlt_User_Id" [disabled]="timeLog.Id > 0" required>
+                                <option value="" selected>
+                                    {{ 'Common.SelectOne' | translate }}
+                                </option>
+
+                                <option *ngFor="let user of userList" [value]="user.Id">
+                                    {{ user.FullName }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">
+                                {{ 'TimeLog.Type' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select filter" name="Type" [(ngModel)]="timeLog.Type" name="Type" required>
+                                <option value="" selected>
+                                    {{ 'Common.SelectOne' | translate }}
+                                </option>
+                                <option value="0">{{ 'TimeLog.Login' | translate }}</option>
+                                <option value="1">{{ 'TimeLog.Logout' | translate }}</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">
+                                {{ 'TimeLog.StartTime' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input
+                                type="time"
+                                name="StartTime"
+                                [(ngModel)]="timeLog.StartTime"
+                                required
+                                [placeholder]="'TimeLog.StartTime' | translate"
+                                [disabled]="modalMode === FormMode.View"
+                                class="form-control"
+                            />
+                        </div>
+
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">
+                                {{ 'TimeLog.EndTime' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input
+                                type="time"
+                                name="EndTime"
+                                [(ngModel)]="timeLog.EndTime"
+                                required
+                                [placeholder]="'TimeLog.EndTime' | translate"
+                                [disabled]="modalMode === FormMode.View"
+                                class="form-control"
+                            />
+                        </div>
+                        <div class="mb-3 col-md-12">
+                            <label class="form-label">
+                                {{ 'TimeLog.ProcessTime' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input
+                                id="ProcessTime"
+                                type="datetime-local"
+                                name="ProcessTime"
+                                class="form-control"
+                                [(ngModel)]="timeLog.ProcessTime"
+                                [placeholder]="'TimeLog.ProcessTime' | translate"
+                                [disabled]="modalMode == FormMode.View"
+                                required
+                            />
+                        </div>
+
+                        <input type="hidden" name="Id" [(ngModel)]="timeLog.Id" />
+                        <input type="hidden" name="IpAddress" [(ngModel)]="timeLog.IpAddress" />
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        {{ 'Common.Cancel' | translate }}
+                    </button>
+                    <button type="submit" class="btn btn-success" *ngIf="modalMode !== FormMode.View" [disabled]="!form.valid">
+                        {{ 'Common.Save' | translate }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -11,7 +11,10 @@
         "Action" : "Action",
         "AddNew": "Add New",
         "ExportExcel": "Export Excel",
-        "ExportPdf": "Export Pdf"
+        "ExportPdf": "Export Pdf",
+        "Filters" : "Filters",
+        "Search" : "Search",
+        "Reset" : "Reset"
     },
     "Navbar" : {
         "Features" : "FEATURES",
@@ -23,10 +26,7 @@
         "profile" : "Profile",
         "logOut" : "Log out"        
     },
-    "User": {
-        "Filters": "Filters",
-        "Reset": "Reset",
-        "Search": "Search",       
+    "User": {        
         "UserList": "User List",
         "Name" : "Name",
         "Email" : "Email",
@@ -42,6 +42,21 @@
         "EndTime" : "End Time",
         "Card" : "Card",
         "Title" : "Title"        
+    },
+    "TimeLog" : {
+      "TimeLogList" : "Time Log List",
+      "Name" : "Name",
+      "Email" : "Email",
+      "Phone" : "Phone",        
+      "StartTime" : "Start Time",
+      "EndTime" : "End Time",
+      "ProcessTime" : "Process Time",
+      "Type": "Type",
+      "User" : "User",
+      "Login" : "Login",
+      "Logout" : "Logout",
+      "StartDate" : "Start Date",
+      "EndDate" : "End Date"      
     },
     "Panel-sidebar" : {
         "TimeLog" : "Time Log",

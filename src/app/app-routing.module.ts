@@ -7,20 +7,20 @@ import { PanelGuard } from './Panel/panel.guard';
 import { ProfileComponent } from './Panel/profile/profile.component';
 import { ForgotPasswordComponent } from './Home/forgot-password/forgot-password.component';
 import { UserComponent } from './Panel/user/user.component';
-
+import { TimeLogComponent } from './Panel/time-log/time-log.component';
 
 const routes: Routes = [
-
-  { path: "", component: IndexComponent },
-  { path: "login", component: LoginComponent },
-  { path: "forgot-password", component: ForgotPasswordComponent },
-  { path: "panel", component: PanelIndexComponent, canActivate: [PanelGuard] },
-  { path: "panel/user", component: UserComponent, canActivate: [PanelGuard] },
-  { path: "panel/profile", component: ProfileComponent, canActivate: [PanelGuard] }
+    { path: '', component: IndexComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'forgot-password', component: ForgotPasswordComponent },
+    { path: 'panel', component: PanelIndexComponent, canActivate: [PanelGuard] },
+    { path: 'panel/user', component: UserComponent, canActivate: [PanelGuard] },
+    { path: 'panel/profile', component: ProfileComponent, canActivate: [PanelGuard] },
+    { path: 'panel/time-log', component: TimeLogComponent, canActivate: [PanelGuard] },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

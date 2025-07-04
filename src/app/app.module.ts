@@ -10,27 +10,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RequestHeaderInterceptor } from './Services/httpService/request-header.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-
-
+import { AutocompleteOffDirective } from './Services/customService/AutocompleteOffDirective';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    HomeModule,
-    SharedModule,
-    PanelModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    TranslateModule
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: RequestHeaderInterceptor, multi: true },
-    
-  ],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent, AutocompleteOffDirective],
+    imports: [BrowserModule, HttpClientModule, HomeModule, SharedModule, PanelModule, AppRoutingModule, BrowserAnimationsModule, TranslateModule],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: RequestHeaderInterceptor, multi: true }],
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

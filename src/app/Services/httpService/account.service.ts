@@ -16,6 +16,11 @@ export class AccountService {
     private readonly apiUrl = environment.apiUrl;
     user = new BehaviorSubject<UserModel | null>(null);
 
+    activeUserRole() {
+        var role = localStorage.getItem('role') as UserRole | null;
+        return role;
+    }
+
     canAdd() {
         var role = localStorage.getItem('role') as UserRole | null;
         if (role == UserRole.CompanyOwner || role == UserRole.SystemManager) {
