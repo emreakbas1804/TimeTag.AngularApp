@@ -58,6 +58,17 @@
       "StartDate" : "Start Date",
       "EndDate" : "End Date"      
     },
+    "Bank" : {
+        "User" : "User",
+        "Bank" : "Bank",
+        "BankList" : "Bank List",
+        "Name" : "Name",
+        "Email" : "Email",
+        "Phone" : "Phone",
+        "AccountTitle" : "Account Title",
+        "OwnerName" : "Owner Name",
+        "Iban" : "IBAN"
+    },
     "Panel-sidebar" : {
         "TimeLog" : "Time Log",
         "User" : "User",
@@ -68,7 +79,8 @@
         "createEmployee" : "Create Employee",
         "myEmployees" : "My employees",
         "profile" : "Profile",
-        "homePage"  :"Home Page"
+        "homePage"  :"Home Page",
+        "BankInformation" : "Bank Information"
     },
     "Login" : {
         "welcomeToTimeTag" : "Welcome to time tag",

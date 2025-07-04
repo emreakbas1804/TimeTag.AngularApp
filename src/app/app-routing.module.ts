@@ -8,6 +8,7 @@ import { ProfileComponent } from './Panel/profile/profile.component';
 import { ForgotPasswordComponent } from './Home/forgot-password/forgot-password.component';
 import { UserComponent } from './Panel/user/user.component';
 import { TimeLogComponent } from './Panel/time-log/time-log.component';
+import { BankComponent } from './Panel/bank/bank.component';
 
 const routes: Routes = [
     { path: '', component: IndexComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: 'panel/user', component: UserComponent, canActivate: [PanelGuard] },
     { path: 'panel/profile', component: ProfileComponent, canActivate: [PanelGuard] },
     { path: 'panel/time-log', component: TimeLogComponent, canActivate: [PanelGuard] },
+    { path: 'panel/bank', component: BankComponent, canActivate: [PanelGuard] },
 ];
 
 @NgModule({

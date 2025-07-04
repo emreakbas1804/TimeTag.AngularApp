@@ -19,7 +19,7 @@
                     <div id="card-collapse4" class="collapse">
                         <div class="card-body">
                             <div class="row filters-section">
-                                <div class="form-group col-md-12 mb-2">
+                                <div class="form-group col-md-6 mb-2">
                                     <label class="form-label">
                                         {{ 'Common.Search' | translate }}
                                     </label>
@@ -28,9 +28,9 @@
 
                                 <div class="form-group col-md-6 mb-2">
                                     <label class="form-label">
-                                        {{ 'TimeLog.User' | translate }}
+                                        {{ 'Bank.User' | translate }}
                                     </label>
-                                    <select class="form-select filter" id="TimeLogUserFilter" name="TimeLogUserFilter" [disabled]="!canAdd" (change)="filterChange()">
+                                    <select class="form-select filter" id="BankUserFilter" name="BankUserFilter" [disabled]="activeUserRole == UserRole.Employee" (change)="filterChange()">
                                         <option value="" selected>
                                             {{ 'Common.SelectOne' | translate }}
                                         </option>
@@ -40,44 +40,7 @@
                                         </option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-6 mb-2">
-                                    <label class="form-label">
-                                        {{ 'TimeLog.Type' | translate }}
-                                    </label>
-                                    <select class="form-select filter" id="TimeLogTypeFilter" name="TimeLogTypeFilter" (change)="filterChange()">
-                                        <option value="" selected>
-                                            {{ 'Common.SelectOne' | translate }}
-                                        </option>
-                                        <option value="0">{{ 'TimeLog.Login' | translate }}</option>
-                                        <option value="1">{{ 'TimeLog.Logout' | translate }}</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6 mb-2">
-                                    <label class="form-label">{{ 'TimeLog.StartDate' | translate }}</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="TimeLogStartDateFilter"
-                                        name="TimeLogStartDateFilter"
-                                        [placeholder]="'TimeLog.StartDate' | translate"
-                                        bsDatepicker
-                                        [bsConfig]="datepickerConfig"
-                                        (change)="filterChange()"
-                                    />
-                                </div>
-                                <div class="form-group col-md-6 mb-2">
-                                    <label class="form-label">{{ 'TimeLog.EndDate' | translate }}</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="TimeLogEndDateFilter"
-                                        name="TimeLogEndDateFilter"
-                                        [placeholder]="'TimeLog.EndDate' | translate"
-                                        bsDatepicker
-                                        [bsConfig]="datepickerConfig"
-                                        (change)="filterChange()"
-                                    />
-                                </div>
+
                                 <div class="form-group col-md-12 mb-2">
                                     <div class="col-md-4 float-end">
                                         <button type="button" class="btn form-control btn-success" (click)="resetFilters()">
@@ -94,22 +57,23 @@
                 <!-- Export Buttons -->
                 <div class="row mt-2">
                     <div class="col-md-4 mt-3">
-                        <button *ngIf="canAdd" type="button" class="btn form-control btn-primary" (click)="addOrUpdateTimeLog(0, 'Add New')">
+                        <button type="button" class="btn form-control btn-primary" (click)="addOrUpdateBank(0, 'Add New')">
                             <i class="bi bi-plus-lg"></i>
                             {{ 'Common.AddNew' | translate }}
                         </button>
                     </div>
+
                     <div class="col-md-8 d-flex justify-content-end gap-3">
                         <div class="spinner-border" *ngIf="isLoading"></div>
 
                         <div class="col-md-4 mt-3" *ngIf="!isLoading">
-                            <button type="button" class="btn form-control export-excel" (click)="exportTimeLogList(ExportType.Excel)">
+                            <button type="button" class="btn form-control export-excel" (click)="exportBankList(ExportType.Excel)">
                                 <i class="bi bi-file-earmark-excel"></i>
                                 {{ 'Common.ExportExcel' | translate }}
                             </button>
                         </div>
                         <div class="col-md-4 mt-3" *ngIf="!isLoading">
-                            <button type="button" class="btn form-control export-pdf" (click)="exportTimeLogList(ExportType.PDF)">
+                            <button type="button" class="btn form-control export-pdf" (click)="exportBankList(ExportType.PDF)">
                                 <i class="bi bi-file-earmark-pdf"></i>
                                 {{ 'Common.ExportPdf' | translate }}
                             </button>
@@ -120,12 +84,12 @@
                 <!-- Table -->
                 <div class="card mt-4">
                     <div class="card-header">
-                        <b>{{ 'TimeLog.TimeLogList' | translate }}</b>
+                        <b>{{ 'Bank.BankList' | translate }}</b>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 table-responsive text-center">
-                                <table id="tblTimeLogList" style="width: 100%" class="table table-bordered table-striped dataTable no-footer text-center" role="grid"></table>
+                                <table id="tblBankList" style="width: 100%" class="table table-bordered table-striped dataTable no-footer text-center" role="grid"></table>
                             </div>
                         </div>
                     </div>
@@ -149,10 +113,17 @@
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <label class="form-label">
-                                {{ 'TimeLog.User' | translate }}
+                                {{ 'Bank.User' | translate }}
                                 <span class="text-danger">*</span>
                             </label>
-                            <select class="form-select filter" name="rlt_User_Id" id="rlt_User_Id" [(ngModel)]="timeLog.rlt_User_Id" [disabled]="timeLog.Id > 0" required>
+                            <select
+                                class="form-select filter"
+                                name="rlt_User_Id"
+                                id="rlt_User_Id"
+                                [(ngModel)]="bank.rlt_User_Id"
+                                [disabled]="bank.Id > 0 || activeUserRole == UserRole.Employee"
+                                required
+                            >
                                 <option value="" selected>
                                     {{ 'Common.SelectOne' | translate }}
                                 </option>
@@ -162,70 +133,49 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="mb-3 col-md-6">
-                            <label class="form-label">
-                                {{ 'TimeLog.Type' | translate }}
-                                <span class="text-danger">*</span>
-                            </label>
-                            <select class="form-select filter" name="Type" [(ngModel)]="timeLog.Type" name="Type" required>
-                                <option value="" selected>
-                                    {{ 'Common.SelectOne' | translate }}
-                                </option>
-                                <option value="0">{{ 'TimeLog.Login' | translate }}</option>
-                                <option value="1">{{ 'TimeLog.Logout' | translate }}</option>
-                            </select>
-                        </div>
 
                         <div class="mb-3 col-md-6">
                             <label class="form-label">
-                                {{ 'TimeLog.StartTime' | translate }}
+                                {{ 'Bank.AccountTitle' | translate }}
                                 <span class="text-danger">*</span>
                             </label>
                             <input
-                                type="time"
-                                name="StartTime"
-                                [(ngModel)]="timeLog.StartTime"
-                                required
-                                [placeholder]="'TimeLog.StartTime' | translate"
+                                type="text"
+                                name="Title"
+                                [(ngModel)]="bank.Title"
+                                [placeholder]="'Bank.AccountTitle' | translate"
                                 [disabled]="modalMode === FormMode.View"
                                 class="form-control"
+                                required
                             />
                         </div>
 
                         <div class="mb-3 col-md-6">
                             <label class="form-label">
-                                {{ 'TimeLog.EndTime' | translate }}
+                                {{ 'Bank.OwnerName' | translate }}
                                 <span class="text-danger">*</span>
                             </label>
                             <input
-                                type="time"
-                                name="EndTime"
-                                [(ngModel)]="timeLog.EndTime"
-                                required
-                                [placeholder]="'TimeLog.EndTime' | translate"
+                                type="text"
+                                name="OwnerName"
+                                [(ngModel)]="bank.OwnerName"
+                                [placeholder]="'Bank.OwnerName' | translate"
                                 [disabled]="modalMode === FormMode.View"
                                 class="form-control"
-                            />
-                        </div>
-                        <div class="mb-3 col-md-12">
-                            <label class="form-label">
-                                {{ 'TimeLog.ProcessTime' | translate }}
-                                <span class="text-danger">*</span>
-                            </label>
-                            <input
-                                id="ProcessTime"
-                                type="datetime-local"
-                                name="ProcessTime"
-                                class="form-control"
-                                [(ngModel)]="timeLog.ProcessTime"
-                                [placeholder]="'TimeLog.ProcessTime' | translate"
-                                [disabled]="modalMode == FormMode.View"
                                 required
                             />
                         </div>
 
-                        <input type="hidden" name="Id" [(ngModel)]="timeLog.Id" />
-                        <input type="hidden" name="IpAddress" [(ngModel)]="timeLog.IpAddress" />
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">
+                                {{ 'Bank.Iban' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" name="Iban" [(ngModel)]="bank.Iban" [placeholder]="'Bank.Iban' | translate" [disabled]="modalMode === FormMode.View" class="form-control" required />
+                        </div>
+
+                        <input type="hidden" name="Id" [(ngModel)]="bank.Id" />
+                        <input type="hidden" name="IpAddress" [(ngModel)]="bank.IpAddress" />
                     </div>
                 </div>
 

@@ -11,28 +11,28 @@ import 'jquery-ui-dist/jquery-ui';
 import { DatePipe } from '@angular/common';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { AccountService } from 'src/app/Services/httpService/account.service';
-
-declare var $: any;
-
 @Component({
-    selector: 'app-user',
-    templateUrl: './user.component.html',
-    styleUrls: ['./user.component.css'],
+    selector: 'app-bank',
+    templateUrl: './bank.component.html',
+    styleUrls: ['./bank.component.css'],
 })
-export class UserComponent implements OnInit, AfterViewInit {
+export class BankComponent implements OnInit {
     dataTable: any;
     modalTitle: string = '';
     modalMode: FormMode | null = null;
     FormMode = FormMode;
     ExportType = ExportType;
-    user: any = {};
-    cardList: any;
+    bank: any = {};
+    userList: any;
     modalInstance: any;
     datepickerConfig: Partial<BsDatepickerConfig> | undefined;
     canAdd: boolean = false;
     canUpdate: boolean = false;
     canView: boolean = false;
-    isLoading = false;
+    UserRole = UserRole;
+    activeUserRole: UserRole | null = null;
+    isLoading: boolean = false;
+
     constructor(private http: HttpClient, private snackBarService: SnackBarService, private translateService: TranslateService, private datePipe: DatePipe, private accountService: AccountService) {
         this.datepickerConfig = {
             dateInputFormat: 'DD/MM/YYYY',
@@ -43,23 +43,24 @@ export class UserComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.fPopulateCardList();
+        this.fPopulateUserList();
         this.canAdd = this.accountService.canAdd();
         this.canUpdate = this.accountService.canUpdate();
         this.canView = this.accountService.canView();
+        this.activeUserRole = this.accountService.activeUserRole();
     }
 
     ngAfterViewInit() {
-        this.translateService.get(['User.Name', 'User.Title', 'User.Email', 'User.Phone', 'User.StartTime', 'User.EndTime', 'User.HireDate', 'Common.Action']).subscribe(translations => {
+        this.translateService.get(['Bank.Name', 'Bank.Email', 'Bank.Phone', 'Bank.AccountTitle', 'Bank.OwnerName', 'Bank.Iban', 'Common.Action']).subscribe(translations => {
             this.initDataTable(translations);
         });
     }
 
-    fPopulateCardList(): Promise<void> {
+    fPopulateUserList(): Promise<void> {
         return new Promise((resolve, reject) => {
-            this.http.get<any>(`${environment.apiUrl}/Common/PopulateCardList`).subscribe({
+            this.http.get<any>(`${environment.apiUrl}/Common/PopulateUserList`).subscribe({
                 next: response => {
-                    this.cardList = response.ResultObject;
+                    this.userList = response.ResultObject;
                     resolve();
                 },
                 error: err => {
@@ -69,7 +70,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         });
     }
 
-    viewUser(id: number, action: string): void {
+    viewBank(id: number, action: string): void {
         this.modalTitle = action;
         this.modalMode = FormMode.View;
         this.get(id).then(() => {
@@ -77,7 +78,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         });
     }
 
-    addOrUpdateUser(id: number, action: string): void {
+    addOrUpdateBank(id: number, action: string): void {
         this.modalTitle = action;
         this.modalMode = FormMode.AddOrUpdate;
         this.get(id).then(() => {
@@ -87,22 +88,13 @@ export class UserComponent implements OnInit, AfterViewInit {
 
     get(recordId: number): Promise<void> {
         return new Promise((resolve, reject) => {
-            this.http.get<any>(`${environment.apiUrl}/User/Get?recordId=${recordId}`).subscribe({
+            this.http.get<any>(`${environment.apiUrl}/Bank/Get?recordId=${recordId}`).subscribe({
                 next: response => {
-                    this.user = response.ResultObject;
-
-                    Object.keys(this.user).forEach(key => {
-                        const val = this.user[key];
-                        if (val && typeof val === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(val)) {
-                            this.user[key] = new Date(val);
-                        }
-                    });
+                    var resultData = response.ResultObject;
+                    this.bank = resultData;
 
                     if (recordId === 0) {
-                        $('#rlt_Card_Id').prop('disabled', false);
-                        this.user.rlt_Card_Id = '';
                     } else {
-                        $('#rlt_Card_Id').prop('disabled', true);
                     }
 
                     resolve();
@@ -131,17 +123,17 @@ export class UserComponent implements OnInit, AfterViewInit {
             if (result.isConfirmed) {
                 const formData = new FormData();
 
-                for (const key in this.user) {
-                    if (this.user.hasOwnProperty(key) && this.user[key] !== null && this.user[key] !== undefined) {
-                        if (this.user[key] instanceof Date) {
-                            formData.append(key, this.user[key].toISOString());
+                for (const key in this.bank) {
+                    if (this.bank.hasOwnProperty(key) && this.bank[key] !== null && this.bank[key] !== undefined) {
+                        if (this.bank[key] instanceof Date) {
+                            formData.append(key, this.bank[key].toISOString());
                         } else {
-                            formData.append(key, this.user[key]);
+                            formData.append(key, this.bank[key]);
                         }
                     }
                 }
 
-                this.http.post(`${environment.apiUrl}/User/post`, formData).subscribe({
+                this.http.post(`${environment.apiUrl}/Bank/post`, formData).subscribe({
                     next: res => {
                         this.snackBarService.success(this.translateService.instant('Common.Success'));
                         this.closeModal();
@@ -159,11 +151,12 @@ export class UserComponent implements OnInit, AfterViewInit {
     getDataTableParams(): any {
         return {
             p_sKeyword: ($('#txtKeyword').val() as string) || '',
+            userId: $('#BankUserFilter').val(),
         };
     }
 
     initDataTable(translations: any): void {
-        this.dataTable = $('#tblUserList').DataTable({
+        this.dataTable = $('#tblBankList').DataTable({
             processing: true,
             serverSide: true,
             searching: false,
@@ -190,7 +183,7 @@ export class UserComponent implements OnInit, AfterViewInit {
                     }
                 }
 
-                this.http.post(`${environment.apiUrl}/User/List`, formData).subscribe({
+                this.http.post(`${environment.apiUrl}/Bank/List`, formData).subscribe({
                     next: (resp: any) => {
                         callback({
                             draw: d.draw,
@@ -205,25 +198,12 @@ export class UserComponent implements OnInit, AfterViewInit {
                 });
             },
             columns: [
-                { data: 'FullName', title: translations['User.Name'] },
-                { data: 'Title', title: translations['User.Title'] },
-                { data: 'Email', title: translations['User.Email'] },
-                { data: 'Phone', title: translations['User.Phone'] },
-                {
-                    data: 'StartTime',
-                    title: translations['User.StartTime'],
-                    render: (data: any, type: any, row: any) => row.StartTimeText,
-                },
-                {
-                    data: 'EndTime',
-                    title: translations['User.EndTime'],
-                    render: (data: any, type: any, row: any) => row.EndTimeText,
-                },
-                {
-                    data: 'HireDate',
-                    title: translations['User.HireDate'],
-                    render: (data: any, type: any, row: any) => row.HireDateText,
-                },
+                { data: 'FullName', title: translations['Bank.Name'] },
+                { data: 'Email', title: translations['Bank.Email'] },
+                { data: 'Phone', title: translations['Bank.Phone'] },
+                { data: 'Title', title: translations['Bank.AccountTitle'] },
+                { data: 'OwnerName', title: translations['Bank.OwnerName'] },
+                { data: 'Iban', title: translations['Bank.Iban'] },
                 {
                     title: translations['Common.Action'],
                     orderable: false,
@@ -232,11 +212,11 @@ export class UserComponent implements OnInit, AfterViewInit {
                         let btns = `<button class="btn btn-sm btn-success view" data-id="${row.Id}" data-mode="View">
                         <i class="bi bi-eye"></i> View
                       </button>`;
-                        if (row.Status !== 0) {
+                        if (this.activeUserRole == UserRole.CompanyOwner || UserRole.SystemManager)
                             btns += `<button class="btn btn-sm btn-warning edit" data-id="${row.Id}" data-mode="Update">
                        <i class="bi bi-pencil"></i> Edit
                      </button>`;
-                        }
+
                         return btns;
                     },
                 },
@@ -245,12 +225,12 @@ export class UserComponent implements OnInit, AfterViewInit {
                 $(row)
                     .find('.view')
                     .on('click', () => {
-                        this.viewUser(data.Id, 'View User');
+                        this.viewBank(data.Id, 'View Bank');
                     });
                 $(row)
                     .find('.edit')
                     .on('click', () => {
-                        this.addOrUpdateUser(data.Id, 'Update User');
+                        this.addOrUpdateBank(data.Id, 'Update Bank');
                     });
             },
         });
@@ -260,12 +240,12 @@ export class UserComponent implements OnInit, AfterViewInit {
         this.reloadTable();
     }
 
-    resetFilters(tableId: string): void {
+    resetFilters(): void {
         $('.filter').val('');
         this.reloadTable();
     }
 
-    exportUserList(format: ExportType): void {
+    exportBankList(format: ExportType): void {
         this.isLoading = true;
         const params = this.getDataTableParams();
 
@@ -280,7 +260,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
         formData.append('targetFormat', format.toString());
 
-        const url = `${environment.apiUrl}/User/ExportData`;
+        const url = `${environment.apiUrl}/Bank/ExportData`;
 
         this.http.post(url, formData, { responseType: 'blob' }).subscribe(blob => {
             const objectUrl = URL.createObjectURL(blob);

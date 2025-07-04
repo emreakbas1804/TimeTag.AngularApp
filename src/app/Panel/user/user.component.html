@@ -45,13 +45,14 @@
                         </button>
                     </div>
                     <div class="col-md-8 d-flex justify-content-end gap-3">
-                        <div class="col-md-4 mt-3">
+                        <div class="spinner-border" *ngIf="isLoading"></div>
+                        <div class="col-md-4 mt-3" *ngIf="!isLoading">
                             <button type="button" class="btn form-control export-excel" (click)="exportUserList(ExportType.Excel)">
                                 <i class="bi bi-file-earmark-excel"></i>
                                 {{ 'Common.ExportExcel' | translate }}
                             </button>
                         </div>
-                        <div class="col-md-4 mt-3">
+                        <div class="col-md-4 mt-3" *ngIf="!isLoading">
                             <button type="button" class="btn form-control export-pdf" (click)="exportUserList(ExportType.PDF)">
                                 <i class="bi bi-file-earmark-pdf"></i>
                                 {{ 'Common.ExportPdf' | translate }}

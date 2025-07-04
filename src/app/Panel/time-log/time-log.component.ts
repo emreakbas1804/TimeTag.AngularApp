@@ -32,6 +32,7 @@ export class TimeLogComponent implements OnInit {
     canUpdate: boolean = false;
     canView: boolean = false;
     activeUserRole: UserRole | null = null;
+    isLoading = false;
 
     constructor(private http: HttpClient, private snackBarService: SnackBarService, private translateService: TranslateService, private datePipe: DatePipe, private accountService: AccountService) {
         this.datepickerConfig = {
@@ -291,6 +292,7 @@ export class TimeLogComponent implements OnInit {
     }
 
     exportTimeLogList(format: ExportType): void {
+        this.isLoading = true;
         const params = this.getDataTableParams();
 
         const formData = new FormData();
@@ -309,6 +311,7 @@ export class TimeLogComponent implements OnInit {
         this.http.post(url, formData, { responseType: 'blob' }).subscribe(blob => {
             const objectUrl = URL.createObjectURL(blob);
             window.open(objectUrl, '_blank');
+            this.isLoading = false;
         });
     }
 
