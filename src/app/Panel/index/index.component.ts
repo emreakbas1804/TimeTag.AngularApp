@@ -1,51 +1,36 @@
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { firstValueFrom } from 'rxjs';
-import { Result } from 'src/app/Models/EntityResultModel';
+import { EntityResultModel, Result } from 'src/app/Models/EntityResultModel';
 import { CompanyService } from 'src/app/Services/httpService/company.service';
-import { EmployeeService } from 'src/app/Services/httpService/employee.service';
+import { environment } from 'src/environments/environment';
+
 declare var $: any;
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-index',
+    templateUrl: './index.component.html',
+    styleUrls: ['./index.component.css'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class IndexComponent implements OnInit {
-  
-  constructor(private companyService: CompanyService, private employeeService : EmployeeService) { }
+    constructor(private http: HttpClient) {}
 
+    dashboardResults: any;
 
-  employeeCount = 0;
-  departmentCount = 0;
-  companyId = 0;
-  
-  async ngOnInit(): Promise<void> {
-    
-    var response = await this.companyService.getCompanyIdActiveUser().toPromise();
-    debugger
-    this.companyId = response?.ResultObject;
-
-    await this.companyService.setCurrentCompany(this.companyId);
-    await this.getDepartmentsCount();
-    await this.getEmployeesCount();
-  }
-  
-
-
-  async getDepartmentsCount() {
-    const response = await firstValueFrom(this.companyService.getDepartmentsCount(this.companyId));
-    if (response.Result == Result.Success) {
-      this.departmentCount = parseInt(response.ResultObject);
+    ngOnInit(): void {
+        this.GetDashboardResults();
     }
-  }
 
-  async getEmployeesCount() {
-    const response = await firstValueFrom(this.employeeService.getEmployeesCount(this.companyId));
-    if (response.Result == Result.Success) {
-      this.employeeCount = response.ResultObject;
+    GetDashboardResults() {
+        this.http.get<EntityResultModel>(`${environment.apiUrl}/Common/GetDashboardResults`).subscribe({
+            next: response => {
+                this.dashboardResults = response.ResultObject;
+            },
+            error: err => {
+                console.error(err);
+            },
+        });
     }
-  }
-
 }

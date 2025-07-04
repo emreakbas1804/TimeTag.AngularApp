@@ -2,37 +2,83 @@
     <app-panel-sidebar></app-panel-sidebar>
 
     <div class="content">
-
         <app-panel-navbar></app-panel-navbar>
 
         <div class="dashboard-content">
-            <div class="main-container">              
-                <div class="row mt-5">
-                    <div class="col-md-5">
-                        <div class="card p-4 mt-2 card-chart">
-                            <h1 class="h3">
-                                {{"Panel-index.myDepartments" | translate}}
-                                <i class="bi bi-collection"></i>
-                            </h1>
-                            <p class="badge-count">{{departmentCount}}</p>
-                            <img src="../assets/images/card-bg-blue.png" alt="maskot">
-                        </div>
-                    </div>
+            <div class="main-container">
+                <div class="row mt-4">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-widgets">
+                                    <a data-bs-toggle="collapse" href="#faculty-insights" role="button" aria-expanded="false" aria-controls="faculty-insights"><i class="ri-subtract-line"></i></a>
+                                </div>
+                                <h5 class="header-title mb-0">{{ 'PanelIndex.Dashboard' | translate }}</h5>
 
-                    <div class="col-md-5">
-                        <div class="card p-4 mt-2 card-chart">
-                            <h1 class="h3">
-                                {{"Panel-index.myEmployees" | translate}}
-                                <i class="bi bi-person"></i>
-                            </h1>
-                            <p class="badge-count">{{employeeCount}}</p>
-                            <img src="../assets/images/card-bg-purple.png" alt="maskot">
+                                <div id="faculty-insights" class="collapse pt-3 show">
+                                    <div class="row text-center">
+                                        <div class="col-md-3">
+                                            <div class="alert alert-primary position-relative" role="alert">
+                                                <h1>
+                                                    <span class="badge dashboard-badgde text-bg-primary">{{ dashboardResults.UserCount }}</span>
+                                                </h1>
+                                                <b>
+                                                    <i class="position-absolute top-0 start-100 translate-middle ri-hourglass-2-fill" style="font-size: 35px"></i>
+                                                    {{ 'PanelIndex.CompanyUserCount' | translate }}
+                                                </b>
+                                            </div>
+                                        </div>
 
+                                        <div class="col-md-3">
+                                            <div class="alert alert-success position-relative" role="alert">
+                                                <h1>
+                                                    <span class="badge dashboard-badgde text-bg-success">{{ dashboardResults.PublicHolidayCount }}</span>
+                                                </h1>
+                                                <b>
+                                                    <i class="position-absolute top-0 start-100 translate-middle ri-graduation-cap-line" style="font-size: 35px"></i>
+                                                    {{ 'PanelIndex.PublicHolidayCountForThisYear' | translate }}
+                                                </b>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="alert alert-dark position-relative" role="alert">
+                                                <h1>
+                                                    <span class="badge dashboard-badgde text-bg-dark">
+                                                        {{ dashboardResults.WorkDayCount }}
+                                                    </span>
+                                                </h1>
+                                                <b>
+                                                    <i class="position-absolute top-0 start-100 translate-middle ri-presentation-line" style="font-size: 35px"></i>
+                                                    <span class="active-term"></span>
+                                                    {{ 'PanelIndex.WorkDayCountForThisMonth' | translate }}
+                                                </b>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="alert alert-danger position-relative" role="alert">
+                                                <h1>
+                                                    <span class="badge dashboard-badgde text-bg-danger">
+                                                        {{ dashboardResults.BankAccountCount }}
+                                                    </span>
+                                                </h1>
+                                                <b>
+                                                    <i class="position-absolute top-0 start-100 translate-middle ri-hand-heart-line" style="font-size: 35px"></i>
+                                                    {{ 'PanelIndex.BankAccountCount' | translate }}
+                                                </b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end card-body-->
                         </div>
+                        <!-- end card-->
                     </div>
-                </div>               
+                    <!-- end col-->
+                </div>
             </div>
         </div>
-
     </div>
 </div>
