@@ -450,3 +450,10 @@ select option:disabled {
   background-color: #6c757d;  /* Koyu gri (Bootstrap'in secondary rengi gibi) */
   color: #ffffff;             /* Beyaz yazı */
 }
+.cdk-overlay-container {
+  z-index: 15000 !important;
+}
+
+.mat-snack-bar-container {
+  z-index: 15000 !important;
+}

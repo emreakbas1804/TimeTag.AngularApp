@@ -68,7 +68,7 @@ export class AccountService {
     }
 
     getUserProfile() {
-        return this.http.get<EntityResultModel>(this.apiUrl + '/account/getUserProfile').pipe(catchError(this.handleError));
+        return this.http.get<EntityResultModel>(this.apiUrl + '/Account/GetUserProfile').pipe(catchError(this.handleError));
     }
     updateProfile(email: any, phone: any, password: string) {
         const formData: FormData = new FormData();
@@ -76,7 +76,7 @@ export class AccountService {
         formData.append('phone', phone);
         formData.append('password', password);
 
-        return this.http.post<EntityResultModel>(this.apiUrl + '/account/updateUserProfile', formData).pipe(catchError(this.handleError));
+        return this.http.post<EntityResultModel>(this.apiUrl + '/Account/UpdateUserProfile', formData).pipe(catchError(this.handleError));
     }
 
     addContactMessage(nameSurname: any, phone: any, email: any, message: any) {

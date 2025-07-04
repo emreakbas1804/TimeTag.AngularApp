@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import 'datatables.net-dt';
 import { environment } from 'src/environments/environment';
-import { ExportType, FormMode, UserRole } from 'src/app/Models/EntityResultModel';
+import { EntityResultModel, ExportType, FormMode, Result, UserRole } from 'src/app/Models/EntityResultModel';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { SnackBarService } from 'src/app/Services/customService/snack-bar.service';
@@ -141,11 +141,15 @@ export class UserComponent implements OnInit, AfterViewInit {
                     }
                 }
 
-                this.http.post(`${environment.apiUrl}/User/post`, formData).subscribe({
-                    next: res => {
-                        this.snackBarService.success(this.translateService.instant('Common.Success'));
-                        this.closeModal();
-                        this.reloadTable();
+                this.http.post<EntityResultModel>(`${environment.apiUrl}/User/post`, formData).subscribe({
+                    next: (response: EntityResultModel) => {
+                        if (response.Result == Result.Success) {
+                            this.snackBarService.success(this.translateService.instant('Common.Success'));
+                            this.closeModal();
+                            this.reloadTable();
+                        } else {
+                            this.snackBarService.error(response.ResultMessage);
+                        }
                     },
                     error: err => {
                         console.error('Error:', err);

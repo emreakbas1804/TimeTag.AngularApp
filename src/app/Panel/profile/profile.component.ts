@@ -7,58 +7,50 @@ import { SnackBarService } from 'src/app/Services/customService/snack-bar.servic
 import { AccountService } from 'src/app/Services/httpService/account.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-
-  constructor(private translateService: TranslateService, private accountService: AccountService, private snackBarService: SnackBarService) { }
-  loading = false;
-  user: any = {
-    name: "",
-    surname: "",
-    email: "",
-    phone: "",
-    password: ""
-  }
-  ngOnInit(): void {
-    this.getUserProfile()
-  }
-
-  update(form: NgForm) {
-    console.log(form.value);
-    if (form.invalid) {
-      this.snackBarService.error(this.translateService.instant("General.formValidationError"));
-      return;
-    }
-    if (form.value.password != "" && form.value.password?.length < 6) {
-      this.snackBarService.error(this.translateService.instant("Profile.passwordShouldBeLongerThan5Char"));
-      return;
+    constructor(private translateService: TranslateService, private accountService: AccountService, private snackBarService: SnackBarService) {}
+    loading = false;
+    user: any;
+    ngOnInit(): void {
+        this.getUserProfile();
     }
 
-    this.loading = true;
-    this.accountService.updateProfile(form.value.email, form.value.phone, form.value.password).subscribe({
-      next: response => {
-        this.loading = false;
-        if (response.Result == Result.Error) {
-          this.snackBarService.error(response.ResultMessage);
-        } else {
-          this.snackBarService.success(this.translateService.instant("General.updatedProfile"))
+    update(form: NgForm) {
+        console.log(form.value);
+        if (form.invalid) {
+            this.snackBarService.error(this.translateService.instant('General.formValidationError'));
+            return;
         }
-      },
-      error: err => {
-        this.snackBarService.error(this.translateService.instant("General.anUnexpectedErrorOccurred"))
-        this.loading = false;
-      }
-    });
-  }
+        if (form.value.password != '' && form.value.password?.length < 6) {
+            this.snackBarService.error(this.translateService.instant('Profile.passwordShouldBeLongerThan5Char'));
+            return;
+        }
 
-  async getUserProfile() {
-    const response = await firstValueFrom(this.accountService.getUserProfile());
-    if (response.Result == Result.Success) {
-      this.user = response.ResultObject;
+        this.loading = true;
+        this.accountService.updateProfile(form.value.email, form.value.phone, form.value.password).subscribe({
+            next: response => {
+                this.loading = false;
+                if (response.Result == Result.Error) {
+                    this.snackBarService.error(response.ResultMessage);
+                } else {
+                    this.snackBarService.success(this.translateService.instant('General.updatedProfile'));
+                }
+            },
+            error: err => {
+                this.snackBarService.error(this.translateService.instant('General.anUnexpectedErrorOccurred'));
+                this.loading = false;
+            },
+        });
     }
-  }
 
+    async getUserProfile() {
+        const response = await firstValueFrom(this.accountService.getUserProfile());
+        if (response.Result == Result.Success) {
+            this.user = response.ResultObject;
+        }
+    }
 }
