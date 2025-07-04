@@ -14,7 +14,9 @@
         "ExportPdf": "Export Pdf",
         "Filters" : "Filters",
         "Search" : "Search",
-        "Reset" : "Reset"
+        "Reset" : "Reset",
+        "Status" : "Status",
+        "SaveAndClose" : "Save and Close"
     },
     "Navbar" : {
         "Features" : "FEATURES",
@@ -69,6 +71,15 @@
         "OwnerName" : "Owner Name",
         "Iban" : "IBAN"
     },
+    "PublicHoliday" :
+    {
+      "StartDate" : "Start Date",
+      "EndDate" : "End Date",
+      "PublicHolidayList" : "Public Holiday List",
+      "Title" : "Title",
+      "Description" : "Description",
+      "AssignUser" : "Assign User"        
+    },
     "Panel-sidebar" : {
         "TimeLog" : "Time Log",
         "User" : "User",
@@ -80,7 +91,8 @@
         "myEmployees" : "My employees",
         "profile" : "Profile",
         "homePage"  :"Home Page",
-        "BankInformation" : "Bank Information"
+        "BankInformation" : "Bank Information",
+        "PublicHoliday" : "Public Holiday"
     },
     "Login" : {
         "welcomeToTimeTag" : "Welcome to time tag",

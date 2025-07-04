@@ -17,10 +17,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TimeLogComponent } from './time-log/time-log.component';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { BankComponent } from './bank/bank.component';
+import { PublicHolidayComponent } from './public-holiday/public-holiday.component';
 
 @NgModule({
     providers: [{ provide: MAT_DATE_LOCALE, useValue: 'tr-TR' }, DatePipe],
-    declarations: [IndexComponent, ProfileComponent, UserComponent, TimeLogComponent, BankComponent],
+    declarations: [IndexComponent, ProfileComponent, UserComponent, TimeLogComponent, BankComponent, PublicHolidayComponent],
     imports: [
         BrowserAnimationsModule, // mutlaka gerekli!
         BsDatepickerModule.forRoot(),
