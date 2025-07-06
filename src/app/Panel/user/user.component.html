@@ -39,7 +39,7 @@
                 <!-- Export Buttons -->
                 <div class="row mt-2">
                     <div class="col-md-4 mt-3">
-                        <button type="button" class="btn form-control btn-primary" (click)="addOrUpdateUser(0, 'Add New')" [disabled]="!canAdd">
+                        <button type="button" class="btn form-control btn-primary" (click)="addOrUpdateUser(0, 'Add New')" *ngIf="!canAdd">
                             <i class="bi bi-plus-lg"></i>
                             {{ 'Common.AddNew' | translate }}
                         </button>
