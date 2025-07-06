@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
         }
 
         this.loading = true;
-        this.accountService.updateProfile(form.value.email, form.value.phone, form.value.password).subscribe({
+        this.accountService.updateProfile(form.value.Email, form.value.Phone, form.value.Password).subscribe({
             next: response => {
                 this.loading = false;
                 if (response.Result == Result.Error) {
