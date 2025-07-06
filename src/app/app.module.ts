@@ -10,11 +10,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RequestHeaderInterceptor } from './Services/httpService/request-header.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-import { AutocompleteOffDirective } from './Services/customService/AutocompleteOffDirective';
+import { AutocompleteOffDirective } from './Services/customService/autocompleteOffDirective';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [AppComponent, AutocompleteOffDirective],
-    imports: [BrowserModule, HttpClientModule, HomeModule, SharedModule, PanelModule, AppRoutingModule, BrowserAnimationsModule, TranslateModule],
+    imports: [BrowserModule, HttpClientModule, HomeModule, SharedModule, PanelModule, AppRoutingModule, RouterModule, BrowserAnimationsModule, TranslateModule],
     providers: [{ provide: HTTP_INTERCEPTORS, useClass: RequestHeaderInterceptor, multi: true }],
     bootstrap: [AppComponent],
 })
