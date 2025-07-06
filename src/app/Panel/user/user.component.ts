@@ -33,6 +33,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     canUpdate: boolean = false;
     canView: boolean = false;
     isLoading = false;
+    activeUserRole: UserRole | null = null;
     constructor(private http: HttpClient, private snackBarService: SnackBarService, private translateService: TranslateService, private datePipe: DatePipe, private accountService: AccountService) {
         this.datepickerConfig = {
             dateInputFormat: 'DD/MM/YYYY',
@@ -47,6 +48,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         this.canAdd = this.accountService.canAdd();
         this.canUpdate = this.accountService.canUpdate();
         this.canView = this.accountService.canView();
+        this.activeUserRole = this.accountService.activeUserRole();
     }
 
     ngAfterViewInit() {
@@ -236,7 +238,7 @@ export class UserComponent implements OnInit, AfterViewInit {
                         let btns = `<button class="btn btn-sm btn-success view" data-id="${row.Id}" data-mode="View">
                         <i class="bi bi-eye"></i> View
                       </button>`;
-                        if (row.Status !== 0) {
+                        if (this.activeUserRole == UserRole.CompanyOwner || this.activeUserRole == UserRole.SystemManager) {
                             btns += `<button class="btn btn-sm btn-warning edit" data-id="${row.Id}" data-mode="Update">
                        <i class="bi bi-pencil"></i> Edit
                      </button>`;
