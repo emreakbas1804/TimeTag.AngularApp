@@ -167,7 +167,7 @@
                                 {{ 'TimeLog.Type' | translate }}
                                 <span class="text-danger">*</span>
                             </label>
-                            <select class="form-select filter" name="Type" [(ngModel)]="timeLog.Type" name="Type" required>
+                            <select class="form-select filter" name="Type" [(ngModel)]="timeLog.Type" name="Type" required [disabled]="modalMode === FormMode.View">
                                 <option value="" selected>
                                     {{ 'Common.SelectOne' | translate }}
                                 </option>
