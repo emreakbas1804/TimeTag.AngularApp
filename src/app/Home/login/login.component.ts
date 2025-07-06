@@ -42,8 +42,6 @@ export class LoginComponent implements OnInit {
                 debugger;
                 if (response.Result == Result.Success) {
                     this.route.navigate([this.returnUrl]);
-                } else if (response.Result == Result.Warning) {
-                    this.snackBarService.warning(response.ResultMessage);
                 } else {
                     this.info = response.ResultMessage;
                     this.infoColor = 'danger';
