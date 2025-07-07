@@ -194,7 +194,7 @@ export class TimeLogComponent implements OnInit {
             searching: false,
             ordering: true,
             orderMulti: false,
-            order: [[1, 'asc']],
+            order: [[5, 'desc']],
             lengthMenu: [
                 [5, 10, 20, 50],
                 [5, 10, 20, 50],
