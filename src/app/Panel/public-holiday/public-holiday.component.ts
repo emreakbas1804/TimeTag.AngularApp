@@ -35,6 +35,9 @@ export class PublicHolidayComponent implements OnInit {
     isLoading = false;
     userAssignmentDataTable: any;
     selectedHolidayId: any;
+    keywordFilter: any | null = null;
+    startDateFilter: Date | null = null;
+    endDateFilter: Date | null = null;
 
     constructor(private http: HttpClient, private snackBarService: SnackBarService, private translateService: TranslateService, private datePipe: DatePipe, private accountService: AccountService) {
         this.datepickerConfig = {
@@ -207,11 +210,13 @@ export class PublicHolidayComponent implements OnInit {
     }
 
     getDataTableParams(): any {
-        return {
-            p_sKeyword: ($('#txtKeyword').val() as string) || '',
-            startDate: $('#PublicHolidayStartDateFilter').val(),
-            endDate: $('#PublicHolidayEndDateFilter').val(),
+        var params = {
+            p_sKeyword: this.keywordFilter,
+            startDate: this.startDateFilter,
+            endDate: this.endDateFilter,
         };
+
+        return params;
     }
 
     initDataTable(translations: any): void {
@@ -227,34 +232,36 @@ export class PublicHolidayComponent implements OnInit {
                 [5, 10, 20, 50],
             ],
             ajax: (d: any, callback: any) => {
-                const extraParams = this.getDataTableParams();
+                setTimeout(() => {
+                    const extraParams = this.getDataTableParams();
 
-                const formData = new FormData();
-                for (const key in d) {
-                    if (Object.prototype.hasOwnProperty.call(d, key)) {
-                        formData.append(key, d[key]);
+                    const formData = new FormData();
+                    for (const key in d) {
+                        if (Object.prototype.hasOwnProperty.call(d, key)) {
+                            formData.append(key, d[key]);
+                        }
                     }
-                }
 
-                for (const key in extraParams) {
-                    if (Object.prototype.hasOwnProperty.call(extraParams, key)) {
-                        formData.append(key, extraParams[key]);
+                    for (const key in extraParams) {
+                        if (Object.prototype.hasOwnProperty.call(extraParams, key)) {
+                            formData.append(key, extraParams[key]);
+                        }
                     }
-                }
 
-                this.http.post(`${environment.apiUrl}/PublicHoliday/List`, formData).subscribe({
-                    next: (resp: any) => {
-                        callback({
-                            draw: d.draw,
-                            recordsTotal: resp.recordsTotal,
-                            recordsFiltered: resp.recordsFiltered,
-                            data: resp.data,
-                        });
-                    },
-                    error: err => {
-                        console.error('DataTable error', err);
-                    },
-                });
+                    this.http.post(`${environment.apiUrl}/PublicHoliday/List`, formData).subscribe({
+                        next: (resp: any) => {
+                            callback({
+                                draw: d.draw,
+                                recordsTotal: resp.recordsTotal,
+                                recordsFiltered: resp.recordsFiltered,
+                                data: resp.data,
+                            });
+                        },
+                        error: err => {
+                            console.error('DataTable error', err);
+                        },
+                    });
+                }, 50);
             },
             columns: [
                 { data: 'Title', title: translations['PublicHoliday.Title'] },
@@ -336,7 +343,10 @@ export class PublicHolidayComponent implements OnInit {
     }
 
     resetFilters(): void {
-        $('.filter').val('');
+        this.keywordFilter = '';
+        this.startDateFilter = null;
+        this.endDateFilter = null;
+
         this.reloadTable();
     }
 

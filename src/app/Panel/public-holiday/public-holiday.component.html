@@ -23,7 +23,15 @@
                                     <label class="form-label">
                                         {{ 'Common.Search' | translate }}
                                     </label>
-                                    <input class="form-control filter" (keyup)="filterChange()" id="txtKeyword" name="txtKeyword" [placeholder]="'Common.Search' | translate" type="text" />
+                                    <input
+                                        class="form-control filter"
+                                        (keyup)="filterChange()"
+                                        id="txtKeyword"
+                                        [(ngModel)]="keywordFilter"
+                                        name="txtKeyword"
+                                        [placeholder]="'Common.Search' | translate"
+                                        type="text"
+                                    />
                                 </div>
 
                                 <div class="form-group col-md-6 mb-2">
