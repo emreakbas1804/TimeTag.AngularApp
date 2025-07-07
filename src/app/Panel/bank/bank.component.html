@@ -23,19 +23,34 @@
                                     <label class="form-label">
                                         {{ 'Common.Search' | translate }}
                                     </label>
-                                    <input class="form-control filter" (keyup)="filterChange()" id="txtKeyword" name="txtKeyword" [placeholder]="'Common.Search' | translate" type="text" />
+                                    <input
+                                        class="form-control filter"
+                                        (keyup)="filterChange()"
+                                        [(ngModel)]="keywordFilter"
+                                        id="txtKeyword"
+                                        name="txtKeyword"
+                                        [placeholder]="'Common.Search' | translate"
+                                        type="text"
+                                    />
                                 </div>
 
                                 <div class="form-group col-md-6 mb-2">
                                     <label class="form-label">
                                         {{ 'Bank.User' | translate }}
                                     </label>
-                                    <select class="form-select filter" id="BankUserFilter" name="BankUserFilter" [disabled]="activeUserRole == UserRole.Employee" (change)="filterChange()">
+                                    <select
+                                        class="form-select filter"
+                                        id="BankUserFilter"
+                                        [(ngModel)]="selectedUserIdFilter"
+                                        name="BankUserFilter"
+                                        [disabled]="activeUserRole == UserRole.Employee"
+                                        (change)="filterChange()"
+                                    >
                                         <option value="" selected>
                                             {{ 'Common.SelectOne' | translate }}
                                         </option>
 
-                                        <option *ngFor="let user of userList">
+                                        <option *ngFor="let user of userList" [value]="user.Id">
                                             {{ user.FullName }}
                                         </option>
                                     </select>

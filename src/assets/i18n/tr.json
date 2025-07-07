@@ -105,22 +105,7 @@
         "email": "E-posta",
         "password": "Şifre"
     },
-    "Register": {
-        "registerFree": "Ücretsiz Kayıt Ol!",
-        "nameIsRequired": "Ad gereklidir",
-        "surnameIsRequired": "Soyad gereklidir",
-        "emailIsRequired": "E-posta gereklidir",
-        "incorrectPhoneNumber": "Geçersiz telefon numarası",
-        "passwordShouldBeLongerThan5Char": "Şifre 5 karakterden uzun olmalıdır",
-        "register": "Kayıt Ol",
-        "login": "Giriş Yap",
-        "forgotPassword": "Şifremi Unuttum",
-        "name": "Ad",
-        "surname": "Soyad",
-        "phone": "Telefon",
-        "email": "E-posta",
-        "password": "Şifre"
-    },
+    
     "Forgot-password": {
         "forgotPassword": "Şifremi Unuttum",
         "sendVerificationCode": "Doğrulama Kodu Gönder",
@@ -142,12 +127,12 @@
         "PublicHolidayCountForThisYear": "Bu Yılki Resmi Tatil Sayısı",
         "WorkDayCountForThisMonth": "Bu ay kaç gün işe geldim?",
         "BankAccountCount": "Banka Hesabı Sayısı",
-        "Last10Logins": "Son 10 Giriş",
+        "MyLast10Logins": "Son 10 Giriş Kaydım",
         "NoLoginLogsAvailable": "Giriş kaydı bulunmamaktadır.",
         "StartTime": "Başlangıç Saati",
         "Duration": "Süre",
         "Late": "Geç",
-        "Last10Logouts": "Son 10 Çıkış",
+        "MyLast10Logouts": "Son 10 Çıkış Kaydım",
         "NoLogoutLogsAvailable": "Çıkış kaydı bulunmamaktadır.",
         "EndTime": "Bitiş Saati",
         "OverTime": "Fazla Mesai",

@@ -32,7 +32,8 @@ export class BankComponent implements OnInit {
     UserRole = UserRole;
     activeUserRole: UserRole | null = null;
     isLoading: boolean = false;
-
+    keywordFilter: string = '';
+    selectedUserIdFilter: any | null = '';
     constructor(private http: HttpClient, private snackBarService: SnackBarService, private translateService: TranslateService, private datePipe: DatePipe, private accountService: AccountService) {
         this.datepickerConfig = {
             dateInputFormat: 'DD/MM/YYYY',
@@ -150,8 +151,8 @@ export class BankComponent implements OnInit {
 
     getDataTableParams(): any {
         return {
-            p_sKeyword: ($('#txtKeyword').val() as string) || '',
-            userId: $('#BankUserFilter').val(),
+            p_sKeyword: this.keywordFilter,
+            userId: this.selectedUserIdFilter,
         };
     }
 
@@ -168,34 +169,36 @@ export class BankComponent implements OnInit {
                 [5, 10, 20, 50],
             ],
             ajax: (d: any, callback: any) => {
-                const extraParams = this.getDataTableParams();
+                setTimeout(() => {
+                    const extraParams = this.getDataTableParams();
 
-                const formData = new FormData();
-                for (const key in d) {
-                    if (Object.prototype.hasOwnProperty.call(d, key)) {
-                        formData.append(key, d[key]);
+                    const formData = new FormData();
+                    for (const key in d) {
+                        if (Object.prototype.hasOwnProperty.call(d, key)) {
+                            formData.append(key, d[key]);
+                        }
                     }
-                }
 
-                for (const key in extraParams) {
-                    if (Object.prototype.hasOwnProperty.call(extraParams, key)) {
-                        formData.append(key, extraParams[key]);
+                    for (const key in extraParams) {
+                        if (Object.prototype.hasOwnProperty.call(extraParams, key)) {
+                            formData.append(key, extraParams[key]);
+                        }
                     }
-                }
 
-                this.http.post(`${environment.apiUrl}/Bank/List`, formData).subscribe({
-                    next: (resp: any) => {
-                        callback({
-                            draw: d.draw,
-                            recordsTotal: resp.recordsTotal,
-                            recordsFiltered: resp.recordsFiltered,
-                            data: resp.data,
-                        });
-                    },
-                    error: err => {
-                        console.error('DataTable error', err);
-                    },
-                });
+                    this.http.post(`${environment.apiUrl}/Bank/List`, formData).subscribe({
+                        next: (resp: any) => {
+                            callback({
+                                draw: d.draw,
+                                recordsTotal: resp.recordsTotal,
+                                recordsFiltered: resp.recordsFiltered,
+                                data: resp.data,
+                            });
+                        },
+                        error: err => {
+                            console.error('DataTable error', err);
+                        },
+                    });
+                }, 50);
             },
             columns: [
                 { data: 'FullName', title: translations['Bank.Name'] },
@@ -241,7 +244,9 @@ export class BankComponent implements OnInit {
     }
 
     resetFilters(): void {
-        $('.filter').val('');
+        this.keywordFilter = '';
+        this.selectedUserIdFilter = '';
+
         this.reloadTable();
     }
 
