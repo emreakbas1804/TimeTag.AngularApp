@@ -9,7 +9,6 @@ export class RequestHeaderInterceptor implements HttpInterceptor {
     constructor(private accountService: AccountService, private router: Router) {}
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-        debugger;
         const jwtToken = localStorage.getItem('accessToken');
         const langCode = localStorage.getItem('langCode') ?? 'en';
         if (jwtToken) {

@@ -11,6 +11,7 @@ import 'jquery-ui-dist/jquery-ui';
 import { DatePipe } from '@angular/common';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { AccountService } from 'src/app/Services/httpService/account.service';
+import { param } from 'jquery';
 
 declare var $: any;
 @Component({
@@ -33,6 +34,12 @@ export class TimeLogComponent implements OnInit {
     canView: boolean = false;
     activeUserRole: UserRole | null = null;
     isLoading = false;
+
+    keywordFilter: string = '';
+    selectedUserIdFilter: any | null = '';
+    selectedLogTypeFilter: any | null = '';
+    startDateFilter: Date | null = null;
+    endDateFilter: Date | null = null;
 
     constructor(private http: HttpClient, private snackBarService: SnackBarService, private translateService: TranslateService, private datePipe: DatePipe, private accountService: AccountService) {
         this.datepickerConfig = {
@@ -169,13 +176,15 @@ export class TimeLogComponent implements OnInit {
     }
 
     getDataTableParams(): any {
-        return {
-            p_sKeyword: ($('#txtKeyword').val() as string) || '',
-            userId: $('#TimeLogUserFilter').val(),
-            type: $('#TimeLogTypeFilter').val(),
-            startDate: $('#TimeLogStartDateFilter').val(),
-            endDate: $('#TimeLogEndDateFilter').val(),
+        var params = {
+            p_sKeyword: this.keywordFilter,
+            userId: this.selectedUserIdFilter,
+            type: this.selectedLogTypeFilter,
+            startDate: this.startDateFilter,
+            endDate: this.endDateFilter,
         };
+
+        return params;
     }
 
     initDataTable(translations: any): void {
@@ -191,34 +200,35 @@ export class TimeLogComponent implements OnInit {
                 [5, 10, 20, 50],
             ],
             ajax: (d: any, callback: any) => {
-                const extraParams = this.getDataTableParams();
-
-                const formData = new FormData();
-                for (const key in d) {
-                    if (Object.prototype.hasOwnProperty.call(d, key)) {
-                        formData.append(key, d[key]);
+                setTimeout(() => {
+                    const extraParams = this.getDataTableParams();
+                    const formData = new FormData();
+                    for (const key in d) {
+                        if (Object.prototype.hasOwnProperty.call(d, key)) {
+                            formData.append(key, d[key]);
+                        }
                     }
-                }
 
-                for (const key in extraParams) {
-                    if (Object.prototype.hasOwnProperty.call(extraParams, key)) {
-                        formData.append(key, extraParams[key]);
+                    for (const key in extraParams) {
+                        if (Object.prototype.hasOwnProperty.call(extraParams, key)) {
+                            formData.append(key, extraParams[key]);
+                        }
                     }
-                }
 
-                this.http.post(`${environment.apiUrl}/TimeLog/List`, formData).subscribe({
-                    next: (resp: any) => {
-                        callback({
-                            draw: d.draw,
-                            recordsTotal: resp.recordsTotal,
-                            recordsFiltered: resp.recordsFiltered,
-                            data: resp.data,
-                        });
-                    },
-                    error: err => {
-                        console.error('DataTable error', err);
-                    },
-                });
+                    this.http.post(`${environment.apiUrl}/TimeLog/List`, formData).subscribe({
+                        next: (resp: any) => {
+                            callback({
+                                draw: d.draw,
+                                recordsTotal: resp.recordsTotal,
+                                recordsFiltered: resp.recordsFiltered,
+                                data: resp.data,
+                            });
+                        },
+                        error: err => {
+                            console.error('DataTable error', err);
+                        },
+                    });
+                }, 50);
             },
             columns: [
                 { data: 'FullName', title: translations['TimeLog.Name'] },
@@ -288,7 +298,12 @@ export class TimeLogComponent implements OnInit {
     }
 
     resetFilters(): void {
-        $('.filter').val('');
+        this.keywordFilter = '';
+        this.selectedUserIdFilter = '';
+        this.selectedLogTypeFilter = '';
+        this.startDateFilter = null;
+        this.endDateFilter = null;
+
         this.reloadTable();
     }
 
