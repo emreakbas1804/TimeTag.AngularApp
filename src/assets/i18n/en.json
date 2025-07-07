@@ -230,7 +230,8 @@
     },
     "Languages" : {
         "en" : "English",
-        "tr" : "Turkish"
+        "tr" : "Turkish",
+        "de" : "German"
     }
     
 }
