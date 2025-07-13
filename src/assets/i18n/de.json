@@ -175,6 +175,29 @@
         "thereIsNoAnyDepartment": "Sie können keine Mitarbeiter ohne Abteilung hinzufügen.",
         "thereIsNoAnyCard": "Es sind keine ungenutzten Karteninformationen in Ihrer Mitgliedschaft vorhanden."
     },
+    "Report": {
+        "Report": "Bericht",
+        "User": "Benutzer",
+        "loginHour": "Anmeldezeit",
+        "logoutHour": "Abmeldezeit",
+        "hour": "Stunde",
+        "day": "Tag",
+        "dayOfMonth": "Tag des Monats",
+        "zeroWorkTime": "0 Stunde 0 Minute",
+        "thisWeekTotalWorkTime": "Gesamte Arbeitszeit diese Woche",
+        "thisMonthTotalWorkTime": "Gesamte Arbeitszeit diesen Monat",
+        "thisWeekLoginLogoutHours": "Anmelde- / Abmeldezeiten diese Woche",
+        "thisMonthLoginLogoutHours": "Anmelde- / Abmeldezeiten diesen Monat"
+    },
+    "Days": {
+        "Sunday": "Sonntag",
+        "Monday": "Montag",
+        "Tuesday": "Dienstag",
+        "Wednesday": "Mittwoch",
+        "Thursday": "Donnerstag",
+        "Friday": "Freitag",
+        "Saturday": "Samstag"
+    },
     "Profile": {
         "youCanInstantlyUpdateYourProfileInformation": "Sie können Ihre Profilinformationen sofort aktualisieren",
         "name": "Name",

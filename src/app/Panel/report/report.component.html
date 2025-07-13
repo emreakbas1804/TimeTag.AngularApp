@@ -65,12 +65,12 @@
                                 <div class="alert alert-info position-relative" role="alert">
                                     <h1>
                                         <span class="badge dashboard-badgde text-bg-info">
-                                            {{ statistics?.ThisWeek?.TotalWorkTime || '0 saat 0 dakika' }}
+                                            {{ statistics?.ThisWeek?.TotalWorkTime || ('Report.zeroWorkTime' | translate) }}
                                         </span>
                                     </h1>
                                     <b>
                                         <i class="position-absolute top-0 start-100 translate-middle ri-time-line" style="font-size: 35px"></i>
-                                        Bu Hafta Toplam Çalışma Süresi
+                                        {{ 'Report.thisWeekTotalWorkTime' | translate }}
                                     </b>
                                 </div>
                             </div>
@@ -79,12 +79,12 @@
                                 <div class="alert alert-warning position-relative" role="alert">
                                     <h1>
                                         <span class="badge dashboard-badgde text-bg-warning">
-                                            {{ statistics?.ThisMonth?.TotalWorkTime || '0 saat 0 dakika' }}
+                                            {{ statistics?.ThisMonth?.TotalWorkTime || ('Report.zeroWorkTime' | translate) }}
                                         </span>
                                     </h1>
                                     <b>
                                         <i class="position-absolute top-0 start-100 translate-middle ri-calendar-check-line" style="font-size: 35px"></i>
-                                        Bu Ay Toplam Çalışma Süresi
+                                        {{ 'Report.thisMonthTotalWorkTime' | translate }}
                                     </b>
                                 </div>
                             </div>
@@ -92,15 +92,27 @@
                             <div class="col-md-6">
                                 <div class="card mt-4">
                                     <div class="card-header">
-                                        <b>Bu Haftaki Giriş / Çıkış Saatleri</b>
+                                        <b>{{ 'Report.thisWeekLoginLogoutHours' | translate }}</b>
                                     </div>
-                                    <div class="card-body"></div>
+                                    <div class="card-body">
+                                        <canvas #weeklyChart width="600" height="250"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="card mt-4">
+                                    <div class="card-header">
+                                        <b>{{ 'Report.thisMonthLoginLogoutHours' | translate }}</b>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas #monthlyChart width="600" height="250"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- End Main Container -->
             </div>
         </div>
     </div>

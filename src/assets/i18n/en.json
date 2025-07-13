@@ -179,7 +179,26 @@
     },
     "Report" : {
         "Report" : "Report",
-        "User" : "User"
+        "User" : "User",
+        "loginHour": "Login Hour",
+        "logoutHour": "Logout Hour",
+        "hour": "Hour",
+        "day": "Day",
+        "dayOfMonth": "Day of Month",
+        "zeroWorkTime": "0 hour 0 minute",
+        "thisWeekTotalWorkTime": "Total Work Time This Week",
+        "thisMonthTotalWorkTime": "Total Work Time This Month",
+        "thisWeekLoginLogoutHours": "Login / Logout Hours This Week",
+        "thisMonthLoginLogoutHours": "Login / Logout Hours This Month"
+    },
+    "Days": {
+        "Sunday": "Sunday",
+        "Monday": "Monday",
+        "Tuesday": "Tuesday",
+        "Wednesday": "Wednesday",
+        "Thursday": "Thursday",
+        "Friday": "Friday",
+        "Saturday": "Saturday"
     },
     "Profile" : {
         "youCanInstantlyUpdateYourProfileInformation" : "You can instantly update your profile information",

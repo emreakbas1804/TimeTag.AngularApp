@@ -160,6 +160,29 @@
         "thereIsNoAnyDepartment": "Departman olmadan personel ekleyemezsiniz.",
         "thereIsNoAnyCard": "Üyeliğinizde boşta kart bilgisi kalmadı."
     },
+    "Report": {
+        "Report": "Rapor",
+        "User": "Kullanıcı",
+        "loginHour": "Giriş Saati",
+        "logoutHour": "Çıkış Saati",
+        "hour": "Saat",
+        "day": "Gün",
+        "dayOfMonth": "Ayın Günü",
+        "zeroWorkTime": "0 saat 0 dakika",
+        "thisWeekTotalWorkTime": "Bu Hafta Toplam Çalışma Süresi",
+        "thisMonthTotalWorkTime": "Bu Ay Toplam Çalışma Süresi",
+        "thisWeekLoginLogoutHours": "Bu Haftaki Giriş / Çıkış Saatleri",
+        "thisMonthLoginLogoutHours": "Bu Ayki Giriş / Çıkış Saatleri"
+    },
+    "Days": {
+        "Sunday": "Pazar",
+        "Monday": "Pazartesi",
+        "Tuesday": "Salı",
+        "Wednesday": "Çarşamba",
+        "Thursday": "Perşembe",
+        "Friday": "Cuma",
+        "Saturday": "Cumartesi"
+    },
     "Profile": {
         "youCanInstantlyUpdateYourProfileInformation": "Profil bilgilerinizi anında güncelleyebilirsiniz",
         "name": "Ad",
