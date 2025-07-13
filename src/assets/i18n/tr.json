@@ -93,7 +93,8 @@
         "homePage": "Ana Sayfa",
         "BankInformation": "Banka Bilgileri",
         "PublicHoliday": "Resmi Tatil",
-        "Dashboard": "Kontrol Paneli"
+        "Dashboard": "Kontrol Paneli",
+        "Report" : "Rapor"
     },
     "Login": {
         "welcomeToTimeTag": "Time Tag'e Hoş Geldiniz",

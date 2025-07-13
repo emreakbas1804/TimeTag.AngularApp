@@ -152,7 +152,8 @@
         "NoLogoutLogsAvailable": "Keine Abmeldeprotokolle verfügbar.",
         "EndTime": "Endzeit",
         "OverTime": "Überstunden",
-        "Items": "Elemente"
+        "Items": "Elemente",
+        "Report" : "Bericht"
     },
     "General": {
         "formValidationError": "Formularvalidierungsfehler",
