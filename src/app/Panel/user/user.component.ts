@@ -236,12 +236,12 @@ export class UserComponent implements OnInit, AfterViewInit {
                     className: 'action-buttons-cell',
                     render: (data: any, type: any, row: any) => {
                         let btns = `<button class="btn btn-sm btn-success view" data-id="${row.Id}" data-mode="View">
-                        <i class="bi bi-eye"></i> View
-                      </button>`;
+                                        <i class="bi bi-eye"></i> View
+                                    </button>`;
                         if (this.activeUserRole == UserRole.CompanyOwner || this.activeUserRole == UserRole.SystemManager) {
                             btns += `<button class="btn btn-sm btn-warning edit" data-id="${row.Id}" data-mode="Update">
-                       <i class="bi bi-pencil"></i> Edit
-                     </button>`;
+                                        <i class="bi bi-pencil"></i> Edit
+                                        </button>`;
                         }
                         return btns;
                     },

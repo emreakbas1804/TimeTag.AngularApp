@@ -16,7 +16,8 @@
         "Search": "Ara",
         "Reset": "Sıfırla",
         "Status": "Durum",
-        "SaveAndClose": "Kaydet ve Kapat"
+        "SaveAndClose": "Kaydet ve Kapat",
+        "LoginExpired" : "Oturum Süresi Doldu"
     },
     "Navbar": {
         "Features": "ÖZELLİKLER",

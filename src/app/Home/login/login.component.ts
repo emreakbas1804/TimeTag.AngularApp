@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
         this.loading = true;
         this.accountService.login(form.value.email, form.value.password).subscribe({
             next: response => {
-                debugger;
                 if (response.Result == Result.Success) {
                     this.route.navigate([this.returnUrl]);
                 } else {

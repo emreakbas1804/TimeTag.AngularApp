@@ -16,7 +16,8 @@
         "Search": "Suche",
         "Reset": "Zurücksetzen",
         "Status": "Status",
-        "SaveAndClose": "Speichern und schließen"
+        "SaveAndClose": "Speichern und schließen",
+        "LoginExpired" : "Anmeldung abgelaufen"
     },
     "Navbar": {
         "Features": "FUNKTIONEN",

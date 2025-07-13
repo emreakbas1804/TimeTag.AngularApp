@@ -10,6 +10,7 @@ import { UserComponent } from './Panel/user/user.component';
 import { TimeLogComponent } from './Panel/time-log/time-log.component';
 import { BankComponent } from './Panel/bank/bank.component';
 import { PublicHolidayComponent } from './Panel/public-holiday/public-holiday.component';
+import { ReportComponent } from './Panel/report/report.component';
 
 const routes: Routes = [
     { path: '', component: IndexComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
     { path: 'panel/time-log', component: TimeLogComponent, canActivate: [PanelGuard] },
     { path: 'panel/bank', component: BankComponent, canActivate: [PanelGuard] },
     { path: 'panel/public-holiday', component: PublicHolidayComponent, canActivate: [PanelGuard] },
+    { path: 'panel/report', component: ReportComponent, canActivate: [PanelGuard] },
 ];
 
 @NgModule({

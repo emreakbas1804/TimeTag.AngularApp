@@ -16,7 +16,8 @@
         "Search" : "Search",
         "Reset" : "Reset",
         "Status" : "Status",
-        "SaveAndClose" : "Save and Close"
+        "SaveAndClose" : "Save and Close",
+        "LoginExpired" : "Login Expired"
     },
     "Navbar" : {
         "Features" : "FEATURES",
@@ -71,8 +72,7 @@
         "OwnerName" : "Owner Name",
         "Iban" : "IBAN"
     },
-    "PublicHoliday" :
-    {
+    "PublicHoliday" :{
       "StartDate" : "Start Date",
       "EndDate" : "End Date",
       "PublicHolidayList" : "Public Holiday List",
@@ -93,7 +93,8 @@
         "homePage"  :"Home Page",
         "BankInformation" : "Bank Information",
         "PublicHoliday" : "Public Holiday",
-        "Dashboard" : "Dashboard"
+        "Dashboard" : "Dashboard",
+        "Report" : "Report"
     },
     "Login" : {
         "welcomeToTimeTag" : "Welcome to time tag",
@@ -175,6 +176,10 @@
         "updatedLog"  :"Updated Log",
         "thereIsNoAnyDepartment" : "You cannot add staff without a department.",
         "thereIsNoAnyCard" : "There is no idle card information left in your membership."
+    },
+    "Report" : {
+        "Report" : "Report",
+        "User" : "User"
     },
     "Profile" : {
         "youCanInstantlyUpdateYourProfileInformation" : "You can instantly update your profile information",
