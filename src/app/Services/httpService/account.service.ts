@@ -16,6 +16,11 @@ export class AccountService {
     private readonly apiUrl = environment.apiUrl;
     user = new BehaviorSubject<UserModel | null>(null);
 
+    activeUserId() {
+        var userId = localStorage.getItem('userId') as number | null;
+        return userId;
+    }
+
     activeUserRole() {
         var role = localStorage.getItem('role') as UserRole | null;
         return role;
@@ -48,7 +53,7 @@ export class AccountService {
         return this.http.post<EntityResultModel>(this.apiUrl + '/account/login', formData).pipe(
             tap(response => {
                 if (response.Result == Result.Success) {
-                    this.handleUser(response.ResultObject.Token, response.ResultObject.FullName, response.ResultObject.Role);
+                    this.handleUser(response.ResultObject.Token, response.ResultObject.FullName, response.ResultObject.Role, response.ResultObject.UserId);
                 }
             }),
 
@@ -126,11 +131,12 @@ export class AccountService {
         this.user.next(null);
     }
 
-    private handleUser(jwtToken: string, fullName: string, role: any) {
+    private handleUser(jwtToken: string, fullName: string, role: any, userId: any) {
         const user = new UserModel(jwtToken);
         this.user.next(user);
         localStorage.setItem('accessToken', jwtToken);
         localStorage.setItem('user', fullName);
         localStorage.setItem('role', role);
+        localStorage.setItem('userId', userId);
     }
 }

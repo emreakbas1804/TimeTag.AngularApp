@@ -21,21 +21,40 @@ export class ReportComponent implements OnInit {
     @ViewChild('weeklyChart') weeklyChartRef!: ElementRef<HTMLCanvasElement>;
     @ViewChild('monthlyChart') monthlyChartRef!: ElementRef<HTMLCanvasElement>;
 
+    loading: boolean = false;
     weeklyChartInstance!: Chart;
     monthlyChartInstance!: Chart;
 
     constructor(private http: HttpClient, private accountService: AccountService, private translateService: TranslateService) {}
 
     ngOnInit(): void {
+        this.fPopulateUserList();
         Chart.register(...registerables);
         this.activeUserRole = this.accountService.activeUserRole();
+        this.selectedUserIdFilter = this.accountService.activeUserId();
         this.GetUserStatistics();
+    }
+
+    fPopulateUserList(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this.http.get<any>(`${environment.apiUrl}/Common/PopulateUserList`).subscribe({
+                next: response => {
+                    this.userList = response.ResultObject;
+                    resolve();
+                },
+                error: err => {
+                    reject(err);
+                },
+            });
+        });
     }
 
     GetUserStatistics(): Promise<void> {
         return new Promise((resolve, reject) => {
+            this.loading = true;
             this.http.get<any>(`${environment.apiUrl}/Common/GetUserStatistics?userId=${this.selectedUserIdFilter}`).subscribe({
                 next: response => {
+                    this.loading = false;
                     this.statistics = response.ResultObject;
 
                     // === HAFTALIK VERİLER ===
@@ -269,6 +288,7 @@ export class ReportComponent implements OnInit {
         return days[date.getDay()];
     }
 
-    resetFilters() {}
-    filterChange() {}
+    filterChange() {
+        this.GetUserStatistics();
+    }
 }
