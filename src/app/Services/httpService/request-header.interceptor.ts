@@ -26,7 +26,7 @@ export class RequestHeaderInterceptor implements HttpInterceptor {
                 catchError((error: HttpErrorResponse) => {
                     if (error.status == 401 || error.status == 0) {
                         this.accountService.logOut();
-                        this.router.navigate(['/panel']);
+                        this.router.navigate(['/login']);
                         this.snackbarService.error(this.translateService.instant('Common.LoginExpired'));
                     }
                     return throwError(() => error);
