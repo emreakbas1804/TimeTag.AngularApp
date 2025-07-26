@@ -78,9 +78,9 @@
                     </div>
                     <!-- end col-->
                 </div>
-                <div class="row mt-4">
+                <div class="row mt-4 align-items-stretch">
                     <!-- Login Logs Card -->
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-4 mb-md-0">
                         <div class="card h-100 border-success">
                             <div class="card-header bg-white d-flex justify-content-between align-items-center border-bottom p-2">
                                 <h5 class="mb-0 fw-bold text-success">
@@ -89,8 +89,8 @@
                                 </h5>
                                 <span class="badge bg-success bg-opacity-10 text-success">{{ dashboardResults?.LastTenLoginLogs?.length || 0 }} {{ 'PanelIndex.Items' | translate }}</span>
                             </div>
-                            <div class="card-body p-0">
-                                <div *ngIf="dashboardResults?.LastTenLoginLogs?.length === 0" class="text-center text-muted p-4">
+                            <div class="card-body p-3">
+                                <div *ngIf="dashboardResults?.LastTenLoginLogs?.length === 0" class="text-center text-muted py-4">
                                     <i class="bi bi-info-circle fs-4 d-block mb-2"></i>
                                     <span>{{ 'PanelIndex.NoLoginLogsAvailable' | translate }}</span>
                                 </div>
@@ -98,7 +98,7 @@
                                 <div *ngIf="dashboardResults?.LastTenLoginLogs?.length > 0" class="list-group list-group-flush">
                                     <div
                                         *ngFor="let log of dashboardResults.LastTenLoginLogs; let last = last"
-                                        class="list-group-item list-group-item-action border-0 py-3 px-4 hover-shadow"
+                                        class="list-group-item list-group-item-action border-0 py-3 px-3 hover-shadow"
                                         [class.border-bottom]="!last"
                                         style="border-color: rgba(25, 135, 84, 0.1) !important"
                                     >
@@ -122,7 +122,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div *ngIf="log.IsLate" class="mt-2 text-end">
+                                        <div *ngIf="log.IsLate" class="mt-2 text-end d-none">
                                             <span class="badge bg-danger bg-opacity-10 text-danger">
                                                 <i class="bi bi-exclamation-triangle-fill me-1"></i>
                                                 {{ 'PanelIndex.Late' | translate }}
@@ -144,8 +144,8 @@
                                 </h5>
                                 <span class="badge bg-danger bg-opacity-10 text-danger">{{ dashboardResults?.LastTenLogoutLogs?.length || 0 }} {{ 'PanelIndex.Items' | translate }}</span>
                             </div>
-                            <div class="card-body p-0">
-                                <div *ngIf="dashboardResults?.LastTenLogoutLogs?.length === 0" class="text-center text-muted p-4">
+                            <div class="card-body p-3">
+                                <div *ngIf="dashboardResults?.LastTenLogoutLogs?.length === 0" class="text-center text-muted py-4">
                                     <i class="bi bi-info-circle fs-4 d-block mb-2"></i>
                                     <span>{{ 'PanelIndex.NoLogoutLogsAvailable' | translate }}</span>
                                 </div>
@@ -153,7 +153,7 @@
                                 <div *ngIf="dashboardResults?.LastTenLogoutLogs?.length > 0" class="list-group list-group-flush">
                                     <div
                                         *ngFor="let log of dashboardResults.LastTenLogoutLogs; let last = last"
-                                        class="list-group-item list-group-item-action border-0 py-3 px-4 hover-shadow"
+                                        class="list-group-item list-group-item-action border-0 py-3 px-3 hover-shadow"
                                         [class.border-bottom]="!last"
                                         style="border-color: rgba(220, 53, 69, 0.1) !important"
                                     >
@@ -177,7 +177,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div *ngIf="log.IsLate" class="mt-2 text-end">
+                                        <div *ngIf="log.IsLate" class="mt-2 text-end d-none">
                                             <span class="badge bg-warning bg-opacity-10 text-warning">
                                                 <i class="bi bi-exclamation-triangle-fill me-1"></i>
                                                 {{ 'PanelIndex.OverTime' | translate }}

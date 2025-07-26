@@ -85,6 +85,34 @@
                             </div>
 
                             <div class="col-md-6">
+                                <div class="alert alert-secondary position-relative" role="alert">
+                                    <h1>
+                                        <span class="badge dashboard-badgde text-bg-secondary">
+                                            {{ statistics?.TotalLeaveDays || ('Report.zeroWorkTime' | translate) }}
+                                        </span>
+                                    </h1>
+                                    <b>
+                                        <i class="position-absolute top-0 start-100 translate-middle ri-time-line" style="font-size: 35px"></i>
+                                        {{ 'Report.TotalLeaveDaysInThisYear' | translate }}
+                                    </b>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="alert alert-danger position-relative" role="alert">
+                                    <h1>
+                                        <span class="badge dashboard-badgde text-bg-danger">
+                                            {{ statistics?.TotalLeaveDuration || ('Report.zeroWorkTime' | translate) }}
+                                        </span>
+                                    </h1>
+                                    <b>
+                                        <i class="position-absolute top-0 start-100 translate-middle ri-calendar-check-line" style="font-size: 35px"></i>
+                                        {{ 'Report.TotalLeaveHoursInThisYear' | translate }}
+                                    </b>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
                                 <div class="card mt-4">
                                     <div class="card-header">
                                         <b>{{ 'Report.thisWeekLoginLogoutHours' | translate }}</b>

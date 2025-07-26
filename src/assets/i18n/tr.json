@@ -17,7 +17,9 @@
         "Reset": "Sıfırla",
         "Status": "Durum",
         "SaveAndClose": "Kaydet ve Kapat",
-        "LoginExpired" : "Oturum Süresi Doldu"
+        "LoginExpired" : "Oturum Süresi Doldu",
+        "SaveAsDraft" : "Draft olarak kaydet",
+        "Submit" : "Gönder"
     },
     "Navbar": {
         "Features": "ÖZELLİKLER",
@@ -94,7 +96,8 @@
         "BankInformation": "Banka Bilgileri",
         "PublicHoliday": "Resmi Tatil",
         "Dashboard": "Kontrol Paneli",
-        "Report" : "Rapor"
+        "Report" : "Rapor",
+        "LeaveRequest" : "İzin İşlemleri"
     },
     "Login": {
         "welcomeToTimeTag": "Time Tag'e Hoş Geldiniz",
@@ -173,7 +176,9 @@
         "thisWeekTotalWorkTime": "Bu Hafta Toplam Çalışma Süresi",
         "thisMonthTotalWorkTime": "Bu Ay Toplam Çalışma Süresi",
         "thisWeekLoginLogoutHours": "Bu Haftaki Giriş / Çıkış Saatleri",
-        "thisMonthLoginLogoutHours": "Bu Ayki Giriş / Çıkış Saatleri"
+        "thisMonthLoginLogoutHours": "Bu Ayki Giriş / Çıkış Saatleri",
+        "TotalLeaveDaysInThisYear" : "Bu Yılki Toplam İzin Günü Sayısı",
+        "TotalLeaveHoursInThisYear" : "Bu Yılki Toplam İzin Saat Sayısı"
     },
     "Days": {
         "Sunday": "Pazar",
@@ -239,5 +244,22 @@
         "en": "İngilizce",
         "tr": "Türkçe",
         "de" : "Almanca"
+    },
+    "Leave": {
+        "User": "Kullanıcı",
+        "LeaveList": "İzin Talep Listesi",
+        "Name": "Ad",
+        "Email": "E-posta",
+        "Type": "İzin Türü",
+        "StartDate": "Başlangıç Tarihi",
+        "EndDate": "Bitiş Tarihi",
+        "Status": "Durum",
+        "Annual": "Yıllık İzin",
+        "Sick": "Hastalık İzni",
+        "Unpaid": "Ücretsiz İzin",
+        "Bereavement": "Taziye İzni",
+        "Marriage": "Evlilik İzni",
+        "Other": "Diğer",
+        "Description": "Açıklama"
     }
 }

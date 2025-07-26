@@ -17,7 +17,9 @@
         "Reset" : "Reset",
         "Status" : "Status",
         "SaveAndClose" : "Save and Close",
-        "LoginExpired" : "Login Expired"
+        "LoginExpired" : "Login Expired",
+        "SaveAsDraft" : "Save as Draft",
+        "Submit" : "Submit"
     },
     "Navbar" : {
         "Features" : "FEATURES",
@@ -94,7 +96,8 @@
         "BankInformation" : "Bank Information",
         "PublicHoliday" : "Public Holiday",
         "Dashboard" : "Dashboard",
-        "Report" : "Report"
+        "Report" : "Report",
+        "LeaveRequest" : "Leave Request"
     },
     "Login" : {
         "welcomeToTimeTag" : "Welcome to time tag",
@@ -189,7 +192,9 @@
         "thisWeekTotalWorkTime": "Total Work Time This Week",
         "thisMonthTotalWorkTime": "Total Work Time This Month",
         "thisWeekLoginLogoutHours": "Login / Logout Hours This Week",
-        "thisMonthLoginLogoutHours": "Login / Logout Hours This Month"
+        "thisMonthLoginLogoutHours": "Login / Logout Hours This Month",
+        "TotalLeaveDaysInThisYear" : "Total Leave Days In This Year",
+        "TotalLeaveHoursInThisYear" : "Total Leave Hours In This Year"
     },
     "Days": {
         "Sunday": "Sunday",
@@ -256,6 +261,23 @@
         "en" : "English",
         "tr" : "Turkish",
         "de" : "German"
+    },
+    "Leave": {
+        "User" : "User",
+        "LeaveList" : "Leave Request List",
+        "Name" : "Name",
+        "Email" : "Email",
+        "Type" : "Type",
+        "StartDate" : "Start Date",
+        "EndDate" : "End Date",
+        "Status" : "Status",
+        "Annual" : "Annual",
+        "Sick" : "Sick",
+        "Unpaid" : "Unpaid",
+        "Bereavement" : "Bereavement",
+        "Marriage" : "Marriage",
+        "Other" : "Other",
+        "Description" : "Description"
     }
     
 }

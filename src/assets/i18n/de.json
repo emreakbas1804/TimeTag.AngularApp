@@ -17,7 +17,9 @@
         "Reset": "Zurücksetzen",
         "Status": "Status",
         "SaveAndClose": "Speichern und schließen",
-        "LoginExpired" : "Anmeldung abgelaufen"
+        "LoginExpired" : "Anmeldung abgelaufen",
+        "SaveAsDraft" : "Als Entwurf speichern",
+        "Submit" : "Einreichen"
     },
     "Navbar": {
         "Features": "FUNKTIONEN",
@@ -93,7 +95,8 @@
         "homePage": "Startseite",
         "BankInformation": "Bankinformationen",
         "PublicHoliday": "Feiertag",
-        "Dashboard": "Dashboard"
+        "Dashboard": "Dashboard",
+        "LeaveRequest" : "Urlaubsantrag"
     },
     "Login": {
         "welcomeToTimeTag": "Willkommen bei Time Tag",
@@ -188,7 +191,9 @@
         "thisWeekTotalWorkTime": "Gesamte Arbeitszeit diese Woche",
         "thisMonthTotalWorkTime": "Gesamte Arbeitszeit diesen Monat",
         "thisWeekLoginLogoutHours": "Anmelde- / Abmeldezeiten diese Woche",
-        "thisMonthLoginLogoutHours": "Anmelde- / Abmeldezeiten diesen Monat"
+        "thisMonthLoginLogoutHours": "Anmelde- / Abmeldezeiten diesen Monat",
+        "TotalLeaveDaysInThisYear": "Gesamturlaubstage in diesem Jahr",
+        "TotalLeaveHoursInThisYear": "Gesamturlaubsstunden in diesem Jahr"
     },
     "Days": {
         "Sunday": "Sonntag",
@@ -254,5 +259,23 @@
         "en": "Englisch",
         "tr": "Türkisch",
         "de" : "Deutsch"
+    },
+    "Leave": {
+        "User": "Benutzer",
+        "LeaveList": "Urlaubsantragsliste",
+        "Name": "Name",
+        "Email": "E-Mail",
+        "Type": "Urlaubsart",
+        "StartDate": "Anfangsdatum",
+        "EndDate": "Enddatum",
+        "Status": "Status",
+        "Annual": "Jahresurlaub",
+        "Sick": "Krankheitsurlaub",
+        "Unpaid": "Unbezahlter Urlaub",
+        "Bereavement": "Trauerurlaub",
+        "Marriage": "Hochzeitsurlaub",
+        "Other": "Andere",
+        "Description": "Beschreibung"
     }
+
 }

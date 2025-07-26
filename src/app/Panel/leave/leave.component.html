@@ -19,15 +19,15 @@
                     <div id="card-collapse4" class="collapse">
                         <div class="card-body">
                             <div class="row filters-section">
-                                <div class="form-group col-md-12 mb-2">
+                                <div class="form-group col-md-6 mb-2">
                                     <label class="form-label">
                                         {{ 'Common.Search' | translate }}
                                     </label>
                                     <input
                                         class="form-control filter"
                                         (keyup)="filterChange()"
-                                        id="txtKeyword"
                                         [(ngModel)]="keywordFilter"
+                                        id="txtKeyword"
                                         name="txtKeyword"
                                         [placeholder]="'Common.Search' | translate"
                                         type="text"
@@ -35,31 +35,27 @@
                                 </div>
 
                                 <div class="form-group col-md-6 mb-2">
-                                    <label class="form-label">{{ 'PublicHoliday.StartDate' | translate }}</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="PublicHolidayStartDateFilter"
-                                        name="PublicHolidayStartDateFilter"
-                                        [placeholder]="'PublicHoliday.StartDate' | translate"
-                                        bsDatepicker
-                                        [bsConfig]="datepickerConfig"
+                                    <label class="form-label">
+                                        {{ 'Leave.User' | translate }}
+                                    </label>
+                                    <select
+                                        class="form-select filter"
+                                        id="LeaveUserFilter"
+                                        [(ngModel)]="selectedUserIdFilter"
+                                        name="LeaveUserFilter"
+                                        [disabled]="activeUserRole == UserRole.Employee"
                                         (change)="filterChange()"
-                                    />
+                                    >
+                                        <option value="" selected>
+                                            {{ 'Common.SelectOne' | translate }}
+                                        </option>
+
+                                        <option *ngFor="let user of userList" [value]="user.Id">
+                                            {{ user.FullName }}
+                                        </option>
+                                    </select>
                                 </div>
-                                <div class="form-group col-md-6 mb-2">
-                                    <label class="form-label">{{ 'PublicHoliday.EndDate' | translate }}</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="PublicHolidayEndDateFilter"
-                                        name="PublicHolidayEndDateFilter"
-                                        [placeholder]="'PublicHoliday.EndDate' | translate"
-                                        bsDatepicker
-                                        [bsConfig]="datepickerConfig"
-                                        (change)="filterChange()"
-                                    />
-                                </div>
+
                                 <div class="form-group col-md-12 mb-2">
                                     <div class="col-md-4 float-end">
                                         <button type="button" class="btn form-control btn-success" (click)="resetFilters()">
@@ -76,22 +72,23 @@
                 <!-- Export Buttons -->
                 <div class="row mt-2">
                     <div class="col-md-4 mt-3">
-                        <button *ngIf="canAdd" type="button" class="btn form-control btn-primary" (click)="addOrUpdatePublicHoliday(0, 'Add New')">
+                        <button type="button" class="btn form-control btn-primary" (click)="addOrUpdateLeave(0, 'Add New')">
                             <i class="bi bi-plus-lg"></i>
                             {{ 'Common.AddNew' | translate }}
                         </button>
                     </div>
+
                     <div class="col-md-8 d-flex justify-content-end gap-3">
                         <div class="spinner-border" *ngIf="isLoading"></div>
 
                         <div class="col-md-4 mt-3" *ngIf="!isLoading">
-                            <button type="button" class="btn form-control export-excel" (click)="exportPublicHolidayList(ExportType.Excel)">
+                            <button type="button" class="btn form-control export-excel" (click)="exportLeaveList(ExportType.Excel)">
                                 <i class="bi bi-file-earmark-excel"></i>
                                 {{ 'Common.ExportExcel' | translate }}
                             </button>
                         </div>
                         <div class="col-md-4 mt-3" *ngIf="!isLoading">
-                            <button type="button" class="btn form-control export-pdf" (click)="exportPublicHolidayList(ExportType.PDF)">
+                            <button type="button" class="btn form-control export-pdf" (click)="exportLeaveList(ExportType.PDF)">
                                 <i class="bi bi-file-earmark-pdf"></i>
                                 {{ 'Common.ExportPdf' | translate }}
                             </button>
@@ -102,12 +99,12 @@
                 <!-- Table -->
                 <div class="card mt-4">
                     <div class="card-header">
-                        <b>{{ 'PublicHoliday.PublicHolidayList' | translate }}</b>
+                        <b>{{ 'Leave.LeaveList' | translate }}</b>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 table-responsive text-center">
-                                <table id="tblPublicHolidayList" style="width: 100%" class="table table-bordered table-striped dataTable no-footer text-center" role="grid"></table>
+                                <table id="tblLeaveList" style="width: 100%" class="table table-bordered table-striped dataTable no-footer text-center" role="grid"></table>
                             </div>
                         </div>
                     </div>
@@ -131,37 +128,41 @@
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <label class="form-label">
-                                {{ 'PublicHoliday.Title' | translate }}
+                                {{ 'Leave.User' | translate }}
                                 <span class="text-danger">*</span>
                             </label>
-                            <input
-                                type="text"
-                                name="Title"
-                                [(ngModel)]="publicHoliday.Title"
-                                required
-                                [placeholder]="'PublicHoliday.Title' | translate"
-                                [disabled]="modalMode === FormMode.View"
-                                class="form-control"
-                            />
+                            <select class="form-select" name="rlt_User_Id" id="rlt_User_Id" [(ngModel)]="leave.rlt_User_Id" [disabled]="leave.Id > 0 || activeUserRole == UserRole.Employee" required>
+                                <option value="" selected>
+                                    {{ 'Common.SelectOne' | translate }}
+                                </option>
+
+                                <option *ngFor="let user of userList" [value]="user.Id">
+                                    {{ user.FullName }}
+                                </option>
+                            </select>
                         </div>
+
                         <div class="mb-3 col-md-6">
                             <label class="form-label">
-                                {{ 'PublicHoliday.Description' | translate }}
+                                {{ 'Leave.Type' | translate }}
                                 <span class="text-danger">*</span>
                             </label>
-                            <input
-                                type="text"
-                                name="Description"
-                                [(ngModel)]="publicHoliday.Description"
-                                required
-                                [placeholder]="'PublicHoliday.Description' | translate"
-                                [disabled]="modalMode === FormMode.View"
-                                class="form-control"
-                            />
+                            <select class="form-select" name="Type" id="type" [(ngModel)]="leave.Type" [disabled]="modalMode == FormMode.View" required>
+                                <option value="" selected>
+                                    {{ 'Common.SelectOne' | translate }}
+                                </option>
+                                <option value="0">{{ 'Leave.Annual' | translate }}</option>
+                                <option value="1">{{ 'Leave.Sick' | translate }}</option>
+                                <option value="2">{{ 'Leave.Unpaid' | translate }}</option>
+                                <option value="3">{{ 'Leave.Bereavement' | translate }}</option>
+                                <option value="4">{{ 'Leave.Marriage' | translate }}</option>
+                                <option value="5">{{ 'Leave.Other' | translate }}</option>
+                            </select>
                         </div>
+
                         <div class="mb-3 col-md-6">
                             <label class="form-label">
-                                {{ 'PublicHoliday.StartDate' | translate }}
+                                {{ 'Leave.StartDate' | translate }}
                                 <span class="text-danger">*</span>
                             </label>
                             <input
@@ -169,15 +170,15 @@
                                 type="datetime-local"
                                 name="StartDate"
                                 class="form-control"
-                                [(ngModel)]="publicHoliday.StartDate"
-                                [placeholder]="'PublicHoliday.StartDate' | translate"
+                                [(ngModel)]="leave.StartDate"
+                                [placeholder]="'Leave.StartDate' | translate"
                                 [disabled]="modalMode == FormMode.View"
                                 required
                             />
                         </div>
                         <div class="mb-3 col-md-6">
                             <label class="form-label">
-                                {{ 'PublicHoliday.EndDate' | translate }}
+                                {{ 'Leave.EndDate' | translate }}
                                 <span class="text-danger">*</span>
                             </label>
                             <input
@@ -185,15 +186,31 @@
                                 type="datetime-local"
                                 name="EndDate"
                                 class="form-control"
-                                [(ngModel)]="publicHoliday.EndDate"
-                                [placeholder]="'PublicHoliday.EndDate' | translate"
+                                [(ngModel)]="leave.EndDate"
+                                [placeholder]="'Leave.EndDate' | translate"
                                 [disabled]="modalMode == FormMode.View"
                                 required
                             />
                         </div>
 
-                        <input type="hidden" name="Id" [(ngModel)]="publicHoliday.Id" />
-                        <input type="hidden" name="Status" [(ngModel)]="publicHoliday.Status" />
+                        <div class="mb-3 col-md-12">
+                            <label class="form-label">
+                                {{ 'Leave.Description' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                name="Description"
+                                [(ngModel)]="leave.Description"
+                                required
+                                [placeholder]="'Leave.Description' | translate"
+                                [disabled]="modalMode === FormMode.View"
+                                class="form-control"
+                            />
+                        </div>
+
+                        <input type="hidden" name="Id" [(ngModel)]="leave.Id" />
+                        <input type="hidden" name="Status" [(ngModel)]="leave.Status" />
                     </div>
                 </div>
 
@@ -201,46 +218,14 @@
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                         {{ 'Common.Cancel' | translate }}
                     </button>
-                    <button type="submit" class="btn btn-success" *ngIf="modalMode !== FormMode.View" [disabled]="!form.valid">
-                        {{ 'Common.Save' | translate }}
+                    <button type="submit" class="btn btn-primary" *ngIf="modalMode !== FormMode.View" [disabled]="!form.valid" (click)="submitType = 'draft'">
+                        {{ 'Common.SaveAsDraft' | translate }}
+                    </button>
+                    <button type="submit" class="btn btn-success submit" *ngIf="modalMode !== FormMode.View" [disabled]="!form.valid" (click)="submitType = 'submit'">
+                        {{ 'Common.Submit' | translate }}
                     </button>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="mdlAssignUser" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="modalTitle">{{ 'PublicHoliday.AssignUser' | translate }}</h4>
-                <span data-bs-dismiss="modal" aria-label="Close" class="close-icon">X</span>
-            </div>
-
-            <div class="modal-body">
-                <div class="row">
-                    <!-- Table -->
-                    <div class="card mt-4">
-                        <div class="card-header">
-                            <b>{{ 'PublicHoliday.AssignUser' | translate }}</b>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12 table-responsive text-center">
-                                    <table id="tblAssignUserList" style="width: 100%" class="table table-bordered table-striped dataTable no-footer text-center" role="grid"></table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-bs-dismiss="modal">
-                    {{ 'Common.SaveAndClose' | translate }}
-                </button>
-            </div>
         </div>
     </div>
 </div>

@@ -19,10 +19,11 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { BankComponent } from './bank/bank.component';
 import { PublicHolidayComponent } from './public-holiday/public-holiday.component';
 import { ReportComponent } from './report/report.component';
+import { LeaveComponent } from './leave/leave.component';
 
 @NgModule({
     providers: [{ provide: MAT_DATE_LOCALE, useValue: 'tr-TR' }, DatePipe],
-    declarations: [IndexComponent, ProfileComponent, UserComponent, TimeLogComponent, BankComponent, PublicHolidayComponent, ReportComponent],
+    declarations: [IndexComponent, ProfileComponent, UserComponent, TimeLogComponent, BankComponent, PublicHolidayComponent, ReportComponent, LeaveComponent],
     imports: [
         BrowserAnimationsModule, // mutlaka gerekli!
         BsDatepickerModule.forRoot(),
