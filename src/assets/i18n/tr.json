@@ -178,7 +178,14 @@
         "thisWeekLoginLogoutHours": "Bu Haftaki Giriş / Çıkış Saatleri",
         "thisMonthLoginLogoutHours": "Bu Ayki Giriş / Çıkış Saatleri",
         "TotalLeaveDaysInThisYear" : "Bu Yılki Toplam İzin Günü Sayısı",
-        "TotalLeaveHoursInThisYear" : "Bu Yılki Toplam İzin Saat Sayısı"
+        "TotalLeaveHoursInThisYear" : "Bu Yılki Toplam İzin Saat Sayısı",
+        "UserStatistics" :" Kullanıcı İstatistikleri",
+        "TotalWorkTime" : "Toplam Çalışma Süresi",
+        "TotalLeaveDuration" : "Toplam İzin Süresi",
+        "TotalLeaveDays" : "Toplam İzin Günleri",
+        "LoginLogoutChart" : "Giriş Çıkış Grafiği",
+        "ThisWeek" : "Bu Hafta",
+        "ThisMonth" : "Bu Ay"   
     },
     "Days": {
         "Sunday": "Pazar",

@@ -193,7 +193,14 @@
         "thisWeekLoginLogoutHours": "Anmelde- / Abmeldezeiten diese Woche",
         "thisMonthLoginLogoutHours": "Anmelde- / Abmeldezeiten diesen Monat",
         "TotalLeaveDaysInThisYear": "Gesamturlaubstage in diesem Jahr",
-        "TotalLeaveHoursInThisYear": "Gesamturlaubsstunden in diesem Jahr"
+        "TotalLeaveHoursInThisYear": "Gesamturlaubsstunden in diesem Jahr",
+        "UserStatistics" :" Benutzerstatistiken",
+        "TotalWorkTime" : "Gesamtarbeitszeit",
+        "TotalLeaveDuration" : "Gesamturlaubsdauer",
+        "TotalLeaveDays" : "Gesamturlaubstage",
+        "LoginLogoutChart" : "Anmelde-/Abmelde-Diagramm",
+        "ThisWeek" : "Diese Woche",
+        "ThisMonth" : "Dieser Monat"
     },
     "Days": {
         "Sunday": "Sonntag",

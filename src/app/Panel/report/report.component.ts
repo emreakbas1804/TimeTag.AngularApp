@@ -14,24 +14,33 @@ import { Chart, registerables } from 'chart.js';
 export class ReportComponent implements OnInit {
     userList: any;
     selectedUserIdFilter: any | null = '';
+    startDateFilter: any | null = '';
+    endDateFilter: any | null = '';
     UserRole = UserRole;
     activeUserRole: UserRole | null = null;
     statistics: any | null = null;
 
-    @ViewChild('weeklyChart') weeklyChartRef!: ElementRef<HTMLCanvasElement>;
-    @ViewChild('monthlyChart') monthlyChartRef!: ElementRef<HTMLCanvasElement>;
+    @ViewChild('loginLogoutChart') loginLogoutChartRef!: ElementRef<HTMLCanvasElement>;
 
     loading: boolean = false;
-    weeklyChartInstance!: Chart;
-    monthlyChartInstance!: Chart;
+    loginLogoutChartInstance!: Chart;
 
     constructor(private http: HttpClient, private accountService: AccountService, private translateService: TranslateService) {}
 
     ngOnInit(): void {
+        debugger;
         this.fPopulateUserList();
         Chart.register(...registerables);
         this.activeUserRole = this.accountService.activeUserRole();
         this.selectedUserIdFilter = this.accountService.activeUserId();
+
+        const now = new Date();
+        const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+        const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+        // YYYY-MM-DD formatına çevir
+        this.startDateFilter = this.formatDate(firstDay);
+        this.endDateFilter = this.formatDate(lastDay);
         this.GetUserStatistics();
     }
 
@@ -49,206 +58,153 @@ export class ReportComponent implements OnInit {
         });
     }
 
+    setThisWeek(): void {
+        const now = new Date();
+        const firstDayOfWeek = new Date(now);
+        const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday...
+        const monday = new Date(now);
+        monday.setDate(now.getDate() - ((dayOfWeek + 6) % 7)); // Pazartesi
+        const sunday = new Date(monday);
+        sunday.setDate(monday.getDate() + 6);
+
+        this.startDateFilter = this.formatDate(monday);
+        this.endDateFilter = this.formatDate(sunday);
+
+        this.filterChange();
+    }
+
+    setThisMonth(): void {
+        const now = new Date();
+        const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+        const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+        this.startDateFilter = this.formatDate(firstDay);
+        this.endDateFilter = this.formatDate(lastDay);
+
+        this.filterChange();
+    }
+
+    private formatDate(date: Date): string {
+        const y = date.getFullYear();
+        const m = (date.getMonth() + 1).toString().padStart(2, '0');
+        const d = date.getDate().toString().padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+
     GetUserStatistics(): Promise<void> {
         return new Promise((resolve, reject) => {
             this.loading = true;
-            this.http.get<any>(`${environment.apiUrl}/Common/GetUserStatistics?userId=${this.selectedUserIdFilter}`).subscribe({
-                next: response => {
-                    this.loading = false;
-                    this.statistics = response.ResultObject;
 
-                    // === HAFTALIK VERİLER ===
-                    const loginLogsWeek = this.statistics?.ThisWeek?.LoginLogs || [];
-                    const logoutLogsWeek = this.statistics?.ThisWeek?.LogoutLogs || [];
+            this.http
+                .get<any>(`${environment.apiUrl}/Common/GetUserStatistics`, {
+                    params: {
+                        userId: this.selectedUserIdFilter,
+                        startDate: this.startDateFilter,
+                        endDate: this.endDateFilter,
+                    },
+                })
+                .subscribe({
+                    next: response => {
+                        this.loading = false;
+                        this.statistics = response.ResultObject;
 
-                    const dayLabelsWeek: string[] = [];
-                    const loginHoursWeek: number[] = [];
-                    const logoutHoursWeek: number[] = [];
+                        const loginLogs = this.statistics?.Logss?.LoginLogs || [];
+                        const logoutLogs = this.statistics?.Logss?.LogoutLogs || [];
 
-                    loginLogsWeek.forEach((log: any, i: number) => {
-                        const processDate = new Date(log.ProcessTime);
-                        const dayName = this.getDayName(processDate);
+                        const labels: string[] = [];
+                        const loginHours: number[] = [];
+                        const logoutHours: number[] = [];
 
-                        dayLabelsWeek.push(dayName);
+                        loginLogs.forEach((log: any, i: number) => {
+                            const processDate = new Date(log.ProcessTime);
+                            labels.push(this.getDayName(processDate)); // gün ismi veya tarih
 
-                        const loginTime = this.getDecimalHour(processDate);
-                        loginHoursWeek.push(loginTime);
+                            loginHours.push(this.getDecimalHour(processDate));
 
-                        const logoutDateStr = logoutLogsWeek[i]?.ProcessTime;
-                        const logoutTime = logoutDateStr ? this.getDecimalHour(new Date(logoutDateStr)) : 0;
-                        logoutHoursWeek.push(logoutTime);
-                    });
-
-                    // === AYLIK VERİLER ===
-                    const loginLogsMonth = this.statistics?.ThisMonth?.LoginLogs || [];
-                    const logoutLogsMonth = this.statistics?.ThisMonth?.LogoutLogs || [];
-
-                    const dayLabelsMonth: string[] = [];
-                    const loginHoursMonth: number[] = [];
-                    const logoutHoursMonth: number[] = [];
-
-                    loginLogsMonth.forEach((log: any, i: number) => {
-                        const processDate = new Date(log.ProcessTime);
-                        const day = processDate.getDate();
-
-                        dayLabelsMonth.push(day.toString());
-
-                        const loginTime = this.getDecimalHour(processDate);
-                        loginHoursMonth.push(loginTime);
-
-                        const logoutDateStr = logoutLogsMonth[i]?.ProcessTime;
-                        const logoutTime = logoutDateStr ? this.getDecimalHour(new Date(logoutDateStr)) : 0;
-                        logoutHoursMonth.push(logoutTime);
-                    });
-
-                    // Yardımcı fonksiyon: Date objesini "dd/MM/yyyy HH:mm" formatına çevirir
-                    const formatDateTime = (date: Date): string => {
-                        const day = date.getDate().toString().padStart(2, '0');
-                        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                        const year = date.getFullYear();
-
-                        const hours = date.getHours().toString().padStart(2, '0');
-                        const minutes = date.getMinutes().toString().padStart(2, '0');
-
-                        return `${day}/${month}/${year} ${hours}:${minutes}`;
-                    };
-
-                    // === HAFTALIK GRAFİK ===
-                    if (this.weeklyChartInstance) this.weeklyChartInstance.destroy();
-                    const ctxWeek = this.weeklyChartRef.nativeElement.getContext('2d');
-                    if (ctxWeek) {
-                        this.weeklyChartInstance = new Chart(ctxWeek, {
-                            type: 'bar',
-                            data: {
-                                labels: dayLabelsWeek,
-                                datasets: [
-                                    {
-                                        label: this.translateService.instant('Report.loginHour'),
-                                        data: loginHoursWeek,
-                                        backgroundColor: '#2ecc71',
-                                    },
-                                    {
-                                        label: this.translateService.instant('Report.logoutHour'),
-                                        data: logoutHoursWeek,
-                                        backgroundColor: '#e74c3c',
-                                    },
-                                ],
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: { position: 'bottom' },
-                                    tooltip: {
-                                        callbacks: {
-                                            label: context => {
-                                                const index = context.dataIndex;
-                                                const label = context.dataset.label;
-
-                                                const timeStr = label === this.translateService.instant('Report.loginHour') ? loginLogsWeek[index]?.ProcessTime : logoutLogsWeek[index]?.ProcessTime;
-
-                                                const formatted = timeStr ? formatDateTime(new Date(timeStr)) : '--:--';
-                                                return `${label}: ${formatted}`;
-                                            },
-                                        },
-                                    },
-                                },
-                                scales: {
-                                    y: {
-                                        beginAtZero: true,
-                                        max: 24,
-                                        title: {
-                                            display: true,
-                                            text: this.translateService.instant('Report.hour'),
-                                        },
-                                        ticks: {
-                                            callback: function (value) {
-                                                const h = Math.floor(Number(value));
-                                                const m = Math.round((Number(value) - h) * 60);
-                                                return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
-                                            },
-                                        },
-                                    },
-                                    x: {
-                                        title: {
-                                            display: true,
-                                            text: this.translateService.instant('Report.day'),
-                                        },
-                                    },
-                                },
-                            },
+                            const logoutDateStr = logoutLogs[i]?.ProcessTime;
+                            logoutHours.push(logoutDateStr ? this.getDecimalHour(new Date(logoutDateStr)) : 0);
                         });
-                    }
 
-                    // === AYLIK GRAFİK ===
-                    if (this.monthlyChartInstance) this.monthlyChartInstance.destroy();
-                    const ctxMonth = this.monthlyChartRef.nativeElement.getContext('2d');
-                    if (ctxMonth) {
-                        this.monthlyChartInstance = new Chart(ctxMonth, {
-                            type: 'bar',
-                            data: {
-                                labels: dayLabelsMonth,
-                                datasets: [
-                                    {
-                                        label: this.translateService.instant('Report.loginHour'),
-                                        data: loginHoursMonth,
-                                        backgroundColor: '#2ecc71',
+                        // Yardımcı fonksiyon: Date objesini "dd/MM/yyyy HH:mm" formatına çevirir
+                        const formatDateTime = (date: Date): string => {
+                            const day = date.getDate().toString().padStart(2, '0');
+                            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                            const year = date.getFullYear();
+                            const hours = date.getHours().toString().padStart(2, '0');
+                            const minutes = date.getMinutes().toString().padStart(2, '0');
+                            return `${day}/${month}/${year} ${hours}:${minutes}`;
+                        };
+
+                        // === TEK CHART ===
+                        if (this.loginLogoutChartInstance) this.loginLogoutChartInstance.destroy();
+                        const ctx = this.loginLogoutChartRef.nativeElement.getContext('2d');
+                        if (ctx) {
+                            this.loginLogoutChartInstance = new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: labels,
+                                    datasets: [
+                                        {
+                                            label: this.translateService.instant('Report.loginHour'),
+                                            data: loginHours,
+                                            backgroundColor: '#2ecc71',
+                                        },
+                                        {
+                                            label: this.translateService.instant('Report.logoutHour'),
+                                            data: logoutHours,
+                                            backgroundColor: '#e74c3c',
+                                        },
+                                    ],
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: { position: 'bottom' },
+                                        tooltip: {
+                                            callbacks: {
+                                                label: context => {
+                                                    const index = context.dataIndex;
+                                                    const label = context.dataset.label;
+
+                                                    const timeStr = label === this.translateService.instant('Report.loginHour') ? loginLogs[index]?.ProcessTime : logoutLogs[index]?.ProcessTime;
+
+                                                    const formatted = timeStr ? formatDateTime(new Date(timeStr)) : '--:--';
+                                                    return `${label}: ${formatted}`;
+                                                },
+                                            },
+                                        },
                                     },
-                                    {
-                                        label: this.translateService.instant('Report.logoutHour'),
-                                        data: logoutHoursMonth,
-                                        backgroundColor: '#e74c3c',
-                                    },
-                                ],
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: { position: 'bottom' },
-                                    tooltip: {
-                                        callbacks: {
-                                            label: context => {
-                                                const index = context.dataIndex;
-                                                const label = context.dataset.label;
-
-                                                const timeStr = label === this.translateService.instant('Report.loginHour') ? loginLogsMonth[index]?.ProcessTime : logoutLogsMonth[index]?.ProcessTime;
-
-                                                const formatted = timeStr ? formatDateTime(new Date(timeStr)) : '--:--';
-                                                return `${label}: ${formatted}`;
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                            max: 24,
+                                            title: {
+                                                display: true,
+                                                text: this.translateService.instant('Report.hour'),
+                                            },
+                                            ticks: {
+                                                callback: function (value) {
+                                                    const h = Math.floor(Number(value));
+                                                    const m = Math.round((Number(value) - h) * 60);
+                                                    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+                                                },
+                                            },
+                                        },
+                                        x: {
+                                            title: {
+                                                display: true,
+                                                text: this.translateService.instant('Report.day'),
                                             },
                                         },
                                     },
                                 },
-                                scales: {
-                                    y: {
-                                        beginAtZero: true,
-                                        max: 24,
-                                        title: {
-                                            display: true,
-                                            text: this.translateService.instant('Report.hour'),
-                                        },
-                                        ticks: {
-                                            callback: function (value) {
-                                                const h = Math.floor(Number(value));
-                                                const m = Math.round((Number(value) - h) * 60);
-                                                return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
-                                            },
-                                        },
-                                    },
-                                    x: {
-                                        title: {
-                                            display: true,
-                                            text: this.translateService.instant('Report.dayOfMonth'),
-                                        },
-                                    },
-                                },
-                            },
-                        });
-                    }
+                            });
+                        }
 
-                    resolve();
-                },
-                error: err => reject(err),
-            });
+                        resolve();
+                    },
+                    error: err => reject(err),
+                });
         });
     }
 

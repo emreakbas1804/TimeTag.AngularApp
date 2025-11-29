@@ -194,7 +194,14 @@
         "thisWeekLoginLogoutHours": "Login / Logout Hours This Week",
         "thisMonthLoginLogoutHours": "Login / Logout Hours This Month",
         "TotalLeaveDaysInThisYear" : "Total Leave Days In This Year",
-        "TotalLeaveHoursInThisYear" : "Total Leave Hours In This Year"
+        "TotalLeaveHoursInThisYear" : "Total Leave Hours In This Year",
+        "UserStatistics" :" User Statistics",
+        "TotalWorkTime" : "Total Work Time",
+        "TotalLeaveDuration" : "Total Leave Duration",
+        "TotalLeaveDays" : "Total Leave Days",
+        "LoginLogoutChart" : "Login Logout Chart",
+        "ThisWeek" : "This Week",
+        "ThisMonth" : "This Month"
     },
     "Days": {
         "Sunday": "Sunday",
