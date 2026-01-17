@@ -201,7 +201,9 @@
         "TotalLeaveDays" : "Total Leave Days",
         "LoginLogoutChart" : "Login Logout Chart",
         "ThisWeek" : "This Week",
-        "ThisMonth" : "This Month"
+        "ThisMonth" : "This Month",
+        "StartDate" : "Start Date",
+        "EndDate" : "End Date"
     },
     "Days": {
         "Sunday": "Sunday",
