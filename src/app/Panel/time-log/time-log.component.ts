@@ -38,8 +38,8 @@ export class TimeLogComponent implements OnInit {
     keywordFilter: string = '';
     selectedUserIdFilter: any | null = '';
     selectedLogTypeFilter: any | null = '';
-    startDateFilter: Date | null = null;
-    endDateFilter: Date | null = null;
+    startDateFilter: any | null = null;
+    endDateFilter: any | null = null;
 
     constructor(private http: HttpClient, private snackBarService: SnackBarService, private translateService: TranslateService, private datePipe: DatePipe, private accountService: AccountService) {
         this.datepickerConfig = {
@@ -176,17 +176,16 @@ export class TimeLogComponent implements OnInit {
     }
 
     getDataTableParams(): any {
-        var params = {
-            p_sKeyword: this.keywordFilter,
-            userId: this.selectedUserIdFilter,
-            type: this.selectedLogTypeFilter,
-            startDate: this.startDateFilter,
-            endDate: this.endDateFilter,
-        };
+    var params = {
+        p_sKeyword: this.keywordFilter,
+        userId: this.selectedUserIdFilter,
+        type: this.selectedLogTypeFilter,        
+        startDate: this.startDateFilter ? new Date(this.startDateFilter).toISOString() : null,
+        endDate: this.endDateFilter ? new Date(this.endDateFilter).toISOString() : null,
+    };
 
-        return params;
-    }
-
+    return params;
+}
     initDataTable(translations: any): void {
         this.dataTable = $('#tblTimeLogList').DataTable({
             processing: true,
